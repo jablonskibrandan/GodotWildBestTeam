@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cb6tjj44aasu"]
+
+[ext_resource type="Script" uid="uid://nn5k83gl53ha" path="res://scripts/main_menu_ui.gd" id="1_ekxnf"]
+[ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="1_l6cm7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0cwvh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqqt6"]
+
+[node name="Control" type="Control" unique_id=627842410 node_paths=PackedStringArray("start_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ekxnf")
+game_scene_path = "uid://0e6qskfldh1r"
+start_button = NodePath("CenterContainer/VBoxContainer/StartButton")
+quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
+blink_interval = 0.45
+blink_color = Color(1, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1570248110]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1554755472]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1610265757]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_font_sizes/font_size = 40
+text = "ENDLESS RUNNER"
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2023292452]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f1tay")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ekxnf")
+text = "START"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=180490032]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0cwvh")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bqqt6")
+text = "QUIT
+"
