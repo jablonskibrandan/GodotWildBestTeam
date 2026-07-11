@@ -5,6 +5,11 @@ extends Control
 @export var start_button: Button
 @export var quit_button: Button
 
+@export_category("Button Sounds")
+@export var hover_sound: AudioStreamPlayer
+@export var click_sound: AudioStreamPlayer
+
+@export_category("Button Colors")
 @export var blink_interval: float = 0.15
 @export var normal_color: Color = Color.WHITE
 @export var blink_color: Color = Color.YELLOW
@@ -15,8 +20,8 @@ var blink_timer: Timer
 
 
 func _ready() -> void:
-	start_button.pressed.connect(_start_game)
-	quit_button.pressed.connect(_quit_game)
+	start_button.pressed.connect(_on_start_button_pressed)
+	quit_button.pressed.connect(_on_quit_button_pressed)
 
 	_setup_button(start_button)
 	_setup_button(quit_button)
@@ -51,6 +56,7 @@ func _on_button_mouse_entered(button: Button) -> void:
 	showing_blink_color = true
 
 	_set_button_hover_color(button, blink_color)
+	_play_hover_sound()
 
 	blink_timer.wait_time = blink_interval
 	blink_timer.start()
@@ -89,9 +95,53 @@ func _reset_hovered_button() -> void:
 	hovered_button = null
 
 
+func _play_hover_sound() -> void:
+	if not is_instance_valid(hover_sound):
+		return
+
+	if hover_sound.stream == null:
+		return
+
+	hover_sound.stop()
+	hover_sound.play()
+
+
+func _play_click_sound() -> void:
+	if not is_instance_valid(click_sound):
+		return
+
+	if click_sound.stream == null:
+		return
+
+	click_sound.stop()
+	click_sound.play()
+
+	# Wait so the sound is not destroyed immediately when changing scenes.
+	await click_sound.finished
+
+
+func _on_start_button_pressed() -> void:
+	start_button.disabled = true
+	quit_button.disabled = true
+
+	await _play_click_sound()
+	_start_game()
+
+
+func _on_quit_button_pressed() -> void:
+	start_button.disabled = true
+	quit_button.disabled = true
+
+	await _play_click_sound()
+	_quit_game()
+
+
 func _start_game() -> void:
 	if game_scene_path.is_empty():
 		push_error("No game scene path assigned on MainMenu.")
+
+		start_button.disabled = false
+		quit_button.disabled = false
 		return
 
 	get_tree().change_scene_to_file(game_scene_path)
