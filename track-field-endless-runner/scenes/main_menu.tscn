@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="1_l6cm7"]
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
+[ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/dialogue_control.tscn" id="5_8ln24"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 
@@ -26,8 +27,6 @@ start_button = NodePath("CenterContainer/VBoxContainer/StartButton")
 quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
 hover_sound = NodePath("Hover")
 click_sound = NodePath("Confirm")
-blink_interval = 0.45
-blink_color = Color(1, 0, 0, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1570248110]
 layout_mode = 1
@@ -71,3 +70,11 @@ stream = ExtResource("3_wu84c")
 
 [node name="Hover" type="AudioStreamPlayer" parent="." unique_id=865213487]
 stream = ExtResource("3_bqqt6")
+
+[node name="DialogueBoxControl" parent="." unique_id=83453529 instance=ExtResource("5_8ln24")]
+layout_mode = 1
+offset_left = 1308.0
+offset_top = 644.0
+offset_right = 1308.0
+offset_bottom = 644.0
+dialogue_lines = Array[String](["THIS IS A TEST", "WE CAN REMOVE THIS LATER", "WHEN WE GET AN ACTUAL SCENE :^)"])

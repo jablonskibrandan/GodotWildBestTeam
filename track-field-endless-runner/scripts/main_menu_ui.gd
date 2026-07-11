@@ -18,6 +18,8 @@ var hovered_button: Button
 var showing_blink_color: bool = false
 var blink_timer: Timer
 
+@export var screen_fade: ScreenFade
+
 
 func _ready() -> void:
 	start_button.pressed.connect(_on_start_button_pressed)
@@ -138,7 +140,7 @@ func _on_quit_button_pressed() -> void:
 
 func _start_game() -> void:
 	if game_scene_path.is_empty():
-		push_error("No game scene path assigned on MainMenu.")
+		push_error("No game scene path assigned on main_menu.")
 
 		start_button.disabled = false
 		quit_button.disabled = false

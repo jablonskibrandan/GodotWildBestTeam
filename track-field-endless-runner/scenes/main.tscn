@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://0e6qskfldh1r"]
 
+[ext_resource type="PackedScene" uid="uid://d2s3mtedy0qkk" path="res://scenes/screen_fade.tscn" id="1_o5qli"]
+
 [node name="Node2D" type="Node2D" unique_id=1818323682]
+
+[node name="ScreenFade" parent="." unique_id=2042087484 instance=ExtResource("1_o5qli")]
