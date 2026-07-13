@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://x2n01gtss1tt"]
+
+[ext_resource type="Script" uid="uid://csa2etxqbquk6" path="res://scripts/metronome/boost_area.gd" id="1_vjbyy"]
+
+[sub_resource type="Gradient" id="Gradient_6cilf"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_6cilf")
+width = 25
+height = 40
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(25, 40)
+
+[node name="BoostArea" type="Area2D" unique_id=994157354]
+script = ExtResource("1_vjbyy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1205816214]
+texture = SubResource("GradientTexture2D_g4v7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1070245374]
+shape = SubResource("RectangleShape2D_yf5fn")

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bv1foharx1kdi"]
+
+[ext_resource type="Script" uid="uid://hkc4hjc3eqsd" path="res://scripts/metronome/metronome.gd" id="1_gwyvd"]
+[ext_resource type="PackedScene" uid="uid://bewnav52rcwel" path="res://scenes/metronome/boost_line.tscn" id="2_plct4"]
+[ext_resource type="PackedScene" uid="uid://x2n01gtss1tt" path="res://scenes/metronome/boost_area.tscn" id="3_phsm5"]
+
+[node name="Metronome" type="ColorRect" unique_id=765399198 node_paths=PackedStringArray("boost_line", "timer")]
+offset_right = 200.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_gwyvd")
+boost_line = NodePath("BoostLine")
+timer = NodePath("VisualFeedbackTimer")
+success_colour = Color(0, 1, 0, 1)
+fail_colour = Color(1, 0, 0, 1)
+
+[node name="BoostLine" parent="." unique_id=702907733 instance=ExtResource("2_plct4")]
+position = Vector2(2, 40)
+
+[node name="BoostArea" parent="." unique_id=994157354 instance=ExtResource("3_phsm5")]
+position = Vector2(0, 20)
+
+[node name="VisualFeedbackTimer" type="Timer" parent="." unique_id=2133039417]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="body_entered" from="BoostArea" to="." method="_on_boost_area_body_entered"]
+[connection signal="body_exited" from="BoostArea" to="." method="_on_boost_area_body_exited"]
+[connection signal="timeout" from="VisualFeedbackTimer" to="." method="_on_visual_feedback_timer_timeout"]
+
+[editable path="BoostLine"]
+[editable path="BoostArea"]

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bewnav52rcwel"]
+
+[ext_resource type="Script" uid="uid://88x0lco4tb3u" path="res://scripts/metronome/boost_line.gd" id="1_ln2jy"]
+
+[sub_resource type="Gradient" id="Gradient_f1yw3"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_f1yw3")
+width = 4
+height = 40
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(4, 40)
+
+[node name="BoostLine" type="CharacterBody2D" unique_id=702907733]
+script = ExtResource("1_ln2jy")
+metadata/_custom_type_script = "uid://88x0lco4tb3u"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1481395615]
+position = Vector2(0, -20)
+texture = SubResource("GradientTexture2D_g4v7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81010519]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_g4v7s")
