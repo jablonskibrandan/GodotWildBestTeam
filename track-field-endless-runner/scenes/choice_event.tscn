@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cwh6hna0vleyg"]
+
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="1_6v321"]
+[ext_resource type="Script" uid="uid://bi35bopaik1fy" path="res://scripts/choice_event/choice_event.gd" id="1_48xbu"]
+[ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="2_48xbu"]
+
+[node name="ChoiceEvent" type="Control" unique_id=1382108090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_48xbu")
+title_text = "A DARK DEAL HAS BEEN OFFERED"
+benefit_text = "BENEFIT: Stronger boosts..."
+cost_text = "COST: Lose some current speed..."
+
+[node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=366564724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=61981948]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1305021619]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1117612001]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_6v321")
+theme_override_font_sizes/font_size = 32
+text = "A Dark Deal Has Been Offered"
+horizontal_alignment = 1
+
+[node name="BenefitLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1532316697]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_6v321")
+theme_override_font_sizes/font_size = 24
+
+[node name="CostLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=19259492]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_6v321")
+theme_override_font_sizes/font_size = 24
+
+[node name="ChoiceLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1274647509]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_48xbu")
+theme_override_font_sizes/font_size = 24
+text = "[A / LEFT] ACCEPT               [D / RIGHT] DENY"
+
+[node name="TimeBar" type="TextureProgressBar" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1093151762]
+layout_mode = 2
+max_value = 5.0

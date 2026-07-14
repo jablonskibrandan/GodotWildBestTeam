@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cb6tjj44aasu"]
 
 [ext_resource type="Script" uid="uid://nn5k83gl53ha" path="res://scripts/main_menu_ui.gd" id="1_ekxnf"]
-[ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_8ln24"]
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/dialogue_control.tscn" id="5_8ln24"]
@@ -42,14 +42,14 @@ theme_override_constants/separation = 60
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1610265757]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_fonts/font = ExtResource("2_8ln24")
 theme_override_font_sizes/font_size = 40
 text = "ENDLESS RUNNER"
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2023292452]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
-theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_fonts/font = ExtResource("2_8ln24")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f1tay")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ekxnf")
@@ -58,7 +58,7 @@ text = "START"
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=180490032]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0, 1)
-theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_fonts/font = ExtResource("2_8ln24")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0cwvh")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_bqqt6")

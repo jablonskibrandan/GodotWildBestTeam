@@ -1,7 +1,16 @@
 [gd_scene format=3 uid="uid://0e6qskfldh1r"]
 
 [ext_resource type="PackedScene" uid="uid://d2s3mtedy0qkk" path="res://scenes/screen_fade.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cwh6hna0vleyg" path="res://scenes/choice_event.tscn" id="2_0wfyh"]
 
 [node name="Node2D" type="Node2D" unique_id=1818323682]
 
 [node name="ScreenFade" parent="." unique_id=2042087484 instance=ExtResource("1_o5qli")]
+visible = false
+
+[node name="ChoiceEvent" parent="." unique_id=1382108090 instance=ExtResource("2_0wfyh")]
+offset_left = 980.0
+offset_top = 330.0
+offset_right = 980.0
+offset_bottom = 330.0
+cost_text = "COST: Lose some speed..."
