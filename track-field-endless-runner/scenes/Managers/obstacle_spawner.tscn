@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b2fxtb1urxlas"]
+
+[ext_resource type="Script" uid="uid://7cc0rsr0cj04" path="res://scripts/obstacle_spawner.gd" id="1_gmt3g"]
+[ext_resource type="PackedScene" uid="uid://n7n6siieujtg" path="res://scenes/Environment/hurdle_hazard.tscn" id="2_0ghqo"]
+[ext_resource type="PackedScene" uid="uid://bwnl5hxr1704p" path="res://scenes/Environment/mud_hazard.tscn" id="3_6804n"]
+
+[node name="ObstacleSpawner" type="Node2D" unique_id=227324855 node_paths=PackedStringArray("obstacle_parent")]
+script = ExtResource("1_gmt3g")
+hurdle_scene = ExtResource("2_0ghqo")
+mud_puddle_scene = ExtResource("3_6804n")
+obstacle_parent = NodePath("SpawnPoint")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1695335305]
+one_shot = true
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1689860005]

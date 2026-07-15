@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://ckqfpvlsifsd3"]
+
+[ext_resource type="Texture2D" uid="uid://8y3x81cqef67" path="res://Art/Map/World Map.png" id="1_6ymlp"]
+[ext_resource type="Script" uid="uid://dpciigxtwgp1m" path="res://scripts/map_select/map_resize.gd" id="1_xar1i"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_xar1i"]
+[ext_resource type="Script" uid="uid://dt7exthyuknae" path="res://scripts/map_select/country_marker.gd" id="3_a7i22"]
+[ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="5_niad1"]
+[ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="6_kmv3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6ilu"]
+size = Vector2(20.624146, 22.687763)
+
+[node name="Main" type="Node2D" unique_id=514574119]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=874340453]
+
+[node name="Label" type="Label" parent="UI" unique_id=280299494]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_right = 83.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_xar1i")
+theme_override_font_sizes/font_size = 48
+text = "SELECT COUNTRY"
+
+[node name="WorldMap" type="Node2D" parent="." unique_id=37061128]
+position = Vector2(-80, -36)
+scale = Vector2(1.75, 1.75)
+script = ExtResource("1_xar1i")
+
+[node name="MapSprite" type="Sprite2D" parent="WorldMap" unique_id=18410690]
+position = Vector2(179.42856, 133.14285)
+texture = ExtResource("1_6ymlp")
+
+[node name="CountryMarkers" type="Node2D" parent="WorldMap" unique_id=581670533]
+
+[node name="UnitedStates" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=2146133901 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(72.57143, 68)
+scale = Vector2(1.1900809, 1.1985179)
+script = ExtResource("3_a7i22")
+country_name = "United States"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/UnitedStates" unique_id=1354593678]
+position = Vector2(7.748604e-07, -0.953559)
+scale = Vector2(0.52587384, 0.3261275)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/UnitedStates" unique_id=922870361]
+
+[node name="Brazil" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=991204330 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(118.85715, 144)
+scale = Vector2(1.32, 1)
+script = ExtResource("3_a7i22")
+country_name = "Brazil"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Brazil" unique_id=1149904274]
+position = Vector2(0, -1)
+scale = Vector2(0.52587384, 0.3261275)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Brazil" unique_id=747333808]
+
+[node name="Japan" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=635062701 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(305.14285, 70.85714)
+script = ExtResource("3_a7i22")
+country_name = "Japan"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Japan" unique_id=633362802]
+position = Vector2(-0.58288574, -0.8424072)
+scale = Vector2(0.5258738, 0.32612747)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Japan" unique_id=1328819352]
+
+[node name="SouthAfrica" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=993930982 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(194.85713, 175.42857)
+script = ExtResource("3_a7i22")
+country_name = "South Africa"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/SouthAfrica" unique_id=148516162]
+position = Vector2(0, -1)
+scale = Vector2(0.52587384, 0.3261275)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/SouthAfrica" unique_id=1483324420]
+
+[node name="Poland" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=952743591 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(193.7143, 46.285717)
+script = ExtResource("3_a7i22")
+country_name = "Poland"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Poland" unique_id=232258427]
+position = Vector2(0.27998352, -1)
+scale = Vector2(0.5258738, 0.32612744)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Poland" unique_id=734246990]
+
+[node name="Germany" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=866135615 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(182.85715, 49.14286)
+script = ExtResource("3_a7i22")
+country_name = "Germany"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Germany" unique_id=1224396438]
+position = Vector2(0, -1)
+scale = Vector2(0.5258738, 0.32612747)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Germany" unique_id=116982122]
+
+[node name="UK" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=1966304357 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(165.14285, 40.57143)
+script = ExtResource("3_a7i22")
+country_name = "UK"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/UK" unique_id=1664105246]
+position = Vector2(0, -1)
+scale = Vector2(0.52587384, 0.3261275)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/UK" unique_id=1367817481]
+
+[node name="Australia" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=1631137106 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(302.85715, 166.85713)
+script = ExtResource("3_a7i22")
+country_name = "Austrailia"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Australia" unique_id=1144220847]
+position = Vector2(0, -1)
+scale = Vector2(0.52587384, 0.3261275)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Australia" unique_id=52908564]
+
+[node name="Canada" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=1890335353 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(56.571434, 44)
+script = ExtResource("3_a7i22")
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Canada" unique_id=1017249767]
+position = Vector2(0.022900581, -0.68481636)
+scale = Vector2(0.5258738, 0.32612747)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/Canada" unique_id=169807308]
+
+[node name="China" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=690386471 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
+position = Vector2(272.57144, 75.42857)
+script = ExtResource("3_a7i22")
+country_name = "China"
+country_label = NodePath("../../../UI/Label")
+marker_visual = NodePath("Polygon2D")
+next_scene_path = "uid://bwljffdxoh86r"
+hover_noise = NodePath("../../../Hover")
+confirm_noise = NodePath("../../../Confirm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/China" unique_id=688897440]
+position = Vector2(0, -1)
+scale = Vector2(0.80452776, 0.40098986)
+shape = SubResource("RectangleShape2D_l6ilu")
+
+[node name="Polygon2D" type="Polygon2D" parent="WorldMap/CountryMarkers/China" unique_id=1464789764]
+
+[node name="Hover" type="AudioStreamPlayer" parent="." unique_id=1112006274]
+stream = ExtResource("5_niad1")
+
+[node name="Confirm" type="AudioStreamPlayer" parent="." unique_id=1775282662]
+stream = ExtResource("6_kmv3j")

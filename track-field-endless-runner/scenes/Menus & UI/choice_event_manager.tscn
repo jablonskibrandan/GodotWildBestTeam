@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://clq06y5xx61pj"]
+
+[ext_resource type="Script" uid="uid://b2ipxs3gobph4" path="res://scripts/choice_event/choice_event_manager.gd" id="1_sc36u"]
+[ext_resource type="PackedScene" uid="uid://cwh6hna0vleyg" path="res://scenes/Menus & UI/choice_event.tscn" id="2_xfbo2"]
+
+[node name="ChoiceEventManager" type="Node" unique_id=916926847]
+script = ExtResource("1_sc36u")
+choice_event_scene = ExtResource("2_xfbo2")
+
+[node name="ChoiceTimer" type="Timer" parent="." unique_id=1661763693]
+one_shot = true

@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_8ln24"]
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
-[ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/dialogue_control.tscn" id="5_8ln24"]
+[ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/Managers/dialogue_control.tscn" id="5_8ln24"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 

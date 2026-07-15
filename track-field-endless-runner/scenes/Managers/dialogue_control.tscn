@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c2svqte1882mw"]
+
+[ext_resource type="Script" uid="uid://dm1gci7yoj2xe" path="res://scripts/managers/dialogue_control.gd" id="1_1nxhg"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_s1got"]
+
+[node name="DialogueBoxControl" type="Control" unique_id=83453529 node_paths=PackedStringArray("dialogue_text", "continue_indicator", "type_timer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1nxhg")
+dialogue_text = NodePath("Dialogue")
+continue_indicator = NodePath("ContinueIndicator")
+type_timer = NodePath("TypeTimer")
+character_delay = 0.07500000000000001
+
+[node name="Panel" type="Panel" parent="." unique_id=197366418]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -152.00002
+offset_right = 689.0
+offset_bottom = 247.99998
+scale = Vector2(0.94235027, 0.58206487)
+
+[node name="Dialogue" type="RichTextLabel" parent="." unique_id=1208452036]
+layout_mode = 0
+offset_top = -133.0
+offset_right = 336.0
+offset_bottom = -93.0
+theme_override_fonts/normal_font = ExtResource("2_s1got")
+
+[node name="ContinueIndicator" type="Label" parent="." unique_id=2019460174]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 49.0
+offset_right = 335.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("2_s1got")
+theme_override_font_sizes/font_size = 17
+text = "< ENTER TO CONTINUE >"
+
+[node name="TypeTimer" type="Timer" parent="." unique_id=1055142671]

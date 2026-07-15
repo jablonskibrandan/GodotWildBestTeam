@@ -1,0 +1,11 @@
+extends Node
+
+signal event_name_label_start_flashing
+signal event_name_label_finished_flashing
+signal event_goal_label_start_flashing
+signal event_goal_label_finished_flashing
+signal player_score_label_start_flashing
+signal player_score_label_finished_flashing
+signal countdown_start
+signal countdown_finished
+signal finish_event
