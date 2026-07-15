@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ekxnf")
-game_scene_path = "uid://0e6qskfldh1r"
+game_scene_path = "uid://ckqfpvlsifsd3"
 start_button = NodePath("CenterContainer/VBoxContainer/StartButton")
 quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
 hover_sound = NodePath("Hover")
@@ -44,7 +44,7 @@ theme_override_constants/separation = 60
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_8ln24")
 theme_override_font_sizes/font_size = 40
-text = "ENDLESS RUNNER"
+text = "Track '86"
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2023292452]
 layout_mode = 2
