@@ -1,6 +1,12 @@
 extends Node
 
+@export_category("Game Objects")
 @export var player: Player
+@export var hurdle_template: PackedScene
+@export var start_line_template: PackedScene
+@export var finish_line_template: PackedScene
+@export var sports_objects_root: Node2D
+@export_category("UI Objects")
 @export var event_name_label_root: Control
 @export var event_name_label: RichTextLabel
 @export var event_goal_root: HBoxContainer
@@ -29,12 +35,15 @@ var event_score: float = 0.0
 
 var current_event_index: int = 0
 
+var distance_between_hurdles: float = 10.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SportEventSignalBus.event_name_label_finished_flashing.connect(_on_event_name_label_finished_flashing)
 	SportEventSignalBus.event_goal_label_finished_flashing.connect(_on_event_goal_label_finished_flashing)
 	SportEventSignalBus.player_score_label_finished_flashing.connect(_on_player_score_label_finished_flashing)
 	SportEventSignalBus.countdown_finished.connect(_on_countdown_finished)
+	SportEventSignalBus.start_line_passed.connect(_on_start_line_passed)
 	SportEventSignalBus.finish_event.connect(_on_finish_event)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,8 +55,12 @@ func _process(_delta: float) -> void:
 func spawn_event() -> void:
 	event_started = true
 	var rand = randi_range(1, EventList.event_list.size())
-	current_event_index = rand
+	#CHANGE THIS BACK
+	current_event_index = 2
 	start_event()
+
+func _on_start_line_passed() -> void:
+	pass
 
 func start_event() -> void:
 	display_event_name()
@@ -66,7 +79,11 @@ func _on_event_goal_label_finished_flashing() -> void:
 func _on_player_score_label_finished_flashing() -> void:
 	event_goal_root.visible = false
 	player_score_root.visible = false
-	start_countdown()
+	play_event()
+	await get_tree().create_timer(0.45).timeout
+	event_goal_root.visible = true
+	player_score_root.visible = true
+	#start_countdown()
 
 func _on_countdown_finished() -> void:
 	play_event()
@@ -96,32 +113,50 @@ func display_player_score() -> void:
 	player_score_root.get_node("FlashingTimer").start()
 	player_score_root.get_node("TurnOffFlashingTimer").start()
 
-func start_countdown() -> void:
-	countdown_root.visible = true
-	countdown_root.get_node("CountdownTimer").start()
+#func start_countdown() -> void:
+	#countdown_root.visible = true
+	#countdown_root.get_node("CountdownTimer").start()
 
 func play_event() -> void:
 	match current_event_index:
 		1:
 			$RunEventManager.time = 0.0
-			$RunEventManager.starting_distance = player.distance_travelled
+			$RunEventManager.starting_distance = player.distance_travelled + 15.0
 			$RunEventManager.race_length = 100.0
 			$RunEventManager.finish_distance = $RunEventManager.starting_distance + $RunEventManager.race_length
+			var start_line: Area2D = start_line_template.instantiate()
+			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 1013.0)
+			sports_objects_root.add_child(start_line)
+			var finish_line: Area2D = finish_line_template.instantiate()
+			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 1013.0)
+			sports_objects_root.add_child(finish_line)
 		2:
 			$RunEventManager.time = 0.0
-			$RunEventManager.starting_distance = player.distance_travelled
+			$RunEventManager.starting_distance = player.distance_travelled + 15.0
 			$RunEventManager.race_length = 110.0
 			$RunEventManager.finish_distance = $RunEventManager.starting_distance + $RunEventManager.race_length
+			var start_line: Area2D = start_line_template.instantiate()
+			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 1013.0)
+			sports_objects_root.add_child(start_line)
+			var finish_line: Area2D = finish_line_template.instantiate()
+			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 1013.0)
+			sports_objects_root.add_child(finish_line)
+			for i in range(10):
+				var hurdle: ObstacleMove = hurdle_template.instantiate()
+				hurdle.position = Vector2(($RunEventManager.starting_distance * 100.0 + (10.0 * (100 * (i + 1)))), 1013.0)
+				sports_objects_root.add_child(hurdle)
 
 func _on_finish_event() -> void:
 	if $RunEventManager.time <= EventList.event_list[current_event_index]["score_to_beat"]:
 		add_score_and_display_results()
 		increase_event_difficulty()
 		reset_state()
+		clean_up_objects()
 		calculate_new_event_pos()
 	else:
 		add_loss()
 		reset_state()
+		clean_up_objects()
 		calculate_new_event_pos()
 
 func reset_state() -> void:
@@ -129,6 +164,10 @@ func reset_state() -> void:
 	event_goal_root.visible = false
 	player_score_root.visible = false
 	current_event_index = 0
+
+func clean_up_objects() -> void:
+	for child in sports_objects_root.get_children():
+		child.queue_free()
 
 func calculate_new_event_pos() -> void:
 	var rand = randf_range(event_distance_min, event_distance_max)

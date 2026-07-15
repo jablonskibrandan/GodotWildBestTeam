@@ -8,4 +8,5 @@ signal player_score_label_start_flashing
 signal player_score_label_finished_flashing
 signal countdown_start
 signal countdown_finished
+signal start_line_passed
 signal finish_event

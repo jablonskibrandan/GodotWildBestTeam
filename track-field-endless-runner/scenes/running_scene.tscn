@@ -14,7 +14,10 @@
 [ext_resource type="Script" uid="uid://dt6t3vqptkltk" path="res://scripts/screen_display_controllers/player_time_root.gd" id="9_mxkxx"]
 [ext_resource type="Script" uid="uid://d2h3kirebr84k" path="res://scripts/screen_display_controllers/countdown_root.gd" id="10_eamyy"]
 [ext_resource type="Script" uid="uid://36nra8wtekjo" path="res://scripts/managers/run_event_manager.gd" id="13_ahj5x"]
+[ext_resource type="PackedScene" uid="uid://n7n6siieujtg" path="res://scenes/Environment/hurdle_hazard.tscn" id="14_lvom7"]
+[ext_resource type="PackedScene" uid="uid://d4chn4wbi3aga" path="res://start_line.tscn" id="15_85bgf"]
 [ext_resource type="Script" uid="uid://hfp6pgia11o6" path="res://scripts/managers/distance_event_manager.gd" id="15_rhprt"]
+[ext_resource type="PackedScene" uid="uid://mn3851gjucqv" path="res://finish_line.tscn" id="16_m31wk"]
 
 [node name="RunningSceneRoot" type="Node" unique_id=1225109462]
 
@@ -350,9 +353,13 @@ wait_time = 0.3
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 
-[node name="SportsEventManager" type="Node" parent="Managers" unique_id=304251108 node_paths=PackedStringArray("player", "event_name_label_root", "event_name_label", "event_goal_root", "event_goal_text", "event_goal_amount", "player_score_root", "player_score_text", "player_score_amount", "countdown_root", "countdown_text", "event_results_root", "score_difference_root", "score_difference_text", "score_difference_amount", "score_explanation_root", "score_explanation_text", "score_explanation_amount", "total_score_root", "total_score_amount")]
+[node name="SportsEventManager" type="Node" parent="Managers" unique_id=304251108 node_paths=PackedStringArray("player", "sports_objects_root", "event_name_label_root", "event_name_label", "event_goal_root", "event_goal_text", "event_goal_amount", "player_score_root", "player_score_text", "player_score_amount", "countdown_root", "countdown_text", "event_results_root", "score_difference_root", "score_difference_text", "score_difference_amount", "score_explanation_root", "score_explanation_text", "score_explanation_amount", "total_score_root", "total_score_amount")]
 script = ExtResource("3_bcuvt")
 player = NodePath("../../Player")
+hurdle_template = ExtResource("14_lvom7")
+start_line_template = ExtResource("15_85bgf")
+finish_line_template = ExtResource("16_m31wk")
+sports_objects_root = NodePath("../../SportEventObjects")
 event_name_label_root = NodePath("../../BoardInformation/MainRoot/EventNameLabelRoot")
 event_name_label = NodePath("../../BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel")
 event_goal_root = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot")
@@ -380,6 +387,8 @@ player = NodePath("../../../Player")
 
 [node name="DistanceEventManager" type="Node" parent="Managers/SportsEventManager" unique_id=1831975575]
 script = ExtResource("15_rhprt")
+
+[node name="SportEventObjects" type="Node2D" parent="." unique_id=1583300638]
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]

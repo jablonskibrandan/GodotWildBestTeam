@@ -66,6 +66,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") == true:
 		is_jumping = true
 		$AnimationPlayer.play("jump")
+	if is_jumping == true:
+		$CollisionShape2D.disabled = true
 
 func _physics_process(delta: float) -> void:
 	speed = maxf(speed - slow_down_multiplier * delta, 0.0)
@@ -114,3 +116,4 @@ func hit_hurdle(multiplier: float = 0.5, duration: float = 2.0) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "jump":
 		is_jumping = false
+		$CollisionShape2D.disabled = false

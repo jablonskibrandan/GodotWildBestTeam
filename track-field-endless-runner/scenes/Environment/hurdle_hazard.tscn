@@ -5,20 +5,24 @@
 [ext_resource type="Texture2D" uid="uid://br4qrjs03exly" path="res://Art/Hurdles/Hurdle.png" id="2_8gmba"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p50ha"]
+size = Vector2(34.59641, 46.44889)
 
 [node name="HurdleHazard" type="Node2D" unique_id=598129723]
 script = ExtResource("1_jc7kh")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=83843031 node_paths=PackedStringArray("associated_sprite")]
 position = Vector2(0, -1)
+collision_layer = 2
 script = ExtResource("1_2ap07")
 associated_sprite = NodePath("../Sprite2D")
 set_hazard_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1841664286]
-position = Vector2(0, 2.0000002)
+position = Vector2(6.5820427, -45.760338)
 scale = Vector2(1.0164086, 1.9479332)
 shape = SubResource("RectangleShape2D_p50ha")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2109677335]
+position = Vector2(0, -51)
+scale = Vector2(3.1956522, 2.3809524)
 texture = ExtResource("2_8gmba")
