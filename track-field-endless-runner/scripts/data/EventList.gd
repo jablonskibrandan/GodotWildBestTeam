@@ -11,4 +11,9 @@ var event_list: Dictionary = {
 		"is_time_based_event": true,
 		"is_distance_based_event": false,
 		"score_to_beat": 50.00},
+	3: {
+		"name": "Javelin Throw",
+		"is_time_based_event": false,
+		"is_distance_based_event": true,
+		"score_to_beat": 50.00},
 }
