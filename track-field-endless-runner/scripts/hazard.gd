@@ -39,12 +39,9 @@ func _on_body_entered(body: Node2D) -> void:
 			if hurdle_triggered:
 				return
 
-			if body.has_method("apply_temporary_slow"):
+			if body.has_method("hit_hurdle"):
 				hurdle_triggered = true
-				body.apply_temporary_slow(
-					hurdle_speed_multiplier,
-					hurdle_slow_time
-				)
+				body.hit_hurdle()
 
 
 func _on_body_exited(body: Node2D) -> void:

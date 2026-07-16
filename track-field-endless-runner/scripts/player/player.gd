@@ -15,12 +15,15 @@ extends CharacterBody2D
 
 var selected_sprite: Texture
 
-var speed: float = 10.0
+var speed: float = 100.0
 var starting_pos: float = 0.0
 var distance_travelled: float = 0.0
 var is_jumping: bool = false
 
 var hurdle_slow_id: int = 0
+
+var current_mud_speed_multiplier: float = 1.0
+var current_hurdle_speed_multiplier: float = 1.0
 
 
 func _ready() -> void:
@@ -74,8 +77,8 @@ func _physics_process(delta: float) -> void:
 	
 	var final_speed = (
 		speed
-		* GameData.mud_speed_multiplier
-		* GameData.hurdle_speed_multiplier
+		* current_mud_speed_multiplier
+		* current_hurdle_speed_multiplier
 	)
 	
 	velocity.x = final_speed
@@ -90,24 +93,28 @@ func _on_boost_speed_success() -> void:
 		speed *= 1.5
 
 
-func enter_mud(multiplier: float = 0.6) -> void:
-	GameData.mud_speed_multiplier = clampf(multiplier, 0.0, 1.0)
+func enter_mud() -> void:
+	current_mud_speed_multiplier = clampf(
+		GameData.mud_speed_multiplier,
+		0.0,
+		1.0
+	)
 
 
 func exit_mud() -> void:
-	GameData.mud_speed_multiplier = 1.0
+	current_mud_speed_multiplier = 1.0
 
 
-func hit_hurdle(multiplier: float = 0.5, duration: float = 2.0) -> void:
-	hurdle_slow_id += 1
-	var current_slow_id := hurdle_slow_id
-
-	GameData.hurdle_speed_multiplier = clampf(multiplier, 0.0, 1.0)
-
-	await get_tree().create_timer(duration).timeout
-
-	if current_slow_id == hurdle_slow_id:
-		GameData.hurdle_speed_multiplier = 1.0
+func hit_hurdle() -> void:
+	current_hurdle_speed_multiplier *= clampf(
+		GameData.hurdle_speed_multiplier,
+		0.0,
+		1.0
+	)
+	current_hurdle_speed_multiplier = maxf(
+		current_hurdle_speed_multiplier,
+		0.1
+	)
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

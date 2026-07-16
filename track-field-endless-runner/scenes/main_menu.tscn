@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/Managers/dialogue_control.tscn" id="5_8ln24"]
+[ext_resource type="AudioStream" uid="uid://v25t8ayygv3n" path="res://audio/BGM-Menu(Loop).wav" id="6_rtw2f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 
@@ -72,9 +73,14 @@ stream = ExtResource("3_wu84c")
 stream = ExtResource("3_bqqt6")
 
 [node name="DialogueBoxControl" parent="." unique_id=83453529 instance=ExtResource("5_8ln24")]
+visible = false
 layout_mode = 1
 offset_left = 1308.0
 offset_top = 644.0
 offset_right = 1308.0
 offset_bottom = 644.0
 dialogue_lines = Array[String](["THIS IS A TEST", "WE CAN REMOVE THIS LATER", "WHEN WE GET AN ACTUAL SCENE :^)"])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1646637969]
+stream = ExtResource("6_rtw2f")
+autoplay = true

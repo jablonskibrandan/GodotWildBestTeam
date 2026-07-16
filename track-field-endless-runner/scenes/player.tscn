@@ -105,7 +105,7 @@ _data = {
 &"trip": SubResource("Animation_jej6c")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1000098902]
+[node name="Player" type="CharacterBody2D" unique_id=1000098902 groups=["player"]]
 collision_mask = 6
 script = ExtResource("1_g2els")
 australia_sprite = ExtResource("2_y4r1p")

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://t0wjtyvb7udo"]
+
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="1_gngu4"]
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_pkhfr"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_kpjm1"]
+
+[sub_resource type="Resource" id="Resource_ncpsl"]
+script = ExtResource("1_pkhfr")
+mechanic = 1
+property = 3
+operation = 0
+value = 0.05
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_lcixs"]
+script = ExtResource("2_kpjm1")
+option_text = "Hurdles slow you down 5% less"
+effects = Array[ExtResource("1_pkhfr")]([SubResource("Resource_ncpsl")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_fuhkq"]
+script = ExtResource("1_pkhfr")
+mechanic = 1
+property = 3
+operation = 0
+value = 0.05
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_pkhfr"]
+script = ExtResource("2_kpjm1")
+option_text = "Hurdles slow you down 5% more"
+effects = Array[ExtResource("1_pkhfr")]([SubResource("Resource_fuhkq")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("1_gngu4")
+event_id = &"hurdleSlowIncrease"
+event_text = "Hurdles are no obstacle for you... maybe? "
+option_a = SubResource("Resource_lcixs")
+option_b = SubResource("Resource_pkhfr")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"

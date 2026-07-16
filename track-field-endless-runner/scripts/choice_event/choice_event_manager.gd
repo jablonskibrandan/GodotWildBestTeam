@@ -1,93 +1,111 @@
 class_name ChoiceEventManager
 extends Node
 
-# Causes choices to happen every x seconds, starting off with a first choice
-# then later choices, it takes longer
-@export var choice_event_scene: PackedScene
+
+@export_category("Choice Events")
+@export var choice_event: ChoiceEvent
+@export var possible_choices: Array[ChoiceEventData] = []
 
 @export_category("Choice Timing")
-@export var first_choice_min_time: float = 35.0
-@export var first_choice_max_time: float = 45.0
+@export_range(0.0, 10.0, 0.25)
+var choice_show_delay: float = 3.0
 
-@export var later_choice_min_time: float = 55.0
-@export var later_choice_max_time: float = 70.0
 
-# In case we figure out we need to limit them.
-@export var maximum_choices: int = 5
 
-@onready var choice_timer: Timer = $ChoiceTimer
-
+@export var choice_effect_processor: ChoiceEffectManager
 var choices_shown: int = 0
 var choice_active: bool = false
+var choice_pending: bool = false
+
 var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
 	rng.randomize()
 
-	choice_timer.one_shot = true
-	choice_timer.timeout.connect(_on_choice_timer_timeout)
+	if choice_event == null:
+		push_error("No ChoiceEvent node assigned.")
+	else:
+		choice_event.hide()
 
-	_schedule_next_choice()
+		if not choice_event.choice_finished.is_connected(_on_choice_finished):
+			choice_event.choice_finished.connect(_on_choice_finished)
+
+	if not SportEventSignalBus.finish_event.is_connected(_on_sport_event_finished):
+		SportEventSignalBus.finish_event.connect(_on_sport_event_finished)
 
 
-func _schedule_next_choice() -> void:
-	if choices_shown >= maximum_choices:
+func _on_sport_event_finished() -> void:
+	if choice_active or choice_pending:
 		return
 
-	var wait_time: float
+	choice_pending = true
 
-	if choices_shown == 0:
-		wait_time = rng.randf_range(
-			first_choice_min_time,
-			first_choice_max_time
-		)
-	else:
-		wait_time = rng.randf_range(
-			later_choice_min_time,
-			later_choice_max_time
-		)
+	await get_tree().create_timer(choice_show_delay).timeout
 
-	choice_timer.start(wait_time)
+	choice_pending = false
 
-
-func _on_choice_timer_timeout() -> void:
 	if choice_active:
 		return
 
-	_show_choice()
+	_show_random_choice()
 
 
-func _show_choice() -> void:
-	if choice_event_scene == null:
-		push_error("No choice event scene assigned.")
-		return
-
-	var choice_event := choice_event_scene.instantiate() as ChoiceEvent
-
+func _show_random_choice() -> void:
 	if choice_event == null:
-		push_error("Choice scene must inherit from ChoiceEvent.")
+		push_error("No ChoiceEvent node assigned.")
 		return
+
+	var valid_choices := _get_valid_choices()
+
+	if valid_choices.is_empty():
+		push_error("No valid ChoiceEventData resources assigned.")
+		return
+
+	var selected_data: ChoiceEventData = (valid_choices.pick_random())
 
 	choice_active = true
 	choices_shown += 1
 
-	add_child(choice_event)
-
-	choice_event.choice_finished.connect(
-		_on_choice_finished,
-		CONNECT_ONE_SHOT
-	)
+	choice_event.show_choice(selected_data)
 
 
-func _on_choice_finished(accepted: bool, timed_out: bool) -> void:
+func _get_valid_choices() -> Array[ChoiceEventData]:
+	var valid_choices: Array[ChoiceEventData] = []
+
+	for choice_data in possible_choices:
+		if choice_data != null:
+			valid_choices.append(choice_data)
+
+	return valid_choices
+
+
+func _on_choice_finished(selected_option: ChoiceOptionData, timed_out: bool) -> void:
 	choice_active = false
 
-	if accepted:
-		print("Choice accepted")
-	elif timed_out:
+	if timed_out:
 		print("Choice timed out")
-	else:
-		print("Choice denied")
+		return
 
-	_schedule_next_choice()
+	if selected_option == null:
+		push_warning("No choice option was selected.")
+		return
+
+	print("Selected option: ", selected_option.option_text)
+
+	_apply_choice_option(selected_option)
+
+
+func _apply_choice_option(option: ChoiceOptionData) -> void:
+	if option == null:
+		return
+
+	if choice_effect_processor == null:
+		push_error("No ChoiceEffectProcessor assigned.")
+		return
+
+	for effect in option.effects:
+		if effect == null:
+			continue
+
+		choice_effect_processor.apply_effect(effect)

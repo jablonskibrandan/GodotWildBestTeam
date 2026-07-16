@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://cy8mly6n0ua7v"]
+
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_177wn"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="1_ab8og"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_fv0p0"]
+
+[sub_resource type="Resource" id="Resource_w3ee3"]
+script = ExtResource("1_177wn")
+mechanic = 3
+property = 7
+operation = 0
+value = -0.02
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_qq3ym"]
+script = ExtResource("2_fv0p0")
+option_text = "The metronome speed is 2% slower"
+effects = Array[ExtResource("1_177wn")]([SubResource("Resource_w3ee3")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_5x5op"]
+script = ExtResource("1_177wn")
+mechanic = 3
+property = 7
+operation = 0
+value = 0.02
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_llaa8"]
+script = ExtResource("2_fv0p0")
+option_text = "The metronome speed is 2% faster"
+effects = Array[ExtResource("1_177wn")]([SubResource("Resource_5x5op")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("1_ab8og")
+event_id = &"metronome_modifier"
+event_text = "Something is different about your timing..."
+option_a = SubResource("Resource_qq3ym")
+option_b = SubResource("Resource_llaa8")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"

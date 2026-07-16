@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dt7exthyuknae" path="res://scripts/map_select/country_marker.gd" id="3_a7i22"]
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="5_niad1"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="6_kmv3j"]
+[ext_resource type="AudioStream" uid="uid://r5klf8de0aai" path="res://audio/BGM-CountrySelect.wav" id="7_05wjk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l6ilu"]
 size = Vector2(20.624146, 22.687763)
@@ -118,7 +119,7 @@ hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Poland" unique_id=232258427]
-position = Vector2(0.27998352, -1)
+position = Vector2(2.2857208, -1.1428615)
 scale = Vector2(0.5258738, 0.32612744)
 shape = SubResource("RectangleShape2D_l6ilu")
 
@@ -135,7 +136,7 @@ hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldMap/CountryMarkers/Germany" unique_id=1224396438]
-position = Vector2(0, -1)
+position = Vector2(-1.1428572, -0.57143295)
 scale = Vector2(0.5258738, 0.32612747)
 shape = SubResource("RectangleShape2D_l6ilu")
 
@@ -213,3 +214,7 @@ stream = ExtResource("5_niad1")
 
 [node name="Confirm" type="AudioStreamPlayer" parent="." unique_id=1775282662]
 stream = ExtResource("6_kmv3j")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=448539247]
+stream = ExtResource("7_05wjk")
+autoplay = true

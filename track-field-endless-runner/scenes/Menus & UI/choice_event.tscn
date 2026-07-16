@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://bi35bopaik1fy" path="res://scripts/choice_event/choice_event.gd" id="1_48xbu"]
 [ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="2_48xbu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_177wn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="ChoiceEvent" type="Control" unique_id=1382108090]
 layout_mode = 3
 anchors_preset = 15
@@ -12,11 +15,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_48xbu")
-title_text = "A DARK DEAL HAS BEEN OFFERED"
-benefit_text = "BENEFIT: Stronger boosts..."
-cost_text = "COST: Lose some current speed..."
+decision_time = 12.0
 
 [node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,6 +36,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=61981948]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_177wn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1305021619]
 layout_mode = 2
@@ -41,25 +44,25 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1117612001]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_6v321")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 52
 text = "A Dark Deal Has Been Offered"
 horizontal_alignment = 1
 
 [node name="BenefitLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1532316697]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_6v321")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 42
 
 [node name="CostLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=19259492]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_6v321")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 42
 
 [node name="ChoiceLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1274647509]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_48xbu")
-theme_override_font_sizes/font_size = 24
-text = "[A / LEFT] ACCEPT               [D / RIGHT] DENY"
+theme_override_font_sizes/font_size = 32
+text = "[Q / LEFT] OPTION 1               [E / RIGHT] OPTION 2"
 
 [node name="TimeBar" type="TextureProgressBar" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1093151762]
 layout_mode = 2
