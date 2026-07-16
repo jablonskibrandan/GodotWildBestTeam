@@ -1,6 +1,7 @@
 class_name Metronome
 extends ColorRect
 
+@export var player: Player
 @export var boost_line: BoostLine
 @export var timer: Timer
 @export var standard_colour: Color
@@ -28,6 +29,8 @@ func _process(_delta: float) -> void:
 		PlayerSignalBus.boost_speed_fail.emit()
 	elif Input.is_action_just_pressed("left_leg") and $BoostArea.left_leg_ready == false:
 		PlayerSignalBus.boost_speed_fail.emit()
+	
+	$SpeedLabel.text = str("%0.2f" % player.velocity.x)
 
 func left_boost() -> void:
 	pass

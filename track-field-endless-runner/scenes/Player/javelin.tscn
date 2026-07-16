@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://3morx4713qvr"]
+
+[ext_resource type="Script" uid="uid://qvginsloeesk" path="res://scripts/javelin.gd" id="1_mwxlh"]
+
+[sub_resource type="Gradient" id="Gradient_fikkx"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_fikkx")
+
+[node name="Javelin" type="Sprite2D" unique_id=1892115143]
+position = Vector2(2.861023e-06, -2.5)
+scale = Vector2(2.28125, 0.078125)
+texture = SubResource("GradientTexture2D_g4v7s")
+script = ExtResource("1_mwxlh")

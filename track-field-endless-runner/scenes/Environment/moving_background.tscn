@@ -22,7 +22,7 @@ repeat_size = Vector2(360, 0)
 repeat_times = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="Crowd" unique_id=133576973]
-position = Vector2(199, 723)
+position = Vector2(215, 843)
 scale = Vector2(4, 4)
 texture = ExtResource("2_2238q")
 
