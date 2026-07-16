@@ -10,3 +10,4 @@ signal countdown_start
 signal countdown_finished
 signal start_line_passed
 signal finish_event
+signal javelin_thrown

@@ -162,7 +162,7 @@ shape = SubResource("RectangleShape2D_l6ilu")
 [node name="Australia" type="Area2D" parent="WorldMap/CountryMarkers" unique_id=1631137106 node_paths=PackedStringArray("country_label", "marker_visual", "hover_noise", "confirm_noise")]
 position = Vector2(302.85715, 166.85713)
 script = ExtResource("3_a7i22")
-country_name = "Austrailia"
+country_name = "Australia"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
 next_scene_path = "uid://bwljffdxoh86r"

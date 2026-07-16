@@ -12,4 +12,4 @@ func _on_flashing_timer_timeout() -> void:
 func _on_turn_off_flashing_timer_timeout() -> void:
 	SportEventSignalBus.player_score_label_finished_flashing.emit()
 	$FlashingTimer.stop()
-	$".".visible = false
+	$".".visible = true

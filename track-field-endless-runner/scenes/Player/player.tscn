@@ -11,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://ddcamctd42047" path="res://Art/Player/PlayerSAfrica.png" id="9_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://csneues0q66ah" path="res://Art/Player/PlayerUK.png" id="9_qfm1y"]
 [ext_resource type="Texture2D" uid="uid://c7k0vtp1pgi2i" path="res://Art/Player/PlayerUSA.png" id="11_3v2ag"]
+[ext_resource type="Script" uid="uid://bqdsvhlr5yfbk" path="res://scripts/javelin_gauge.gd" id="12_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://cxe5rh60wcm6n" path="res://audio/SFX-Footsteps.mp3" id="12_a8ls1"]
+[ext_resource type="AudioStream" uid="uid://drca5bysmfmji" path="res://audio/SFX-FootstepsMud.mp3" id="13_qfm1y"]
+[ext_resource type="AudioStream" uid="uid://0lwiw5fgbj13" path="res://audio/SFX-Jump.mp3" id="14_fulsm"]
+[ext_resource type="AudioStream" uid="uid://ckpeln5scd7xr" path="res://audio/SFX-TripOver.mp3" id="15_4r5pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(30, 104)
@@ -105,7 +110,13 @@ _data = {
 &"trip": SubResource("Animation_jej6c")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1000098902 groups=["player"]]
+[sub_resource type="Gradient" id="Gradient_jej6c"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_jej6c")
+
+[node name="Player" type="CharacterBody2D" unique_id=1000098902]
 collision_mask = 6
 script = ExtResource("1_g2els")
 australia_sprite = ExtResource("2_y4r1p")
@@ -118,6 +129,10 @@ poland_sprite = ExtResource("8_a8ls1")
 south_africa_sprite = ExtResource("9_d2wvv")
 uk_sprite = ExtResource("9_qfm1y")
 united_states_sprite = ExtResource("11_3v2ag")
+footsteps_sound = ExtResource("12_a8ls1")
+footsteps_mud_sound = ExtResource("13_qfm1y")
+jump_sound = ExtResource("14_fulsm")
+trip_sound = ExtResource("15_4r5pv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=782335558]
 texture_filter = 1
@@ -135,4 +150,25 @@ shape = SubResource("RectangleShape2D_g4v7s")
 libraries/ = SubResource("AnimationLibrary_f1ej7")
 autoplay = &"idle"
 
+[node name="JavelinGauge" type="Polygon2D" parent="." unique_id=1065181534]
+visible = false
+position = Vector2(-81.00001, 499.00006)
+scale = Vector2(5, 5)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(30, -127, 60, -127, 60, -135, 57, -143, 52, -149, 45, -153, 38, -154, 29, -154)
+script = ExtResource("12_3v2ag")
+
+[node name="AngleIndicator" type="Sprite2D" parent="JavelinGauge" unique_id=2100294562]
+position = Vector2(31, -128)
+rotation = -1.5707964
+scale = Vector2(0.3840768, 0.0049686697)
+texture = SubResource("GradientTexture2D_g4v7s")
+centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=729977275]
+stream = ExtResource("12_a8ls1")
+volume_db = -5.0
+autoplay = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
