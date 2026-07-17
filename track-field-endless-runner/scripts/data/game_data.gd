@@ -25,8 +25,13 @@ var added_100m_dash_goal_time: float = 0.0
 var added_110m_hurdles_goal_time: float = 0.0
 var added_javelin_distance_goal: float = 0.0
 
-var event_distance_min: float = 100.0
-var event_distance_max: float = 300.0
+var event_distance_min: float = 20.0
+var event_distance_max: float = 50.0
+
+# Change this if we want the exponential speed to be
+# harsher or mor subtle
+
+var player_speed_retention_per_second: float = 0.98
 
 var loss_amount: int = 0
 

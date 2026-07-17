@@ -17,6 +17,7 @@ extends CharacterBody2D
 @export var footsteps_mud_sound: AudioStreamMP3
 @export var jump_sound: AudioStreamMP3
 @export var trip_sound: AudioStreamMP3
+@export var hit_hurdle_sound: AudioStreamMP3
 
 @export_category("Metronome")
 @export_range(0.0, 1.0, 0.05)
@@ -47,6 +48,8 @@ var hurdle_slow_id: int = 0
 
 var current_mud_speed_multiplier: float = 1.0
 var current_hurdle_speed_multiplier: float = 1.0
+
+var player_flash_tween: Tween
 
 func _ready() -> void:
 	
@@ -111,7 +114,13 @@ func _process(_delta: float) -> void:
 		$AnimationPlayer.speed_scale = 1.0
 
 func _physics_process(delta: float) -> void:
-	speed = maxf(speed - GameData.player_slowdown_multiplier * delta, 0.0)
+	speed *= pow(
+		GameData.player_speed_retention_per_second,
+		delta
+	)
+	
+	if speed < 0.01:
+		speed = 0.0
 	
 	if speed > GameData.player_max_speed:
 		speed = GameData.player_max_speed
@@ -122,7 +131,6 @@ func _physics_process(delta: float) -> void:
 	var final_speed = (
 		speed
 		* current_mud_speed_multiplier
-		* current_hurdle_speed_multiplier
 	)
 	
 	velocity.x = final_speed
@@ -156,34 +164,27 @@ func exit_mud() -> void:
 
 
 func hit_hurdle() -> void:
+	$AudioStreamPlayer.stream = hit_hurdle_sound
+	$AudioStreamPlayer.play()
 	var applied_multiplier := clampf(
 		GameData.hurdle_speed_multiplier,
 		0.0,
 		1.0
 	)
 
-	var previous_multiplier := current_hurdle_speed_multiplier
+	var previous_speed := speed
 
-	current_hurdle_speed_multiplier *= applied_multiplier
-
-	current_hurdle_speed_multiplier = maxf(
-		current_hurdle_speed_multiplier,
-		0.1
-	)
+	speed *= applied_multiplier
+	
+	_player_flash(Color.WHITE)
 
 	print(
 		"HURDLE HIT | GameData multiplier: ",
 		applied_multiplier,
-		" | Hurdle multiplier: ",
-		previous_multiplier,
+		" | Speed: ",
+		previous_speed,
 		" -> ",
-		current_hurdle_speed_multiplier,
-		" | Base speed: ",
-		speed,
-		" | Final speed: ",
 		speed
-			* current_mud_speed_multiplier
-			* current_hurdle_speed_multiplier
 	)
 
 func _on_trip_player() -> void:
@@ -228,25 +229,7 @@ func take_monster_hit() -> void:
 		GameData.player_max_speed * 0.75
 	)
 
-	# Temporary red flash for testing.
-	var player_sprite := $Sprite2D as Sprite2D
-
-	if player_sprite != null:
-		player_sprite.modulate = Color(
-			1.0,
-			0.25,
-			0.25,
-			1.0
-		)
-
-		var flash_tween := create_tween()
-
-		flash_tween.tween_property(
-			player_sprite,
-			"modulate",
-			Color.WHITE,
-			0.3
-		)
+	_player_flash(Color.RED)
 
 	if GameData.loss_amount >= maximum_loss:
 		print("PLAYER HAS REACHED MAXIMUM RED X MARKS")
@@ -282,3 +265,31 @@ func add_metronome_streak_boost(boost_amount: float) -> void:
 		" -> ",
 		speed
 	)
+	
+func _player_flash(color: Color) -> void:
+	var player_sprite := $Sprite2D as Sprite2D
+
+	if player_sprite != null:
+		if player_flash_tween != null:
+			player_flash_tween.kill()
+
+		var normal_color := Color.WHITE
+
+		player_sprite.modulate = normal_color
+
+		player_flash_tween = create_tween()
+		player_flash_tween.set_loops(4)
+
+		player_flash_tween.tween_property(
+			player_sprite,
+			"modulate",
+			color,
+			0.08
+		)
+
+		player_flash_tween.tween_property(
+			player_sprite,
+			"modulate",
+			normal_color,
+			0.08
+		)

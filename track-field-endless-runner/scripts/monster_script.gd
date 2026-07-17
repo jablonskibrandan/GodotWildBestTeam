@@ -127,12 +127,13 @@ func _physics_process(delta: float) -> void:
 		_process_startup_grace(delta)
 		return
 
-	var maximum_speed := maxf(
+	var maximum_speed = maxf(
 		GameData.player_max_speed,
 		0.01
 	)
 
-	# velocity.x includes the effects of mud and hurdle multipliers.
+	# velocity.x includes the effects of mud and hurdle multipliers,
+	# we want to make sure we get the TRUE speed
 	var current_player_speed = absf(
 		player.velocity.x
 	)

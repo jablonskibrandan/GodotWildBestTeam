@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bwljffdxoh86r"]
 
+[ext_resource type="AudioStream" uid="uid://cuxm27u0sp3pg" path="res://audio/SFX-Collision.mp3" id="3_0onm7"]
 [ext_resource type="Script" uid="uid://bcfmq3jxmgquu" path="res://scripts/monster_script.gd" id="3_2mjhj"]
 [ext_resource type="Script" uid="uid://c5dhwo8jwbtmp" path="res://scripts/managers/sports_event_manager.gd" id="3_bcuvt"]
 [ext_resource type="PackedScene" uid="uid://ogn1gr02ei7q" path="res://scenes/Environment/moving_background.tscn" id="3_ffxig"]
@@ -45,12 +46,14 @@ size = Vector2(80, 120)
 
 [node name="Player" parent="." unique_id=1000098902 instance=ExtResource("4_005tn")]
 position = Vector2(186, 1008)
+hit_hurdle_sound = ExtResource("3_0onm7")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1152713351]
 limit_left = 0
 limit_bottom = 1080
 
 [node name="MonsterChase" type="Node2D" parent="Player" unique_id=215192293 node_paths=PackedStringArray("player")]
+z_index = 100
 position = Vector2(-319, 9)
 script = ExtResource("3_2mjhj")
 player = NodePath("..")
