@@ -12,7 +12,7 @@ var mult: float = 1.0
 var metronome_boost_area_width: float = 20.0
 var metronome_line_speed: float = 100.0
 
-
+var player_current_speed: float = 0.0
 var player_max_speed: float = 700.0
 var player_slowdown_multiplier: float = 1.0
 

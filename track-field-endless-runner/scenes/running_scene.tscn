@@ -44,9 +44,10 @@ size = Vector2(80, 120)
 
 [node name="MovingBackground" parent="." unique_id=1143113503 instance=ExtResource("3_ffxig")]
 
-[node name="Player" parent="." unique_id=1000098902 instance=ExtResource("4_005tn")]
-position = Vector2(186, 1008)
+[node name="Player" parent="." unique_id=1000098902 node_paths=PackedStringArray("loss_root") instance=ExtResource("4_005tn")]
+position = Vector2(391, 807)
 hit_hurdle_sound = ExtResource("3_0onm7")
+loss_root = NodePath("../BoardInformation/MainRoot/LossRoot")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1152713351]
 limit_left = 0
@@ -64,6 +65,28 @@ metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
 position = Vector2(3, -55)
 mesh = SubResource("QuadMesh_f1tay")
 
+[node name="Metronome" parent="Player" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
+offset_left = -152.0
+offset_top = 37.0
+offset_right = 48.0
+offset_bottom = 77.0
+scale = Vector2(1.5799388, 1.4064972)
+player = NodePath("..")
+
+[node name="SpeedLabel" type="RichTextLabel" parent="Player/Metronome" unique_id=1227890601]
+visible = false
+layout_mode = 0
+offset_left = 56.964264
+offset_top = 44.79212
+offset_right = 143.96426
+offset_bottom = 84.79212
+theme_override_fonts/normal_font = ExtResource("6_ffxig")
+text = "999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BoardInformation" type="CanvasLayer" parent="." unique_id=727401027]
 
 [node name="TopBarRoot" type="Control" parent="BoardInformation" unique_id=1742513539]
@@ -76,15 +99,17 @@ offset_bottom = 106.0
 
 [node name="DistanceLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=1790859643 node_paths=PackedStringArray("player")]
 layout_mode = 0
-offset_right = 324.0
-offset_bottom = 51.0
+offset_left = 291.0
+offset_top = -1.0
+offset_right = 615.0
+offset_bottom = 50.0
 script = ExtResource("5_eamyy")
 player = NodePath("../../../Player")
 
 [node name="DistanceText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/DistanceLabelRoot" unique_id=1479976008]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "Distance:"
 fit_content = true
 autowrap_mode = 0
@@ -94,7 +119,7 @@ vertical_alignment = 1
 [node name="DistanceAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/DistanceLabelRoot" unique_id=1984441293]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "12"
 fit_content = true
 autowrap_mode = 0
@@ -103,16 +128,16 @@ vertical_alignment = 1
 
 [node name="ScoreLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=1621233399]
 layout_mode = 0
-offset_left = 673.0
-offset_top = 2.0
-offset_right = 1149.0
-offset_bottom = 53.0
+offset_left = 778.0
+offset_top = -1.0
+offset_right = 1254.0
+offset_bottom = 50.0
 script = ExtResource("7_8lwym")
 
 [node name="ScoreText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/ScoreLabelRoot" unique_id=19928606]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "Score:"
 fit_content = true
 autowrap_mode = 0
@@ -122,7 +147,7 @@ vertical_alignment = 1
 [node name="ScoreAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/ScoreLabelRoot" unique_id=1133854987]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "0"
 fit_content = true
 autowrap_mode = 0
@@ -131,16 +156,16 @@ vertical_alignment = 1
 
 [node name="MultLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=369785532]
 layout_mode = 0
-offset_left = 1308.0
-offset_top = 2.0
-offset_right = 1747.0
-offset_bottom = 53.0
+offset_left = 1243.0
+offset_top = -3.0
+offset_right = 1682.0
+offset_bottom = 48.0
 script = ExtResource("8_rhprt")
 
 [node name="MultText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/MultLabelRoot" unique_id=182444301]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "Mult:"
 fit_content = true
 autowrap_mode = 0
@@ -150,7 +175,7 @@ vertical_alignment = 1
 [node name="MultAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/MultLabelRoot" unique_id=1878502087]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 32
 text = "1"
 fit_content = true
 autowrap_mode = 0
@@ -164,19 +189,19 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EventNameLabel" type="RichTextLabel" parent="BoardInformation/MainRoot/EventNameLabelRoot" unique_id=1339910663]
+visible = false
 layout_mode = 0
-offset_left = 669.0
-offset_top = 209.0
-offset_right = 1669.0
-offset_bottom = 327.0
+offset_left = 590.0
+offset_top = 199.0
+offset_right = 1590.0
+offset_bottom = 317.0
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/normal_font_size = 80
 text = "100m dash!"
 fit_content = true
 autowrap_mode = 0
@@ -193,6 +218,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="EventDetailsRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1047119849]
+visible = false
 anchors_preset = 0
 offset_left = 675.0
 offset_top = 184.0
@@ -202,15 +228,17 @@ offset_bottom = 224.0
 [node name="EventGoalRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1668833623]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -47.0
+offset_top = -19.0
+offset_right = 465.0
+offset_bottom = 29.0
 theme_override_constants/separation = 24
 script = ExtResource("8_drav3")
 
 [node name="EventGoalText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=706220064]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "Time to beat:"
 fit_content = true
 autowrap_mode = 0
@@ -218,7 +246,7 @@ autowrap_mode = 0
 [node name="EventGoalAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=1422883534]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "10:00"
 fit_content = true
 autowrap_mode = 0
@@ -233,16 +261,17 @@ one_shot = true
 [node name="PlayerScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1374682472]
 visible = false
 layout_mode = 0
-offset_top = 85.0
-offset_right = 1156.0
-offset_bottom = 149.0
+offset_left = -47.0
+offset_top = 30.0
+offset_right = 1109.0
+offset_bottom = 94.0
 theme_override_constants/separation = 24
 script = ExtResource("9_mxkxx")
 
 [node name="PlayerScoreText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=1944413527]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "Your time:"
 fit_content = true
 autowrap_mode = 0
@@ -250,7 +279,7 @@ autowrap_mode = 0
 [node name="PlayerScoreAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=242789836]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "00:00"
 fit_content = true
 autowrap_mode = 0
@@ -270,16 +299,16 @@ offset_bottom = 40.0
 [node name="ScoreDifferenceRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=775011326]
 visible = false
 layout_mode = 0
-offset_left = 512.0
-offset_top = 163.0
-offset_right = 1317.0
-offset_bottom = 239.0
+offset_left = 623.0
+offset_top = 159.0
+offset_right = 1559.0
+offset_bottom = 235.0
 theme_override_constants/separation = 24
 
 [node name="ScoreDifferenceText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot" unique_id=1456568285]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "Time difference:"
 fit_content = true
 autowrap_mode = 0
@@ -287,7 +316,7 @@ autowrap_mode = 0
 [node name="ScoreDifferenceAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot" unique_id=526183305]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "10:00"
 fit_content = true
 autowrap_mode = 0
@@ -295,16 +324,16 @@ autowrap_mode = 0
 [node name="ScoreExplanationRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=1543907529]
 visible = false
 layout_mode = 0
-offset_left = 512.0
-offset_top = 227.0
-offset_right = 1448.0
-offset_bottom = 303.0
+offset_left = 624.0
+offset_top = 207.0
+offset_right = 1560.0
+offset_bottom = 283.0
 theme_override_constants/separation = 24
 
 [node name="ScoreExplanationText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot" unique_id=51174467]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "Points per ms:"
 fit_content = true
 autowrap_mode = 0
@@ -312,7 +341,7 @@ autowrap_mode = 0
 [node name="ScoreExplanationAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot" unique_id=2107556168]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "10:00"
 fit_content = true
 autowrap_mode = 0
@@ -320,16 +349,16 @@ autowrap_mode = 0
 [node name="TotalScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=2051728488]
 visible = false
 layout_mode = 0
-offset_left = 514.0
-offset_top = 290.0
-offset_right = 1450.0
-offset_bottom = 366.0
+offset_left = 620.0
+offset_top = 257.0
+offset_right = 1556.0
+offset_bottom = 333.0
 theme_override_constants/separation = 24
 
 [node name="TotalScoreText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot" unique_id=1458738359]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "Score for event:"
 fit_content = true
 autowrap_mode = 0
@@ -337,7 +366,7 @@ autowrap_mode = 0
 [node name="TotalScoreAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot" unique_id=1034930559]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 40
 text = "10:00"
 fit_content = true
 autowrap_mode = 0
@@ -374,10 +403,10 @@ script = ExtResource("11_gnsom")
 
 [node name="LossAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/LossRoot" unique_id=1331168874]
 layout_mode = 0
-offset_left = 322.0
-offset_top = 288.0
-offset_right = 510.0
-offset_bottom = 383.0
+offset_left = 482.0
+offset_top = 304.0
+offset_right = 670.0
+offset_bottom = 399.0
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("5_mxkxx")
 theme_override_font_sizes/normal_font_size = 80
@@ -385,33 +414,24 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("12_g5sb1")]
+visible = false
 layout_mode = 1
-offset_left = 1101.0
-offset_top = 262.0
-offset_right = 1101.0
-offset_bottom = 262.0
+offset_left = 1028.0
+offset_top = 230.0
+offset_right = 1028.0
+offset_bottom = 230.0
 scale = Vector2(0.65, 0.65)
 
-[node name="Metronome" parent="BoardInformation" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
-offset_left = 752.0
-offset_top = 548.0
-offset_right = 952.0
-offset_bottom = 588.0
-scale = Vector2(1.5799388, 1.4064972)
-player = NodePath("../../Player")
+[node name="LeftBar" type="ColorRect" parent="BoardInformation" unique_id=1010015919]
+offset_right = 240.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
 
-[node name="SpeedLabel" type="RichTextLabel" parent="BoardInformation/Metronome" unique_id=1227890601]
-layout_mode = 0
-offset_left = 56.964264
-offset_top = 44.79212
-offset_right = 143.96426
-offset_bottom = 84.79212
-theme_override_fonts/normal_font = ExtResource("6_ffxig")
-text = "999"
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="RightBar" type="ColorRect" parent="BoardInformation" unique_id=453384306]
+offset_left = 1680.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 

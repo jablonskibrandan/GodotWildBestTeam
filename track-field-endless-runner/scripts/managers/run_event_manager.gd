@@ -6,6 +6,7 @@ extends Node
 
 var starting_distance: float = 0.0
 var race_length: float = 0.0
+var current_distance: float = 0.0
 var finish_distance: float = 0.0
 var time: float = 0.0
 var event_in_progress: bool = false
@@ -19,6 +20,9 @@ func _process(delta: float) -> void:
 	time = time + delta
 	if event_in_progress == true and count_time == true:
 		player_time_display.text = str("%0.2f" % time)
+	current_distance = player.distance_travelled - starting_distance
+	if current_distance > 100.0:
+		player.current_event = ""
 	
 func _on_start_line_passed() -> void:
 	if event_in_progress == true:

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://2rgc2w1k3l8w"]
+
+[ext_resource type="Script" uid="uid://dse4bixml0f63" path="res://scripts/coach.gd" id="1_44mam"]
+[ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="1_a2puj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(35, 116)
+
+[sub_resource type="Animation" id="Animation_a2puj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_44mam"]
+resource_name = "run"
+length = 1.5999999999999999
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpn72"]
+_data = {
+&"RESET": SubResource("Animation_a2puj"),
+&"run": SubResource("Animation_44mam")
+}
+
+[node name="Coach" type="CharacterBody2D" unique_id=941289700]
+script = ExtResource("1_44mam")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=235688061]
+position = Vector2(-32, -64)
+scale = Vector2(4, 4)
+texture = ExtResource("1_a2puj")
+hframes = 29
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2072962133]
+position = Vector2(1, -58)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2022356464]
+libraries/ = SubResource("AnimationLibrary_fpn72")
+autoplay = &"run"

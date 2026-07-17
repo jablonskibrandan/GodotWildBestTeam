@@ -5,7 +5,6 @@ class_name MonsterChase
 @export_category("References")
 @export var player: Player
 
-
 @export_category("Startup")
 # How long the monster waits before reacting to the player's pace.
 @export var startup_grace_time: float = 4.0

@@ -22,6 +22,7 @@ GameData="*uid://dsxwskn545pbr"
 EventList="*uid://ctrpc6nr15djv"
 SportEventSignalBus="*uid://dgx6mvglkj4uj"
 AudioSignalBus="*uid://enhbvty5xo0d"
+BackgroundSignalBus="*uid://cgvro6p88l28y"
 
 [display]
 

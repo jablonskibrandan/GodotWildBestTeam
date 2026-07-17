@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 func spawn_event() -> void:
 	event_started = true
 	var rand = randi_range(1, EventList.event_list.size())
-	current_event_index = rand
+	current_event_index = 3
 	start_event()
 
 func _on_start_line_passed() -> void:
@@ -110,10 +110,10 @@ func play_event() -> void:
 			$RunEventManager.finish_distance = $RunEventManager.starting_distance + $RunEventManager.race_length
 			$RunEventManager.event_in_progress = true
 			var start_line: Area2D = start_line_template.instantiate()
-			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 1013.0)
+			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 820)
 			sports_objects_root.add_child(start_line)
 			var finish_line: Area2D = finish_line_template.instantiate()
-			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 1013.0)
+			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 820)
 			sports_objects_root.add_child(finish_line)
 			player.current_event = "100m"
 		2:
@@ -123,14 +123,14 @@ func play_event() -> void:
 			$RunEventManager.finish_distance = $RunEventManager.starting_distance + $RunEventManager.race_length
 			$RunEventManager.event_in_progress = true
 			var start_line: Area2D = start_line_template.instantiate()
-			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 1013.0)
+			start_line.position = Vector2($RunEventManager.starting_distance * 100.0, 820)
 			sports_objects_root.add_child(start_line)
 			var finish_line: Area2D = finish_line_template.instantiate()
-			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 1013.0)
+			finish_line.position = Vector2($RunEventManager.finish_distance * 100.0, 820)
 			sports_objects_root.add_child(finish_line)
 			for i in range(10):
 				var hurdle: ObstacleMove = hurdle_template.instantiate()
-				hurdle.position = Vector2(($RunEventManager.starting_distance * 100.0 + (10.0 * (100 * (i + 1)))), 1013.0)
+				hurdle.position = Vector2(($RunEventManager.starting_distance * 100.0 + (10.0 * (100 * (i + 1)))), 820)
 				sports_objects_root.add_child(hurdle)
 			player.current_event = "110m"
 		3:
@@ -139,7 +139,7 @@ func play_event() -> void:
 			$DistanceEventManager.start_line_location = player.distance_travelled + rand
 			$DistanceEventManager.event_in_progress = true
 			var start_line: Area2D = start_line_template.instantiate()
-			start_line.position = Vector2($DistanceEventManager.start_line_location * 100.0, 1013.0)
+			start_line.position = Vector2($DistanceEventManager.start_line_location * 100.0, 820)
 			sports_objects_root.add_child(start_line)
 			var javelin: Sprite2D = javelin_template.instantiate()
 			javelin.position = Vector2(0, -90)

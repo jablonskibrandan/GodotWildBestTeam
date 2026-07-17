@@ -45,7 +45,7 @@ script = ExtResource("3_a7i22")
 country_name = "United States"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -63,7 +63,7 @@ script = ExtResource("3_a7i22")
 country_name = "Brazil"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -80,7 +80,7 @@ script = ExtResource("3_a7i22")
 country_name = "Japan"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -97,7 +97,7 @@ script = ExtResource("3_a7i22")
 country_name = "South Africa"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -114,7 +114,7 @@ script = ExtResource("3_a7i22")
 country_name = "Poland"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -131,7 +131,7 @@ script = ExtResource("3_a7i22")
 country_name = "Germany"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -148,7 +148,7 @@ script = ExtResource("3_a7i22")
 country_name = "UK"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -165,7 +165,7 @@ script = ExtResource("3_a7i22")
 country_name = "Australia"
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
@@ -181,7 +181,7 @@ position = Vector2(56.571434, 44)
 script = ExtResource("3_a7i22")
 country_label = NodePath("../../../UI/Label")
 marker_visual = NodePath("Polygon2D")
-next_scene_path = "uid://bwljffdxoh86r"
+next_scene_path = "uid://c1elvb08mggwx"
 hover_noise = NodePath("../../../Hover")
 confirm_noise = NodePath("../../../Confirm")
 
