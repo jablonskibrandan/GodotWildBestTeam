@@ -11,13 +11,6 @@ enum HazardType {
 
 @export var set_hazard_type: HazardType = HazardType.MUD
 
-@export_group("Mud Hazard")
-@export_range(0.0, 1.0, 0.05) var mud_speed_multiplier: float = 0.5
-
-@export_group("Hurdle Hazard")
-@export_range(0.0, 1.0, 0.05) var hurdle_speed_multiplier: float = 0.5
-@export var hurdle_slow_time: float = 2.0
-
 var hurdle_triggered: bool = false
 
 
@@ -33,7 +26,7 @@ func _on_body_entered(body: Node2D) -> void:
 	match set_hazard_type:
 		HazardType.MUD:
 			if body.has_method("enter_mud"):
-				body.enter_mud(mud_speed_multiplier)
+				body.enter_mud()
 
 		HazardType.HURDLE:
 			if hurdle_triggered:

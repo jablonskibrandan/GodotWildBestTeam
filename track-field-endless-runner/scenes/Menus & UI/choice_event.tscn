@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_48xbu")
-decision_time = 12.0
+decision_time = 15.0
 
 [node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
 visible = false

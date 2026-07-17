@@ -29,3 +29,5 @@ var event_distance_min: float = 100.0
 var event_distance_max: float = 300.0
 
 var loss_amount: int = 0
+
+var has_witnessed_the_horrors: bool = true

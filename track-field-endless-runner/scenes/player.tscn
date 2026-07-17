@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://cuucifodk4muu"]
+
+[ext_resource type="Script" uid="uid://dqisixxstqqae" path="res://scripts/player/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://cu42udgc8ma0i" path="res://Art/Player/PlayerAustrailia.png" id="2_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://6nqg0s33ghan" path="res://Art/Player/PlayerBrazil.png" id="3_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://bdo6m1jyx7qu2" path="res://Art/Player/PlayerCanada.png" id="4_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://dqk01rgirvent" path="res://Art/Player/PlayerChina.png" id="5_jej6c"]
+[ext_resource type="Texture2D" uid="uid://djv8w2iq5yy8w" path="res://Art/Player/PlayerGermany.png" id="6_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://uuejoq0l767u" path="res://Art/Player/PlayerJapan.png" id="7_oprun"]
+[ext_resource type="Texture2D" uid="uid://b88k1df6j5ub" path="res://Art/Player/PlayerPoland.png" id="8_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://ddcamctd42047" path="res://Art/Player/PlayerSAfrica.png" id="9_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://csneues0q66ah" path="res://Art/Player/PlayerUK.png" id="9_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://c7k0vtp1pgi2i" path="res://Art/Player/PlayerUSA.png" id="11_3v2ag"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(30, 104)
+
+[sub_resource type="Animation" id="Animation_ur7pv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_y4r1p"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d2wvv"]
+resource_name = "jump"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_3v2ag"]
+resource_name = "run"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "trip"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [20, 21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
+_data = {
+&"RESET": SubResource("Animation_ur7pv"),
+&"idle": SubResource("Animation_y4r1p"),
+&"jump": SubResource("Animation_d2wvv"),
+&"run": SubResource("Animation_3v2ag"),
+&"trip": SubResource("Animation_jej6c")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1000098902 groups=["player"]]
+collision_mask = 6
+script = ExtResource("1_g2els")
+australia_sprite = ExtResource("2_y4r1p")
+brazil_sprite = ExtResource("3_d2wvv")
+canada_sprite = ExtResource("4_3v2ag")
+china_sprite = ExtResource("5_jej6c")
+germany_sprite = ExtResource("6_f1ej7")
+japan_sprite = ExtResource("7_oprun")
+poland_sprite = ExtResource("8_a8ls1")
+south_africa_sprite = ExtResource("9_d2wvv")
+uk_sprite = ExtResource("9_qfm1y")
+united_states_sprite = ExtResource("11_3v2ag")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=782335558]
+texture_filter = 1
+position = Vector2(-5, -64)
+scale = Vector2(4, 4)
+texture = ExtResource("2_y4r1p")
+hframes = 5
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=368130025]
+position = Vector2(6, -52)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1341418604]
+libraries/ = SubResource("AnimationLibrary_f1ej7")
+autoplay = &"idle"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

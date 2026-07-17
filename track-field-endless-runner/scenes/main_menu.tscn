@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/Managers/dialogue_control.tscn" id="5_8ln24"]
 [ext_resource type="AudioStream" uid="uid://v25t8ayygv3n" path="res://audio/BGM-Menu(Loop).wav" id="6_rtw2f"]
+[ext_resource type="AudioStream" uid="uid://38i7hmmy53bo" path="res://audio/BGM-Scary-Title-First-Play.wav" id="7_tbmy8"]
+[ext_resource type="AudioStream" uid="uid://bkqyuy1e1g61t" path="res://audio/BGM-Scary-Title-Looping.wav" id="8_jk1qb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 
@@ -81,6 +83,11 @@ offset_right = 1308.0
 offset_bottom = 644.0
 dialogue_lines = Array[String](["THIS IS A TEST", "WE CAN REMOVE THIS LATER", "WHEN WE GET AN ACTUAL SCENE :^)"])
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1646637969]
+[node name="NormalMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1646637969]
 stream = ExtResource("6_rtw2f")
-autoplay = true
+
+[node name="ScaryMusicIntroNonLoop" type="AudioStreamPlayer" parent="." unique_id=567058929]
+stream = ExtResource("7_tbmy8")
+
+[node name="ScaryMusicIntroLoop" type="AudioStreamPlayer" parent="." unique_id=1150526650]
+stream = ExtResource("8_jk1qb")

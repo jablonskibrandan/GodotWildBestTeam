@@ -18,6 +18,17 @@ extends CharacterBody2D
 @export var jump_sound: AudioStreamMP3
 @export var trip_sound: AudioStreamMP3
 
+@export_category("Metronome")
+@export_range(0.0, 1.0, 0.05)
+var failed_input_speed_multiplier: float = 0.65
+
+signal monster_hit(loss_amount: int)
+signal monster_game_over
+
+@export_category("Monster Damage")
+@export var maximum_loss: int = 3
+@export var recovery_speed_after_hit: float = 10.0
+
 var selected_sprite: Texture
 
 var speed: float = 10.0
@@ -38,6 +49,11 @@ var current_mud_speed_multiplier: float = 1.0
 var current_hurdle_speed_multiplier: float = 1.0
 
 func _ready() -> void:
+	
+	PlayerSignalBus.boost_speed_fail.connect(
+		_on_boost_speed_fail
+	)
+
 	match GameData.selected_country:
 		"Australia":
 			selected_sprite = australia_sprite
@@ -140,14 +156,34 @@ func exit_mud() -> void:
 
 
 func hit_hurdle() -> void:
-	current_hurdle_speed_multiplier *= clampf(
+	var applied_multiplier := clampf(
 		GameData.hurdle_speed_multiplier,
 		0.0,
 		1.0
 	)
+
+	var previous_multiplier := current_hurdle_speed_multiplier
+
+	current_hurdle_speed_multiplier *= applied_multiplier
+
 	current_hurdle_speed_multiplier = maxf(
 		current_hurdle_speed_multiplier,
 		0.1
+	)
+
+	print(
+		"HURDLE HIT | GameData multiplier: ",
+		applied_multiplier,
+		" | Hurdle multiplier: ",
+		previous_multiplier,
+		" -> ",
+		current_hurdle_speed_multiplier,
+		" | Base speed: ",
+		speed,
+		" | Final speed: ",
+		speed
+			* current_mud_speed_multiplier
+			* current_hurdle_speed_multiplier
 	)
 
 func _on_trip_player() -> void:
@@ -176,3 +212,73 @@ func _on_audio_stream_player_finished() -> void:
 		$AudioStreamPlayer.play()
 	else:
 		$AudioStreamPlayer.pitch_scale = 1.0
+		
+func take_monster_hit() -> void:
+	GameData.loss_amount += 1
+
+	print(
+		"Monster hit! Loss amount: ",
+		GameData.loss_amount
+	)
+
+	monster_hit.emit(GameData.loss_amount)
+
+	speed = maxf(
+		speed,
+		GameData.player_max_speed * 0.75
+	)
+
+	# Temporary red flash for testing.
+	var player_sprite := $Sprite2D as Sprite2D
+
+	if player_sprite != null:
+		player_sprite.modulate = Color(
+			1.0,
+			0.25,
+			0.25,
+			1.0
+		)
+
+		var flash_tween := create_tween()
+
+		flash_tween.tween_property(
+			player_sprite,
+			"modulate",
+			Color.WHITE,
+			0.3
+		)
+
+	if GameData.loss_amount >= maximum_loss:
+		print("PLAYER HAS REACHED MAXIMUM RED X MARKS")
+		monster_game_over.emit()
+		
+func _on_boost_speed_fail() -> void:
+	var previous_speed := speed
+
+	speed *= clampf(
+		failed_input_speed_multiplier,
+		0.0,
+		1.0
+	)
+
+	print(
+		"Metronome failed | Speed: ",
+		previous_speed,
+		" -> ",
+		speed
+	)
+	
+func add_metronome_streak_boost(boost_amount: float) -> void:
+	var previous_speed: float = speed
+
+	speed = minf(
+		speed + maxf(boost_amount, 0.0),
+		GameData.player_max_speed
+	)
+
+	print(
+		"Eight-hit streak bonus | Speed: ",
+		previous_speed,
+		" -> ",
+		speed
+	)

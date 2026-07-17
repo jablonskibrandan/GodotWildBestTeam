@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bwljffdxoh86r"]
 
+[ext_resource type="Script" uid="uid://bcfmq3jxmgquu" path="res://scripts/monster_script.gd" id="3_2mjhj"]
 [ext_resource type="Script" uid="uid://c5dhwo8jwbtmp" path="res://scripts/managers/sports_event_manager.gd" id="3_bcuvt"]
 [ext_resource type="PackedScene" uid="uid://ogn1gr02ei7q" path="res://scenes/Environment/moving_background.tscn" id="3_ffxig"]
 [ext_resource type="PackedScene" uid="uid://xggxujki5vbo" path="res://scenes/Player/player.tscn" id="4_005tn"]
@@ -14,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dt6t3vqptkltk" path="res://scripts/screen_display_controllers/player_time_root.gd" id="9_mxkxx"]
 [ext_resource type="Script" uid="uid://d2h3kirebr84k" path="res://scripts/screen_display_controllers/countdown_root.gd" id="10_eamyy"]
 [ext_resource type="Script" uid="uid://cp3g2i5ljepmd" path="res://scripts/loss_root.gd" id="11_gnsom"]
+[ext_resource type="PackedScene" uid="uid://cwh6hna0vleyg" path="res://scenes/Menus & UI/choice_event.tscn" id="12_g5sb1"]
 [ext_resource type="Script" uid="uid://36nra8wtekjo" path="res://scripts/managers/run_event_manager.gd" id="13_ahj5x"]
 [ext_resource type="PackedScene" uid="uid://n7n6siieujtg" path="res://scenes/Environment/hurdle_hazard.tscn" id="14_lvom7"]
 [ext_resource type="PackedScene" uid="uid://d4chn4wbi3aga" path="res://start_line.tscn" id="15_85bgf"]
@@ -23,6 +25,19 @@
 [ext_resource type="Script" uid="uid://b61y54mtk4fka" path="res://scripts/sport_event_sounds.gd" id="20_bghlm"]
 [ext_resource type="AudioStream" uid="uid://cuejb16rw1vfn" path="res://audio/SFX-Gunshot.mp3" id="21_fhtaa"]
 [ext_resource type="AudioStream" uid="uid://bxj127lebih2t" path="res://audio/SFX-Javelin.mp3" id="22_gnsom"]
+[ext_resource type="Script" uid="uid://b2ipxs3gobph4" path="res://scripts/choice_event/choice_event_manager.gd" id="25_2mjhj"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="26_ax5dm"]
+[ext_resource type="Resource" uid="uid://t0wjtyvb7udo" path="res://event_data/hurdle_slow_increase.tres" id="27_h54hi"]
+[ext_resource type="Resource" uid="uid://cy8mly6n0ua7v" path="res://event_data/metronome_modifier.tres" id="28_pwu3e"]
+[ext_resource type="Resource" uid="uid://ba4ee2vsujts3" path="res://event_data/mud_slow_increase.tres" id="29_q74pt"]
+[ext_resource type="Script" uid="uid://ds63gr2decnda" path="res://scripts/managers/choice_effect_manager.gd" id="30_0onm7"]
+[ext_resource type="AudioStream" uid="uid://bbm6muuxajc1t" path="res://audio/BGM-Chase-First-Play(With Intro).wav" id="32_h54hi"]
+[ext_resource type="Script" uid="uid://65y6p1yndm0u" path="res://scripts/managers/audio_manager.gd" id="32_pwu3e"]
+[ext_resource type="AudioStream" uid="uid://2gprw6erjxlj" path="res://audio/BGM-Chase-Loop(No Intro).wav" id="33_pwu3e"]
+[ext_resource type="AudioStream" uid="uid://c0wt0qqb7n4ob" path="res://audio/BGM-Tutorial.mp3" id="35_q74pt"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_f1tay"]
+size = Vector2(80, 120)
 
 [node name="RunningSceneRoot" type="Node" unique_id=1225109462]
 
@@ -34,6 +49,17 @@ position = Vector2(186, 1008)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1152713351]
 limit_left = 0
 limit_bottom = 1080
+
+[node name="MonsterChase" type="Node2D" parent="Player" unique_id=215192293 node_paths=PackedStringArray("player")]
+position = Vector2(-319, 9)
+script = ExtResource("3_2mjhj")
+player = NodePath("..")
+startup_grace_time = 10.0
+metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Player/MonsterChase" unique_id=1452538196]
+position = Vector2(3, -55)
+mesh = SubResource("QuadMesh_f1tay")
 
 [node name="BoardInformation" type="CanvasLayer" parent="." unique_id=727401027]
 
@@ -355,6 +381,14 @@ theme_override_font_sizes/normal_font_size = 80
 fit_content = true
 autowrap_mode = 0
 
+[node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("12_g5sb1")]
+layout_mode = 1
+offset_left = 1101.0
+offset_top = 262.0
+offset_right = 1101.0
+offset_bottom = 262.0
+scale = Vector2(0.65, 0.65)
+
 [node name="Metronome" parent="BoardInformation" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
 offset_left = 752.0
 offset_top = 548.0
@@ -423,7 +457,34 @@ script = ExtResource("20_bghlm")
 gunshot = ExtResource("21_fhtaa")
 javelin_throw = ExtResource("22_gnsom")
 
+[node name="ChoiceEventManager" type="Node" parent="Managers" unique_id=1684003588 node_paths=PackedStringArray("choice_event", "choice_effect_processor")]
+script = ExtResource("25_2mjhj")
+choice_event = NodePath("../../BoardInformation/MainRoot/ChoiceEvent")
+possible_choices = Array[ExtResource("26_ax5dm")]([ExtResource("27_h54hi"), ExtResource("28_pwu3e"), ExtResource("29_q74pt")])
+choice_show_delay = 7.0
+choice_effect_processor = NodePath("../ChoiceEffectManager")
+metadata/_custom_type_script = "uid://b2ipxs3gobph4"
+
+[node name="ChoiceEffectManager" type="Node" parent="Managers" unique_id=100331723]
+script = ExtResource("30_0onm7")
+metadata/_custom_type_script = "uid://ds63gr2decnda"
+
+[node name="AudioManager" type="Node" parent="Managers" unique_id=1204585122 node_paths=PackedStringArray("normal_running_audio", "scary_non_loop", "scary_loop")]
+script = ExtResource("32_pwu3e")
+normal_running_audio = NodePath("../../NormalMusic")
+scary_non_loop = NodePath("../../ScaryChaseNonLoop")
+scary_loop = NodePath("../../ScaryChaseLoop")
+
 [node name="SportEventObjects" type="Node2D" parent="." unique_id=1583300638]
+
+[node name="ScaryChaseNonLoop" type="AudioStreamPlayer" parent="." unique_id=70691364]
+stream = ExtResource("32_h54hi")
+
+[node name="ScaryChaseLoop" type="AudioStreamPlayer" parent="." unique_id=1920534409]
+stream = ExtResource("33_pwu3e")
+
+[node name="NormalMusic" type="AudioStreamPlayer" parent="." unique_id=1477524398]
+stream = ExtResource("35_q74pt")
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]
