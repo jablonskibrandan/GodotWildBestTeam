@@ -40,12 +40,19 @@
 [ext_resource type="Script" uid="uid://cx6avkymv5xqe" path="res://scripts/managers/game_state_manager.gd" id="35_p0rto"]
 [ext_resource type="AudioStream" uid="uid://c6juy44dcofsu" path="res://audio/BGM-Tutorial.wav" id="38_lo852"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0rto"]
+load_path = "res://.godot/imported/Sky_1.png-0d9ee8b508af101a4bb0206651b77526.ctex"
+
 [sub_resource type="QuadMesh" id="QuadMesh_f1tay"]
 size = Vector2(80, 120)
 
 [node name="RunningSceneRoot" type="Node" unique_id=1225109462]
 
 [node name="MovingBackground" parent="." unique_id=1143113503 instance=ExtResource("3_ffxig")]
+sky_1 = SubResource("CompressedTexture2D_p0rto")
+
+[node name="MovingBackgroundScary" parent="." unique_id=445441696 instance=ExtResource("3_ffxig")]
+sky_1 = SubResource("CompressedTexture2D_p0rto")
 
 [node name="Player" parent="." unique_id=1000098902 node_paths=PackedStringArray("loss_root") instance=ExtResource("4_005tn")]
 position = Vector2(391, 807)

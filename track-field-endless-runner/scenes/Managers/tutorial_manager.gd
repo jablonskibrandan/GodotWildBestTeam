@@ -17,7 +17,7 @@ signal scary_transition
 var javelin: Sprite2D
 
 var moving_to_next_tutorial_step: bool = false
-var tutorial_step: int = 14
+var tutorial_step: int = 0
 var hurdle_pos: Vector2 = Vector2(0, 0)
 
 var player_stand_still: bool = false
@@ -123,12 +123,12 @@ func next_tutorial_step() -> void:
 			await get_tree().create_timer(3.0).timeout
 			dialogue_control._advance_dialogue()
 			await get_tree().create_timer(7.0).timeout
+			scary_transition.emit()
 			coach.transform()
 			player_stand_still = true
 			metronome.visible = false
 			await get_tree().create_timer(9.0).timeout
 			dialogue_control._advance_dialogue()
-			scary_transition.emit()
 			BackgroundSignalBus.scary_transition.emit()
 			
 	

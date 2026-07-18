@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://crl0aj1e5hhfw" path="res://scripts/moving_background.gd" id="1_le8c8"]
 [ext_resource type="Texture2D" uid="uid://88020rxmtu8w" path="res://Art/Background/Sky_1.png" id="1_wg1y6"]
-[ext_resource type="Texture2D" uid="uid://b1v86o0qkdlmt" path="res://Art/Background/Crowd.png" id="2_2238q"]
 [ext_resource type="Texture2D" uid="uid://dgfgwpq51fjlh" path="res://Art/Background/Sky_2.png" id="3_wyllg"]
 [ext_resource type="Texture2D" uid="uid://bk5jwc8ol2aal" path="res://Art/Background/Wall.png" id="3_x212h"]
 [ext_resource type="Texture2D" uid="uid://d0mu6x4l2r5bj" path="res://Art/Background/Sky_3.png" id="4_pvxaq"]
@@ -11,8 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://duugf5m6sf64j" path="res://Art/Background/GroundLayer_2.png" id="5_q1dtp"]
 [ext_resource type="Texture2D" uid="uid://dihcnua8asdkd" path="res://Art/Background/Sky_5.png" id="6_mp1mm"]
 [ext_resource type="Texture2D" uid="uid://duknpse45vvka" path="res://Art/Background/Sky_6.png" id="7_qnrom"]
-[ext_resource type="Texture2D" uid="uid://ct5eef5b5cb4h" path="res://Art/Background/ScaryAreaTransv2.png" id="8_0btu0"]
 [ext_resource type="AudioStream" uid="uid://bsvll00kf3fq3" path="res://audio/SFX-Glitch.mp3" id="13_wyllg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_klwqd"]
+load_path = "res://.godot/imported/ScaryAreaTransv2.png-187b08bbe375cb8839240ce05ac78e2d.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_le8c8"]
+load_path = "res://.godot/imported/Sky_1.png-0d9ee8b508af101a4bb0206651b77526.ctex"
 
 [sub_resource type="Animation" id="Animation_wyllg"]
 length = 0.001
@@ -73,7 +77,7 @@ sky_3 = ExtResource("4_pvxaq")
 sky_4 = ExtResource("5_b6p55")
 sky_5 = ExtResource("6_mp1mm")
 sky_6 = ExtResource("7_qnrom")
-scary_bg = ExtResource("8_0btu0")
+scary_bg = SubResource("CompressedTexture2D_klwqd")
 bg_sprite = NodePath("Background/Sprite2D")
 glitch_sound = NodePath("GlitchSound")
 
@@ -90,7 +94,7 @@ color = Color(0.28235295, 0.8352941, 0.8509804, 1)
 z_index = -50
 position = Vector2(960.00006, 540)
 scale = Vector2(4, 4)
-texture = ExtResource("1_wg1y6")
+texture = SubResource("CompressedTexture2D_le8c8")
 
 [node name="Crowd" type="Parallax2D" parent="." unique_id=1888509044]
 scroll_scale = Vector2(0, 0)
@@ -101,7 +105,6 @@ repeat_times = 20
 z_index = -40
 position = Vector2(960, 540)
 scale = Vector2(4, 4)
-texture = ExtResource("2_2238q")
 
 [node name="Wall" type="Parallax2D" parent="." unique_id=69776494]
 scroll_scale = Vector2(0.7, 0.7)
