@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bv1foharx1kdi" path="res://scenes/metronome/metronome.tscn" id="5_drltr"]
 [ext_resource type="Script" uid="uid://blk3utx2fup8q" path="res://scripts/screen_display_controllers/distance_label_root.gd" id="5_eamyy"]
 [ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="5_mxkxx"]
+[ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="5_vrg03"]
 [ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="6_ffxig"]
 [ext_resource type="Script" uid="uid://bcfx5bg0y3o47" path="res://scripts/screen_display_controllers/score_label_root.gd" id="7_8lwym"]
 [ext_resource type="Script" uid="uid://xej6audxk8ii" path="res://scripts/screen_display_controllers/time_to_beat_root.gd" id="8_drav3"]
@@ -64,6 +65,7 @@ metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Player/MonsterChase" unique_id=1452538196]
 position = Vector2(3, -55)
 mesh = SubResource("QuadMesh_f1tay")
+texture = ExtResource("5_vrg03")
 
 [node name="Metronome" parent="Player" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
 offset_left = -152.0
@@ -421,17 +423,6 @@ offset_top = 230.0
 offset_right = 1028.0
 offset_bottom = 230.0
 scale = Vector2(0.65, 0.65)
-
-[node name="LeftBar" type="ColorRect" parent="BoardInformation" unique_id=1010015919]
-offset_right = 240.0
-offset_bottom = 1080.0
-color = Color(0, 0, 0, 1)
-
-[node name="RightBar" type="ColorRect" parent="BoardInformation" unique_id=453384306]
-offset_left = 1680.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0, 0, 0, 1)
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 

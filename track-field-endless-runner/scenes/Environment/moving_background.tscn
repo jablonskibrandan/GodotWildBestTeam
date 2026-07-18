@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dihcnua8asdkd" path="res://Art/Background/Sky_5.png" id="6_mp1mm"]
 [ext_resource type="Texture2D" uid="uid://duknpse45vvka" path="res://Art/Background/Sky_6.png" id="7_qnrom"]
 [ext_resource type="Texture2D" uid="uid://ct5eef5b5cb4h" path="res://Art/Background/ScaryAreaTransv2.png" id="8_0btu0"]
+[ext_resource type="AudioStream" uid="uid://bsvll00kf3fq3" path="res://audio/SFX-Glitch.mp3" id="13_wyllg"]
 
 [sub_resource type="Animation" id="Animation_wyllg"]
 length = 0.001
@@ -30,7 +31,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_le8c8"]
 resource_name = "scary_transition"
-length = 1.5
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -43,6 +44,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 2, 3, 4, 4, 4, 2, 3, 4, 3, 3, 3, 2, 3, 4, 5, 4, 5, 5, 6, 7, 7, 8, 7, 8, 9, 10, 11, 12, 10, 11, 11, 12, 13, 11, 11, 12, 13, 13, 13, 13, 13]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_bg_colour"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wyllg"]
 _data = {
@@ -50,7 +65,7 @@ _data = {
 &"scary_transition": SubResource("Animation_le8c8")
 }
 
-[node name="MovingBackground" type="Node2D" unique_id=1143113503 node_paths=PackedStringArray("bg_sprite")]
+[node name="MovingBackground" type="Node2D" unique_id=1143113503 node_paths=PackedStringArray("bg_sprite", "glitch_sound")]
 script = ExtResource("1_le8c8")
 sky_1 = ExtResource("1_wg1y6")
 sky_2 = ExtResource("3_wyllg")
@@ -60,6 +75,7 @@ sky_5 = ExtResource("6_mp1mm")
 sky_6 = ExtResource("7_qnrom")
 scary_bg = ExtResource("8_0btu0")
 bg_sprite = NodePath("Background/Sprite2D")
+glitch_sound = NodePath("GlitchSound")
 
 [node name="Background" type="Parallax2D" parent="." unique_id=2080749362]
 scroll_scale = Vector2(0, 0)
@@ -67,7 +83,7 @@ scroll_scale = Vector2(0, 0)
 [node name="ColorRect" type="ColorRect" parent="Background" unique_id=1937741583]
 z_index = -51
 offset_right = 1920.0
-offset_bottom = 436.0
+offset_bottom = 1080.0
 color = Color(0.28235295, 0.8352941, 0.8509804, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=732812461]
@@ -116,3 +132,6 @@ texture = ExtResource("5_q1dtp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1867222893]
 libraries/ = SubResource("AnimationLibrary_wyllg")
+
+[node name="GlitchSound" type="AudioStreamPlayer" parent="." unique_id=383075352]
+stream = ExtResource("13_wyllg")

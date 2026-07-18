@@ -64,7 +64,7 @@ offset_bottom = 311.0
 dialogue_lines = Array[String](["So, you made it to the big stage!", "What's that? You have never ran before in your life?", "Ok, I'll try to make this brief.", "You want to press the A key when the red line is inside the white box on the left side.", "And then you want to press the D key when the red line is inside the white box on the right side", "It's just like walking, but... faster!", "Ok, try to get up to speed, but be careful not to mistime your steps!", "The space bar does a lot of the heavy lifting. Press it to jump over the hurdle!", "Good job! Or... not. I don't know, you're behind me so I can't see if you cleared that hurdle.", "You can also throw a javelin with the space bar!", "Try to aim at the perfect 45 degree angle as close as you can to the throw line.", "Good job! I think?", "Oh, also every now and then you'll be presented with an offer on the screen.", "You should always push yourself and take the offer that challenges you!", "You're doing great! My job here is done. You will become the greates"])
 dialogue_text = NodePath("../CanvasLayer/TutorialText")
 
-[node name="TutorialManager" type="Node" parent="." unique_id=1233945859 node_paths=PackedStringArray("dialogue_control", "player", "coach", "metronome", "sports_objects_root", "javelin_sound")]
+[node name="TutorialManager" type="Node" parent="." unique_id=1233945859 node_paths=PackedStringArray("dialogue_control", "player", "coach", "metronome", "sports_objects_root", "javelin_sound", "left_bar", "right_bar")]
 script = ExtResource("7_gbqnl")
 dialogue_control = NodePath("../DialogueBoxControl")
 player = NodePath("../Player")
@@ -74,6 +74,8 @@ hurdle_template = ExtResource("8_ckvwl")
 sports_objects_root = NodePath("../SportsObjectsRoot")
 javelin_template = ExtResource("9_nlqja")
 javelin_sound = NodePath("../JavelinSound")
+left_bar = NodePath("../CanvasLayer/LeftBar")
+right_bar = NodePath("../CanvasLayer/RightBar")
 
 [node name="SportsObjectsRoot" type="Node2D" parent="." unique_id=1854356989]
 z_index = -5

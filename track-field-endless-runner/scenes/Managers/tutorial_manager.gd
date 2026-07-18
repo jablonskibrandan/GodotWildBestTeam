@@ -8,6 +8,8 @@ extends Node
 @export var sports_objects_root: Node2D
 @export var javelin_template: PackedScene
 @export var javelin_sound: AudioStreamPlayer
+@export var left_bar: ColorRect
+@export var right_bar: ColorRect
 
 var javelin: Sprite2D
 
@@ -15,8 +17,11 @@ var moving_to_next_tutorial_step: bool = false
 var tutorial_step: int = 0
 var hurdle_pos: Vector2 = Vector2(0, 0)
 
+var player_stand_still: bool = false
+
 func _ready() -> void:
 	player.speed = 0
+	BackgroundSignalBus.expand_screen.connect(_on_expand_screen)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -37,7 +42,9 @@ func _process(_delta: float) -> void:
 	if tutorial_step == 11 and Input.is_action_just_pressed("action"):
 		throw_javelin()
 		moving_to_next_tutorial_step = false
-		
+	
+	if player_stand_still == true:
+		player.speed = 0
 
 func next_tutorial_step() -> void:
 	match tutorial_step:
@@ -112,7 +119,13 @@ func next_tutorial_step() -> void:
 		15:
 			await get_tree().create_timer(3.0).timeout
 			dialogue_control._advance_dialogue()
-			coach
+			await get_tree().create_timer(7.0).timeout
+			coach.transform()
+			player_stand_still = true
+			metronome.visible = false
+			await get_tree().create_timer(9.0).timeout
+			dialogue_control._advance_dialogue()
+			BackgroundSignalBus.scary_transition.emit()
 			
 	
 func throw_javelin() -> void:
@@ -125,3 +138,11 @@ func throw_javelin() -> void:
 	tween.tween_property(javelin, "position", end_position, 3.0)
 	player.is_holding_javelin = false
 	javelin_sound.play()
+
+func _on_expand_screen() -> void:
+	var tween = create_tween()
+	tween.tween_property(left_bar, "position", left_bar.position - Vector2(300, 0), 3.0)
+	tween.set_parallel()
+	var tween2 = create_tween()
+	tween.tween_property(right_bar, "position", right_bar.position + Vector2(300, 0), 3.0)
+	tween2.set_parallel()

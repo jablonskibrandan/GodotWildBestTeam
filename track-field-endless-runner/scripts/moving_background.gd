@@ -10,6 +10,7 @@ extends Node2D
 @export var scary_bg: Texture
 @export_category("Reference Nodes")
 @export var bg_sprite: Sprite2D
+@export var glitch_sound: AudioStreamPlayer
 
 var bg_no: int = 0
 var bg_list: Array
@@ -51,4 +52,15 @@ func _on_next_bg() -> void:
 	bg_no = bg_no + 1
 
 func _on_scary_transition() -> void:
-	pass
+	$Crowd/Sprite2D.visible = false
+	$Wall/Sprite2D.visible = false
+	$Ground/Sprite2D.visible = false
+	$Ground/Sprite2D2.visible = false
+	$Background/Sprite2D.texture = scary_bg
+	$Background/Sprite2D.hframes = 14
+	$AnimationPlayer.play("scary_transition")
+	glitch_sound.play()
+	BackgroundSignalBus.expand_screen.emit()
+
+func change_bg_colour() -> void:
+	$Background/ColorRect.color = Color(0.616, 0.137, 0.267, 1.0)

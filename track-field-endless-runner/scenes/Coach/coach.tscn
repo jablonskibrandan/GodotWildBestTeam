@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dse4bixml0f63" path="res://scripts/coach.gd" id="1_44mam"]
 [ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="1_a2puj"]
+[ext_resource type="AudioStream" uid="uid://ckpeln5scd7xr" path="res://audio/SFX-TripOver.mp3" id="3_fpn72"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(35, 116)
@@ -23,7 +24,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_44mam"]
 resource_name = "run"
-length = 1.5999999999999999
+length = 1.6
 loop_mode = 1
 step = 0.2
 tracks/0/type = "value"
@@ -39,10 +40,45 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_j40hy"]
+resource_name = "transformation"
+length = 5.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8000001, 2, 2.2, 2.4, 2.6000001, 2.8, 3, 3.2, 3.4, 3.6000001, 3.8, 4, 4.2000003, 4.4, 4.6, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_trip_sound"
+}, {
+"args": [],
+"method": &"run_away"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fpn72"]
 _data = {
 &"RESET": SubResource("Animation_a2puj"),
-&"run": SubResource("Animation_44mam")
+&"run": SubResource("Animation_44mam"),
+&"transformation": SubResource("Animation_j40hy")
 }
 
 [node name="Coach" type="CharacterBody2D" unique_id=941289700]
@@ -62,3 +98,6 @@ shape = SubResource("RectangleShape2D_g4v7s")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2022356464]
 libraries/ = SubResource("AnimationLibrary_fpn72")
 autoplay = &"run"
+
+[node name="Fall" type="AudioStreamPlayer" parent="." unique_id=2141701051]
+stream = ExtResource("3_fpn72")
