@@ -160,6 +160,19 @@ func _start_game() -> void:
 		start_button.disabled = false
 		quit_button.disabled = false
 		return
+	
+	if GameData.has_witnessed_the_horrors and scary_menu_music_first_play.playing:
+		GameData.music_playback_position = (
+			scary_menu_music_first_play.get_playback_position()
+		)
+		GameData.scary_music_non_loop_playing = true
+		GameData.should_resume_music = true
+	elif GameData.has_witnessed_the_horrors and scary_menu_music_looping:
+		GameData.music_playback_position = (
+			scary_menu_music_first_play.get_playback_position()
+		)
+		GameData.scary_music_loop_playing = true
+		GameData.should_resume_music = true
 
 	get_tree().change_scene_to_file(game_scene_path)
 

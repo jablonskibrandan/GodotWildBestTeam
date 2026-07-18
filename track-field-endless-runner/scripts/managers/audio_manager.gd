@@ -22,6 +22,8 @@ func _ready() -> void:
 	
 	if GameData.has_witnessed_the_horrors: 
 		scary_non_loop.play()
+	else: 
+		normal_running_audio.play()
 
 func play_scary_loop() -> void:
 	scary_loop.play()

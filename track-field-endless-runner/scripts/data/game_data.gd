@@ -28,6 +28,13 @@ var added_javelin_distance_goal: float = 0.0
 var event_distance_min: float = 100.0
 var event_distance_max: float = 300.0
 
+# This is just a little hack/workaround. Don't try this at home,
+# kids! 
+var music_playback_position: float = 0.0
+var should_resume_music: bool = false
+var scary_music_non_loop_playing: bool = false
+var scary_music_loop_playing: bool = false 
+
 # Change this if we want the exponential speed to be
 # harsher or mor subtle
 
@@ -35,4 +42,4 @@ var player_speed_retention_per_second: float = 0.98
 
 var loss_amount: int = 0
 
-var has_witnessed_the_horrors: bool = true
+var has_witnessed_the_horrors: bool = false

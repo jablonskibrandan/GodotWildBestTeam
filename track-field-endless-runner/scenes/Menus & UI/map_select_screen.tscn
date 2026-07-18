@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="5_niad1"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="6_kmv3j"]
 [ext_resource type="AudioStream" uid="uid://r5klf8de0aai" path="res://audio/BGM-CountrySelect.wav" id="7_05wjk"]
+[ext_resource type="AudioStream" uid="uid://38i7hmmy53bo" path="res://audio/BGM-Scary-Title-First-Play.wav" id="8_ynh13"]
+[ext_resource type="Script" uid="uid://dtprf3ougo04w" path="res://scripts/managers/music_manager_menu.gd" id="9_o566y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l6ilu"]
 size = Vector2(20.624146, 22.687763)
@@ -215,6 +217,16 @@ stream = ExtResource("5_niad1")
 [node name="Confirm" type="AudioStreamPlayer" parent="." unique_id=1775282662]
 stream = ExtResource("6_kmv3j")
 
-[node name="Music" type="AudioStreamPlayer" parent="." unique_id=448539247]
+[node name="NormalMusic" type="AudioStreamPlayer" parent="." unique_id=448539247]
 stream = ExtResource("7_05wjk")
-autoplay = true
+
+[node name="ScaryMusicFirst" type="AudioStreamPlayer" parent="." unique_id=5071716]
+stream = ExtResource("8_ynh13")
+
+[node name="ScaryMusicLoop" type="AudioStreamPlayer" parent="." unique_id=679428127]
+
+[node name="MusicManager" type="Node" parent="." unique_id=62739393 node_paths=PackedStringArray("normal_music", "scary_music_first", "scary_music_loop")]
+script = ExtResource("9_o566y")
+normal_music = NodePath("../NormalMusic")
+scary_music_first = NodePath("../ScaryMusicFirst")
+scary_music_loop = NodePath("../ScaryMusicLoop")

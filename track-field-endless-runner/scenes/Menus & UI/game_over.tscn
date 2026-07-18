@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://vgrcpuk8xnlr"]
+
+[ext_resource type="Script" uid="uid://3yit3xqnstvn" path="res://scripts/data/game_over_control.gd" id="1_ate7d"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_c2xpg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_177wn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="GameOver" type="Control" unique_id=1382108090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ate7d")
+
+[node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=366564724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=61981948]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_177wn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1305021619]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1117612001]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_c2xpg")
+theme_override_font_sizes/font_size = 60
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1532316697]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_c2xpg")
+theme_override_font_sizes/font_size = 32
+text = "FINAL SCORE:"
+
+[node name="ResetLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=19259492]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_c2xpg")
+theme_override_font_sizes/font_size = 32
+text = "PRESS R TO GO TO MAIN MENU"

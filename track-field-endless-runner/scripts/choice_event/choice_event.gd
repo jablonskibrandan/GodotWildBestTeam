@@ -4,7 +4,7 @@ extends Control
 
 signal choice_finished(selected_option: ChoiceOptionData, timed_out: bool)
 
-
+@export var game_state_manager: GameStateManager
 @export_category("Timer")
 @export_range(0.5, 30.0, 0.5)
 var decision_time: float = 5.0
@@ -21,11 +21,6 @@ var decision_time: float = 5.0
 @onready var option_b_label: Label = (
 	$CenterContainer/PanelContainer/VBoxContainer/CostLabel
 )
-
-@onready var time_bar: TextureProgressBar = (
-	$CenterContainer/PanelContainer/VBoxContainer/TimeBar
-)
-
 
 var choice_data: ChoiceEventData
 
@@ -78,21 +73,16 @@ func _populate_choice_data() -> void:
 func _reset_timer() -> void:
 	remaining_time = decision_time
 
-	time_bar.min_value = 0.0
-	time_bar.max_value = decision_time
-	time_bar.value = decision_time
-
 
 func _process(delta: float) -> void:
-	if resolved:
-		return
+	if not game_state_manager.game_over:
+		if resolved:
+			return
 
-	remaining_time = maxf(remaining_time - delta, 0.0)
+		remaining_time = maxf(remaining_time - delta, 0.0)
 
-	time_bar.value = remaining_time
-
-	if remaining_time <= 0.0:
-		_resolve_choice(null, true)
+		if remaining_time <= 0.0:
+			_resolve_choice(null, true)
 
 
 func _input(event: InputEvent) -> void:

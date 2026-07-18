@@ -8,6 +8,8 @@ enum HazardType {
 }
 
 @export var associated_sprite: Sprite2D
+@export var normal_sprite: Texture2D
+@export var horror_sprite: Texture2D
 
 @export var set_hazard_type: HazardType = HazardType.MUD
 
@@ -15,6 +17,11 @@ var hurdle_triggered: bool = false
 
 
 func _ready() -> void:
+	if GameData.has_witnessed_the_horrors:
+		associated_sprite.texture = horror_sprite
+	else:
+		associated_sprite.texture = normal_sprite
+		
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 

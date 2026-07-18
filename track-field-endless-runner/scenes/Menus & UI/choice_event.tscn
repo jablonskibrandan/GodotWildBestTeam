@@ -64,6 +64,9 @@ theme_override_fonts/font = ExtResource("2_48xbu")
 theme_override_font_sizes/font_size = 32
 text = "[Q / LEFT] OPTION 1               [E / RIGHT] OPTION 2"
 
-[node name="TimeBar" type="TextureProgressBar" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1093151762]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1618695374]
 layout_mode = 2
-max_value = 5.0
+theme_override_fonts/font = ExtResource("1_6v321")
+theme_override_font_sizes/font_size = 32
+text = "Time Left For Choice:"
+horizontal_alignment = 1

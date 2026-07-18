@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bcfx5bg0y3o47" path="res://scripts/screen_display_controllers/score_label_root.gd" id="7_8lwym"]
 [ext_resource type="Script" uid="uid://xej6audxk8ii" path="res://scripts/screen_display_controllers/time_to_beat_root.gd" id="8_drav3"]
 [ext_resource type="Script" uid="uid://b14sdww2s0h8s" path="res://scripts/screen_display_controllers/mult_label_root.gd" id="8_rhprt"]
+[ext_resource type="PackedScene" uid="uid://vgrcpuk8xnlr" path="res://scenes/Menus & UI/game_over.tscn" id="9_lo852"]
 [ext_resource type="Script" uid="uid://c2c1gj4u1c11y" path="res://scripts/screen_display_controllers/event_name_label.gd" id="9_mb8ng"]
 [ext_resource type="Script" uid="uid://dt6t3vqptkltk" path="res://scripts/screen_display_controllers/player_time_root.gd" id="9_mxkxx"]
 [ext_resource type="Script" uid="uid://d2h3kirebr84k" path="res://scripts/screen_display_controllers/countdown_root.gd" id="10_eamyy"]
@@ -35,7 +36,8 @@
 [ext_resource type="AudioStream" uid="uid://bbm6muuxajc1t" path="res://audio/BGM-Chase-First-Play(With Intro).wav" id="32_h54hi"]
 [ext_resource type="Script" uid="uid://65y6p1yndm0u" path="res://scripts/managers/audio_manager.gd" id="32_pwu3e"]
 [ext_resource type="AudioStream" uid="uid://2gprw6erjxlj" path="res://audio/BGM-Chase-Loop(No Intro).wav" id="33_pwu3e"]
-[ext_resource type="AudioStream" uid="uid://c0wt0qqb7n4ob" path="res://audio/BGM-Tutorial.mp3" id="35_q74pt"]
+[ext_resource type="Script" uid="uid://cx6avkymv5xqe" path="res://scripts/managers/game_state_manager.gd" id="35_p0rto"]
+[ext_resource type="AudioStream" uid="uid://c6juy44dcofsu" path="res://audio/BGM-Tutorial.wav" id="38_lo852"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_f1tay"]
 size = Vector2(80, 120)
@@ -162,6 +164,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 node_paths=PackedStringArray("controls_to_hide") instance=ExtResource("9_lo852")]
+layout_mode = 1
+offset_left = 1060.0
+offset_top = 246.0
+offset_right = 1060.0
+offset_bottom = 246.0
+controls_to_hide = [NodePath("../EventNameLabelRoot"), NodePath("../EventDetailsRoot"), NodePath("../EventResultsRoot"), NodePath("../CountdownRoot"), NodePath("../LossRoot"), NodePath("../ChoiceEvent")]
 
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
 visible = false
@@ -384,13 +394,14 @@ theme_override_font_sizes/normal_font_size = 80
 fit_content = true
 autowrap_mode = 0
 
-[node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("12_g5sb1")]
+[node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1194459220 node_paths=PackedStringArray("game_state_manager") instance=ExtResource("12_g5sb1")]
 layout_mode = 1
 offset_left = 1101.0
 offset_top = 262.0
 offset_right = 1101.0
 offset_bottom = 262.0
 scale = Vector2(0.65, 0.65)
+game_state_manager = NodePath("../../../Managers/GameStateManager")
 
 [node name="Metronome" parent="BoardInformation" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
 offset_left = 752.0
@@ -478,6 +489,10 @@ normal_running_audio = NodePath("../../NormalMusic")
 scary_non_loop = NodePath("../../ScaryChaseNonLoop")
 scary_loop = NodePath("../../ScaryChaseLoop")
 
+[node name="GameStateManager" type="Node" parent="Managers" unique_id=850702977 node_paths=PackedStringArray("game_over_control")]
+script = ExtResource("35_p0rto")
+game_over_control = NodePath("../../BoardInformation/MainRoot/GameOver")
+
 [node name="SportEventObjects" type="Node2D" parent="." unique_id=1583300638]
 
 [node name="ScaryChaseNonLoop" type="AudioStreamPlayer" parent="." unique_id=70691364]
@@ -487,7 +502,7 @@ stream = ExtResource("32_h54hi")
 stream = ExtResource("33_pwu3e")
 
 [node name="NormalMusic" type="AudioStreamPlayer" parent="." unique_id=1477524398]
-stream = ExtResource("35_q74pt")
+stream = ExtResource("38_lo852")
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]
