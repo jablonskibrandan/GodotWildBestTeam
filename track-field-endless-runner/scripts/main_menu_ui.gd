@@ -1,6 +1,6 @@
 extends Control
 
-@export_file("*.tscn") var game_scene_path: String
+@export_file("*.tscn") var country_select_scene_path: String
 
 @export var start_button: Button
 @export var quit_button: Button
@@ -154,13 +154,14 @@ func _on_quit_button_pressed() -> void:
 
 
 func _start_game() -> void:
-	if game_scene_path.is_empty():
+	if country_select_scene_path.is_empty():
 		push_error("No game scene path assigned on main_menu.")
 
 		start_button.disabled = false
 		quit_button.disabled = false
 		return
 	
+		
 	if GameData.has_witnessed_the_horrors and scary_menu_music_first_play.playing:
 		GameData.music_playback_position = (
 			scary_menu_music_first_play.get_playback_position()
@@ -174,7 +175,9 @@ func _start_game() -> void:
 		GameData.scary_music_loop_playing = true
 		GameData.should_resume_music = true
 
-	get_tree().change_scene_to_file(game_scene_path)
+
+	get_tree().change_scene_to_file(country_select_scene_path)
+
 
 
 func _quit_game() -> void:

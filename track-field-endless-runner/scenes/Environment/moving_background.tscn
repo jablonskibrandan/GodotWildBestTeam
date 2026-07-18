@@ -1,28 +1,105 @@
 [gd_scene format=3 uid="uid://ogn1gr02ei7q"]
 
+[ext_resource type="Script" uid="uid://crl0aj1e5hhfw" path="res://scripts/moving_background.gd" id="1_le8c8"]
 [ext_resource type="Texture2D" uid="uid://88020rxmtu8w" path="res://Art/Background/Sky_1.png" id="1_wg1y6"]
 [ext_resource type="Texture2D" uid="uid://b1v86o0qkdlmt" path="res://Art/Background/Crowd.png" id="2_2238q"]
+[ext_resource type="Texture2D" uid="uid://dgfgwpq51fjlh" path="res://Art/Background/Sky_2.png" id="3_wyllg"]
 [ext_resource type="Texture2D" uid="uid://bk5jwc8ol2aal" path="res://Art/Background/Wall.png" id="3_x212h"]
+[ext_resource type="Texture2D" uid="uid://d0mu6x4l2r5bj" path="res://Art/Background/Sky_3.png" id="4_pvxaq"]
 [ext_resource type="Texture2D" uid="uid://cw8b1xl564s8b" path="res://Art/Background/GroundLayer_1.png" id="4_sia23"]
+[ext_resource type="Texture2D" uid="uid://ijsnqcl7yndw" path="res://Art/Background/Sky_4.png" id="5_b6p55"]
 [ext_resource type="Texture2D" uid="uid://duugf5m6sf64j" path="res://Art/Background/GroundLayer_2.png" id="5_q1dtp"]
+[ext_resource type="Texture2D" uid="uid://dihcnua8asdkd" path="res://Art/Background/Sky_5.png" id="6_mp1mm"]
+[ext_resource type="Texture2D" uid="uid://duknpse45vvka" path="res://Art/Background/Sky_6.png" id="7_qnrom"]
+[ext_resource type="Texture2D" uid="uid://ct5eef5b5cb4h" path="res://Art/Background/ScaryAreaTransv2.png" id="8_0btu0"]
+[ext_resource type="AudioStream" uid="uid://bsvll00kf3fq3" path="res://audio/SFX-Glitch.mp3" id="13_wyllg"]
 
-[node name="MovingBackground" type="Node2D" unique_id=1143113503]
+[sub_resource type="Animation" id="Animation_wyllg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_le8c8"]
+resource_name = "scary_transition"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336, 0.5666667, 0.6, 0.6333334, 0.6666667, 0.70000005, 0.73333335, 0.7666667, 0.8000001, 0.8333334, 0.86666673, 0.90000004, 0.9333334, 0.9666667, 1, 1.0333334, 1.0666667, 1.1, 1.1333334, 1.1666667, 1.2, 1.2333333, 1.2666668, 1.3000001, 1.3333334, 1.3666668, 1.4000001, 1.4333334, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 3, 4, 4, 4, 2, 3, 4, 3, 3, 3, 2, 3, 4, 5, 4, 5, 5, 6, 7, 7, 8, 7, 8, 9, 10, 11, 12, 10, 11, 11, 12, 13, 11, 11, 12, 13, 13, 13, 13, 13]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_bg_colour"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wyllg"]
+_data = {
+&"RESET": SubResource("Animation_wyllg"),
+&"scary_transition": SubResource("Animation_le8c8")
+}
+
+[node name="MovingBackground" type="Node2D" unique_id=1143113503 node_paths=PackedStringArray("bg_sprite", "glitch_sound")]
+script = ExtResource("1_le8c8")
+sky_1 = ExtResource("1_wg1y6")
+sky_2 = ExtResource("3_wyllg")
+sky_3 = ExtResource("4_pvxaq")
+sky_4 = ExtResource("5_b6p55")
+sky_5 = ExtResource("6_mp1mm")
+sky_6 = ExtResource("7_qnrom")
+scary_bg = ExtResource("8_0btu0")
+bg_sprite = NodePath("Background/Sprite2D")
+glitch_sound = NodePath("GlitchSound")
 
 [node name="Background" type="Parallax2D" parent="." unique_id=2080749362]
 scroll_scale = Vector2(0, 0)
 
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1937741583]
+z_index = -51
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.28235295, 0.8352941, 0.8509804, 1)
+
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=732812461]
+z_index = -50
 position = Vector2(960.00006, 540)
-scale = Vector2(5.333334, 4.0000005)
+scale = Vector2(4, 4)
 texture = ExtResource("1_wg1y6")
 
 [node name="Crowd" type="Parallax2D" parent="." unique_id=1888509044]
-scroll_scale = Vector2(0.3, 0.3)
+scroll_scale = Vector2(0, 0)
 repeat_size = Vector2(360, 0)
 repeat_times = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="Crowd" unique_id=133576973]
-position = Vector2(215, 843)
+z_index = -40
+position = Vector2(960, 540)
 scale = Vector2(4, 4)
 texture = ExtResource("2_2238q")
 
@@ -32,7 +109,8 @@ repeat_size = Vector2(360, 0)
 repeat_times = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=715512574]
-position = Vector2(554, 843)
+z_index = -30
+position = Vector2(960, 540)
 scale = Vector2(4, 4)
 texture = ExtResource("3_x212h")
 
@@ -41,9 +119,19 @@ repeat_size = Vector2(720, 0)
 repeat_times = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground" unique_id=768684353]
-position = Vector2(180, 945)
+z_index = -20
+position = Vector2(960, 540)
+scale = Vector2(4, 4)
 texture = ExtResource("4_sia23")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Ground" unique_id=1768290472]
-position = Vector2(540, 945)
+z_index = -20
+position = Vector2(960, 540)
+scale = Vector2(4, 4)
 texture = ExtResource("5_q1dtp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1867222893]
+libraries/ = SubResource("AnimationLibrary_wyllg")
+
+[node name="GlitchSound" type="AudioStreamPlayer" parent="." unique_id=383075352]
+stream = ExtResource("13_wyllg")

@@ -30,6 +30,10 @@ signal monster_game_over
 @export var maximum_loss: int = 3
 @export var recovery_speed_after_hit: float = 10.0
 
+@export_category("UI")
+@export var loss_root: Control
+
+
 var selected_sprite: Texture
 
 var speed: float = 10.0
@@ -134,6 +138,7 @@ func _physics_process(delta: float) -> void:
 	)
 	
 	velocity.x = final_speed
+	GameData.player_current_speed = final_speed
 	move_and_slide()
 
 
@@ -216,6 +221,7 @@ func _on_audio_stream_player_finished() -> void:
 		
 func take_monster_hit() -> void:
 	GameData.loss_amount += 1
+	loss_root.add_loss()
 
 	print(
 		"Monster hit! Loss amount: ",

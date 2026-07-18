@@ -9,7 +9,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
 gradient = SubResource("Gradient_f3s2k")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
-size = Vector2(101.88448, 102.74668)
+size = Vector2(101.88448, 332.1356)
 
 [node name="FinishLine" type="Area2D" unique_id=1972083757]
 position = Vector2(-1.7881393e-07, -10)
@@ -18,13 +18,14 @@ scale = Vector2(0.070630506, 0.3138662)
 script = ExtResource("1_6tsjx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=877183214]
-position = Vector2(-11.7530985, -27.279707)
-scale = Vector2(1.7856556, 1.6469578)
+position = Vector2(-11.7530985, -143.0603)
+scale = Vector2(1.7856556, 5.2651014)
 texture = SubResource("GradientTexture2D_yf5fn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655686654]
-position = Vector2(-11.753113, -27.27971)
-scale = Vector2(0.9999998, 1)
+z_index = -10
+position = Vector2(-11.753128, -141.97417)
+scale = Vector2(0.99999976, 1)
 shape = SubResource("RectangleShape2D_57qmd")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

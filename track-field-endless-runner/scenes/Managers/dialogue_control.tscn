@@ -17,6 +17,7 @@ type_timer = NodePath("TypeTimer")
 character_delay = 0.07500000000000001
 
 [node name="Panel" type="Panel" parent="." unique_id=197366418]
+visible = false
 layout_mode = 0
 offset_left = -11.0
 offset_top = -152.00002
@@ -32,6 +33,7 @@ offset_bottom = -93.0
 theme_override_fonts/normal_font = ExtResource("2_s1got")
 
 [node name="ContinueIndicator" type="Label" parent="." unique_id=2019460174]
+visible = false
 layout_mode = 0
 offset_left = -1.0
 offset_top = 49.0

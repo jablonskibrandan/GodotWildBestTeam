@@ -62,7 +62,7 @@ func _ready() -> void:
 	type_timer.one_shot = true
 	type_timer.timeout.connect(_on_type_timer_timeout)
 
-	continue_indicator.hide()
+	#continue_indicator.hide()
 
 	if start_automatically:
 		call_deferred("_start_dialogue")
@@ -110,7 +110,7 @@ func _start_dialogue() -> void:
 	_current_page_text = ""
 
 	show()
-	continue_indicator.hide()
+	#continue_indicator.hide()
 
 	# Temporarily hide the text while Godot measures each entry.
 	dialogue_text.modulate.a = 0.0
@@ -218,7 +218,7 @@ func _create_pages(source_text: String) -> Array[String]:
 
 func _show_next_page() -> void:
 	type_timer.stop()
-	continue_indicator.hide()
+	#continue_indicator.hide()
 
 	_current_page_index += 1
 
@@ -285,7 +285,7 @@ func _finish_typing_page() -> void:
 	dialogue_text.visible_characters = -1
 
 	_is_typing = false
-	continue_indicator.show()
+	#continue_indicator.show()
 
 
 func _advance_dialogue() -> void:
@@ -311,7 +311,7 @@ func _end_dialogue() -> void:
 	_current_page_index = -1
 	_current_page_text = ""
 
-	continue_indicator.hide()
+	#continue_indicator.hide()
 
 	dialogue_text.text = ""
 	dialogue_text.visible_characters = -1
@@ -325,9 +325,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not _is_active:
 		return
 
-	if event.is_action_pressed(advance_action):
-		_advance_dialogue()
-		get_viewport().set_input_as_handled()
+	#if event.is_action_pressed(advance_action):
+		#_advance_dialogue()
+		#get_viewport().set_input_as_handled()
 
 
 func _is_whitespace(character: String) -> bool:

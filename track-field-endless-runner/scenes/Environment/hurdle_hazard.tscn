@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jx683i82myfj" path="res://Art/Hurdles/HurdleEvil.png" id="4_bb0aj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p50ha"]
-size = Vector2(34.59641, 46.44889)
+size = Vector2(40.49955, 79.69457)
 
 [node name="HurdleHazard" type="Node2D" unique_id=598129723]
 script = ExtResource("1_jc7kh")
@@ -21,11 +21,12 @@ horror_sprite = ExtResource("4_bb0aj")
 set_hazard_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1841664286]
-position = Vector2(6.5820427, -45.760338)
+z_index = -5
+position = Vector2(1, -77.38017)
 scale = Vector2(1.0164086, 1.9479332)
 shape = SubResource("RectangleShape2D_p50ha")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2109677335]
-position = Vector2(0, -51)
-scale = Vector2(3.1956522, 2.3809524)
+position = Vector2(-1, -84)
+scale = Vector2(4, 4)
 texture = ExtResource("2_8gmba")

@@ -7,6 +7,20 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_177wn"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="Gradient" id="Gradient_d8pe4"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0onm7"]
+gradient = SubResource("Gradient_d8pe4")
+width = 1728
+
+[sub_resource type="Gradient" id="Gradient_axreh"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lo852"]
+gradient = SubResource("Gradient_axreh")
+width = 1728
+
 [node name="ChoiceEvent" type="Control" unique_id=1382108090]
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_48xbu")
-decision_time = 15.0
+decision_time = 7.0
 
 [node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
 visible = false
@@ -66,7 +80,7 @@ text = "[Q / LEFT] OPTION 1               [E / RIGHT] OPTION 2"
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1618695374]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_6v321")
-theme_override_font_sizes/font_size = 32
-text = "Time Left For Choice:"
-horizontal_alignment = 1
+max_value = 5.0
+value = 2.0
+texture_under = SubResource("GradientTexture2D_0onm7")
+texture_progress = SubResource("GradientTexture2D_lo852")

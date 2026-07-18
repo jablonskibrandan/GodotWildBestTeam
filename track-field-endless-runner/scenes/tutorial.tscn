@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://c1elvb08mggwx"]
+
+[ext_resource type="PackedScene" uid="uid://ogn1gr02ei7q" path="res://scenes/Environment/moving_background.tscn" id="1_ph3nu"]
+[ext_resource type="PackedScene" uid="uid://2rgc2w1k3l8w" path="res://scenes/Coach/coach.tscn" id="2_4kmhl"]
+[ext_resource type="PackedScene" uid="uid://xggxujki5vbo" path="res://scenes/Player/player.tscn" id="3_cq4me"]
+[ext_resource type="PackedScene" uid="uid://bv1foharx1kdi" path="res://scenes/metronome/metronome.tscn" id="4_4kmhl"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="5_6yjpi"]
+[ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/Managers/dialogue_control.tscn" id="5_cq4me"]
+[ext_resource type="Script" uid="uid://djn6hhy72ywoh" path="res://scenes/Managers/tutorial_manager.gd" id="7_gbqnl"]
+[ext_resource type="PackedScene" uid="uid://n7n6siieujtg" path="res://scenes/Environment/hurdle_hazard.tscn" id="8_ckvwl"]
+[ext_resource type="PackedScene" uid="uid://3morx4713qvr" path="res://scenes/Player/javelin.tscn" id="9_nlqja"]
+[ext_resource type="AudioStream" uid="uid://bxj127lebih2t" path="res://audio/SFX-Javelin.mp3" id="10_0epgs"]
+[ext_resource type="AudioStream" uid="uid://c6juy44dcofsu" path="res://audio/BGM-Tutorial.wav" id="11_ej4tf"]
+[ext_resource type="AudioStream" uid="uid://dqpvlaw7xa6kh" path="res://audio/creepy-static.mp3" id="12_0hilk"]
+[ext_resource type="Script" uid="uid://bg228xjssf1ij" path="res://scripts/managers/scary_transition_manager.gd" id="13_wr8iv"]
+
+[node name="Tutorial" type="Node" unique_id=800477096]
+
+[node name="MovingBackground" parent="." unique_id=1143113503 instance=ExtResource("1_ph3nu")]
+
+[node name="Coach" parent="." unique_id=941289700 instance=ExtResource("2_4kmhl")]
+position = Vector2(722, 1000)
+
+[node name="Player" parent="." unique_id=1000098902 instance=ExtResource("3_cq4me")]
+position = Vector2(391, 807)
+
+[node name="Metronome" parent="Player" unique_id=765399198 instance=ExtResource("4_4kmhl")]
+visible = false
+offset_left = -92.0
+offset_top = 36.0
+offset_right = 108.0
+offset_bottom = 76.0
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=929916095]
+limit_left = 0
+limit_bottom = 1080
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2024783605]
+
+[node name="LeftBar" type="ColorRect" parent="CanvasLayer" unique_id=1238853626]
+offset_right = 272.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="RightBar" type="ColorRect" parent="CanvasLayer" unique_id=632643156]
+offset_left = 1640.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="TutorialText" type="RichTextLabel" parent="CanvasLayer" unique_id=1026824965]
+offset_left = 632.0
+offset_top = 159.0
+offset_right = 1589.0
+offset_bottom = 390.0
+theme_override_fonts/normal_font = ExtResource("5_6yjpi")
+theme_override_font_sizes/normal_font_size = 32
+text = "This is a test message"
+fit_content = true
+
+[node name="DialogueBoxControl" parent="." unique_id=83453529 node_paths=PackedStringArray("dialogue_text") instance=ExtResource("5_cq4me")]
+visible = false
+offset_left = 749.0
+offset_top = 311.0
+offset_right = 749.0
+offset_bottom = 311.0
+dialogue_lines = Array[String](["So, you made it to the big stage!", "What's that? You have never ran before in your life?", "Ok, I'll try to make this brief.", "You want to press the A key when the red line is inside the white box on the left side.", "And then you want to press the D key when the red line is inside the white box on the right side", "It's just like walking, but... faster!", "Ok, try to get up to speed, but be careful not to mistime your steps!", "The space bar does a lot of the heavy lifting. Press it to jump over the hurdle!", "Good job! Or... not. I don't know, you're behind me so I can't see if you cleared that hurdle.", "You can also throw a javelin with the space bar!", "Try to aim at the perfect 45 degree angle as close as you can to the throw line.", "Good job! I think?", "Oh, also every now and then you'll be presented with an offer on the screen.", "You should always push yourself and take the offer that challenges you!", "You're doing great! My job here is done. You will become the greates"])
+dialogue_text = NodePath("../CanvasLayer/TutorialText")
+
+[node name="TutorialManager" type="Node" parent="." unique_id=1233945859 node_paths=PackedStringArray("dialogue_control", "player", "coach", "metronome", "sports_objects_root", "javelin_sound", "left_bar", "right_bar")]
+script = ExtResource("7_gbqnl")
+dialogue_control = NodePath("../DialogueBoxControl")
+player = NodePath("../Player")
+coach = NodePath("../Coach")
+metronome = NodePath("../Player/Metronome")
+hurdle_template = ExtResource("8_ckvwl")
+sports_objects_root = NodePath("../SportsObjectsRoot")
+javelin_template = ExtResource("9_nlqja")
+javelin_sound = NodePath("../JavelinSound")
+left_bar = NodePath("../CanvasLayer/LeftBar")
+right_bar = NodePath("../CanvasLayer/RightBar")
+
+[node name="SportsObjectsRoot" type="Node2D" parent="." unique_id=1854356989]
+z_index = -5
+
+[node name="JavelinSound" type="AudioStreamPlayer" parent="." unique_id=1499926426]
+stream = ExtResource("10_0epgs")
+
+[node name="ScaryTransitionManager" type="Node" parent="." unique_id=48193665 node_paths=PackedStringArray("tutorial_manager", "static_audio", "normal_audio")]
+script = ExtResource("13_wr8iv")
+tutorial_manager = NodePath("../TutorialManager")
+static_audio = NodePath("../CreepyStatic")
+normal_audio = NodePath("../NormalMusic")
+
+[node name="NormalMusic" type="AudioStreamPlayer" parent="." unique_id=4168118]
+stream = ExtResource("11_ej4tf")
+autoplay = true
+
+[node name="CreepyStatic" type="AudioStreamPlayer" parent="." unique_id=2118984]
+stream = ExtResource("12_0hilk")
