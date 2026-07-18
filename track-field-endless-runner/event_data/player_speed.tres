@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://c3x3u4kgqrvpg"]
+
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_cbf3j"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="1_ng2ns"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_rgrac"]
+
+[sub_resource type="Resource" id="Resource_cbf3j"]
+script = ExtResource("1_cbf3j")
+mechanic = 2
+property = 6
+value = 1.05
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_yv1yj"]
+script = ExtResource("2_rgrac")
+option_text = "Gain 5% max speed. -.25 mult"
+effects = Array[ExtResource("1_cbf3j")]([SubResource("Resource_cbf3j")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_ig7o4"]
+script = ExtResource("1_cbf3j")
+mechanic = 2
+property = 6
+value = 0.95
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_rgrac"]
+script = ExtResource("2_rgrac")
+option_text = "Lose 5% max speed. -.25 mult"
+effects = Array[ExtResource("1_cbf3j")]([SubResource("Resource_ig7o4")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("1_ng2ns")
+event_text = "Your Speed"
+option_a = SubResource("Resource_yv1yj")
+option_b = SubResource("Resource_rgrac")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"

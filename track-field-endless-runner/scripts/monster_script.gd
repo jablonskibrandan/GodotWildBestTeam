@@ -9,6 +9,7 @@ class_name MonsterChase
 # How long the monster waits before reacting to the player's pace.
 @export var startup_grace_time: float = 4.0
 
+@export var attack_audio: AudioStreamPlayer
 
 @export_category("Monster Distance")
 # Maximum distance the monster can fall behind the player.
@@ -348,6 +349,7 @@ func _can_attack() -> bool:
 
 
 func _attack_player() -> void:
+	attack_audio.play()
 	slow_timer = 0.0
 	cooldown_timer = attack_cooldown
 	is_retreating = true

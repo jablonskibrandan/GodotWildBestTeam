@@ -53,8 +53,13 @@ func _process(_delta: float) -> void:
 
 func spawn_event() -> void:
 	event_started = true
-	var rand = randi_range(1, EventList.event_list.size())
-	current_event_index = 3
+
+	var rand := randi_range(
+		1,
+		EventList.event_list.size()
+	)
+
+	current_event_index = rand
 	start_event()
 
 func _on_start_line_passed() -> void:
@@ -80,15 +85,29 @@ func _on_player_score_label_finished_flashing() -> void:
 	player_score_root.visible = true
 
 func display_win_conditions() -> void:
-	if EventList.event_list[current_event_index]["is_time_based_event"] == true:
-		event_goal_text.text = str("Time to beat:")
-		event_goal_amount.text = str(EventList.event_list[current_event_index]["score_to_beat"])
-	elif EventList.event_list[current_event_index]["is_distance_based_event"] == true:
-		event_goal_text.text = str("Distance to beat:")
-		event_goal_amount.text = str(EventList.event_list[current_event_index]["score_to_beat"])
+	var current_goal := _get_current_goal()
+
+	if EventList.event_list[current_event_index][
+		"is_time_based_event"
+	] == true:
+		event_goal_text.text = "Time to beat:"
+		event_goal_amount.text = str(
+			"%0.2f" % current_goal
+		)
+
+	elif EventList.event_list[current_event_index][
+		"is_distance_based_event"
+	] == true:
+		event_goal_text.text = "Distance to beat:"
+		event_goal_amount.text = str(
+			"%0.2f" % current_goal
+		)
+
 	event_goal_root.visible = true
 	event_goal_root.get_node("FlashingTimer").start()
-	event_goal_root.get_node("TurnOffFlashingTimer").start()
+	event_goal_root.get_node(
+		"TurnOffFlashingTimer"
+	).start()
 
 func display_player_score() -> void:
 	if EventList.event_list[current_event_index]["is_time_based_event"] == true:
@@ -150,8 +169,10 @@ func play_event() -> void:
 			player.current_event = "javelin"
 
 func _on_finish_event() -> void:
+	var current_goal := _get_current_goal()
+
 	if current_event_index == 1 or current_event_index == 2:
-		if $RunEventManager.time <= EventList.event_list[current_event_index]["score_to_beat"]:
+		if $RunEventManager.time <= current_goal:
 			add_score_and_display_results()
 			increase_event_difficulty()
 			reset_state()
@@ -159,12 +180,15 @@ func _on_finish_event() -> void:
 			calculate_new_event_pos()
 		else:
 			add_loss()
+
 			await get_tree().create_timer(3.0).timeout
+
 			reset_state()
 			clean_up_objects()
 			calculate_new_event_pos()
+
 	elif current_event_index == 3:
-		if $DistanceEventManager.distance >= EventList.event_list[current_event_index]["score_to_beat"]:
+		if $DistanceEventManager.distance >= current_goal:
 			add_score_and_display_results()
 			increase_event_difficulty()
 			reset_state()
@@ -172,7 +196,9 @@ func _on_finish_event() -> void:
 			calculate_new_event_pos()
 		else:
 			add_loss()
+
 			await get_tree().create_timer(3.0).timeout
+
 			reset_state()
 			clean_up_objects()
 			calculate_new_event_pos()
@@ -195,37 +221,70 @@ func calculate_new_event_pos() -> void:
 	event_start_pos = player.distance_travelled + rand
 
 func add_score_and_display_results() -> void:
-	if EventList.event_list[current_event_index]["is_time_based_event"] == true:
-		event_score = EventList.event_list[current_event_index]["score_to_beat"] - $RunEventManager.time
-		score_difference_amount.text = str("%0.2f" % event_score)
-		event_score = roundi(event_score * GameData.score_multiplier_per_ms * GameData.mult)
-	elif EventList.event_list[current_event_index]["is_distance_based_event"] == true:
-		event_score = $DistanceEventManager.distance - EventList.event_list[current_event_index]["score_to_beat"]
-		score_difference_amount.text = str("%0.2f" % event_score)
-		event_score = roundi(event_score * GameData.score_multiplier_per_cm * GameData.mult)
-	GameData.score = int(GameData.score + event_score)
+	var current_goal := _get_current_goal()
+
+	if EventList.event_list[current_event_index][
+		"is_time_based_event"
+	] == true:
+		event_score = current_goal - $RunEventManager.time
+		score_difference_amount.text = str(
+			"%0.2f" % event_score
+		)
+
+		event_score = roundi(
+			event_score
+			* GameData.score_multiplier_per_ms
+			* GameData.mult
+		)
+
+	elif EventList.event_list[current_event_index][
+		"is_distance_based_event"
+	] == true:
+		event_score = (
+			$DistanceEventManager.distance
+			- current_goal
+		)
+
+		score_difference_amount.text = str(
+			"%0.2f" % event_score
+		)
+
+		event_score = roundi(
+			event_score
+			* GameData.score_multiplier_per_cm
+			* GameData.mult
+		)
+
+	GameData.score += int(event_score)
 	
-	if EventList.event_list[current_event_index]["is_time_based_event"] == true:
-		score_difference_text.text = "Time Difference:"
-		score_explanation_text.text = "Points per ms:"
-		score_explanation_amount.text = str(GameData.score_multiplier_per_ms)
-	elif EventList.event_list[current_event_index]["is_distance_based_event"] == true:
-		score_difference_text.text = "Distance Difference:"
-		score_explanation_text.text = "Points per cm:"
-		score_explanation_amount.text = str(GameData.score_multiplier_per_cm)
-	
-	total_score_amount.text = str(int(event_score))
-	
-	await get_tree().create_timer(1.0).timeout
-	score_difference_root.visible = true
-	await get_tree().create_timer(1.0).timeout
-	score_explanation_root.visible = true
-	await get_tree().create_timer(1.0).timeout
-	total_score_root.visible = true
-	await get_tree().create_timer(3.0).timeout
-	score_difference_root.visible = false
-	score_explanation_root.visible = false
-	total_score_root.visible = false
+func _get_current_goal() -> float:
+	var base_goal: float = EventList.event_list[
+		current_event_index
+	]["score_to_beat"]
+
+	match current_event_index:
+		1:
+			return maxf(
+				base_goal
+				+ GameData.added_100m_dash_goal_time,
+				0.1
+			)
+
+		2:
+			return maxf(
+				base_goal
+				+ GameData.added_110m_hurdles_goal_time,
+				0.1
+			)
+
+		3:
+			return maxf(
+				base_goal
+				+ GameData.added_javelin_distance_goal,
+				0.1
+			)
+
+	return base_goal
 
 func increase_event_difficulty() -> void:
 	if EventList.event_list[current_event_index]["is_time_based_event"] == true:

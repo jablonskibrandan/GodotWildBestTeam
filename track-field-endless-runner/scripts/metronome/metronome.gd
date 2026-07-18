@@ -27,7 +27,10 @@ func _ready() -> void:
 	PlayerSignalBus.boost_speed_success.connect(_on_boost_speed_success)
 	PlayerSignalBus.boost_speed_fail.connect(_on_boost_speed_fail)
 
-	current_metronome_speed = base_metronome_speed
+	current_metronome_speed = (
+		base_metronome_speed
+		* GameData.metronome_line_speed
+	)
 
 	if boost_line != null:
 		boost_line.set_metronome_speed(current_metronome_speed)
@@ -78,10 +81,13 @@ func update_metronome_speed(delta: float) -> void:
 		1.0
 	)
 
-	var target_metronome_speed: float = lerpf(
-		base_metronome_speed,
-		max_metronome_speed,
-		player_speed_percentage
+	var target_metronome_speed: float = (
+		lerpf(
+			base_metronome_speed,
+			max_metronome_speed,
+			player_speed_percentage
+		)
+		* GameData.metronome_line_speed
 	)
 
 	current_metronome_speed = move_toward(

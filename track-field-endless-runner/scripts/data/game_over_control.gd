@@ -45,8 +45,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _return_to_main_menu() -> void:
-	game_over_active = false
 
+	game_over_active = false
+	GameData.loss_amount = 0
 	# Unpause before changing scenes.
 	get_tree().paused = false
 

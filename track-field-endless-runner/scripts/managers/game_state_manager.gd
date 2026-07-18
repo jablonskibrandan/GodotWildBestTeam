@@ -16,4 +16,8 @@ func _process(delta: float) -> void:
 		game_over = true
 		
 	if game_over:
-		game_over_control.show_game_over(GameData.score)
+		var final_score := roundi(
+			float(GameData.score) * GameData.mult
+		)
+
+		game_over_control.show_game_over(final_score)

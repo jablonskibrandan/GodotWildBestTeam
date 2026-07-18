@@ -34,6 +34,14 @@ signal monster_game_over
 @export var loss_root: Control
 
 
+@export_category("Mud Escape")
+@export_range(1, 10, 1)
+var mud_mashes_required: int = 5
+
+var is_in_mud: bool = false
+var mud_mash_count: int = 0
+var current_mud_hazard: Hazard
+
 var selected_sprite: Texture
 
 var speed: float = 10.0
@@ -89,6 +97,13 @@ func _ready() -> void:
 	starting_pos = position.x
 
 func _process(_delta: float) -> void:
+	
+	if (
+		is_in_mud
+		and not is_instance_valid(current_mud_hazard)
+	):
+		_clear_mud_state()
+		
 	if velocity.x == 0:
 		$AnimationPlayer.play("idle")
 	if is_jumping == false and is_tripping == false:
@@ -97,11 +112,15 @@ func _process(_delta: float) -> void:
 			is_running = true
 		else:
 			is_running = false
-	if Input.is_action_just_pressed("action") == true and current_event == "110m":
-		is_jumping = true
-		$AnimationPlayer.play("jump")
-		$AudioStreamPlayer.stream = jump_sound
-		$AudioStreamPlayer.play()
+	if Input.is_action_just_pressed("action"):
+		if is_in_mud:
+			_mash_out_of_mud()
+
+		elif current_event == "110m":
+			is_jumping = true
+			$AnimationPlayer.play("jump")
+			$AudioStreamPlayer.stream = jump_sound
+			$AudioStreamPlayer.play()
 	if is_jumping == true:
 		$CollisionShape2D.disabled = true
 		
@@ -156,18 +175,69 @@ func _on_boost_speed_success() -> void:
 		speed = speed + new_speed
 
 
-func enter_mud() -> void:
+func enter_mud(mud_hazard: Hazard) -> void:
+	if is_in_mud:
+		return
+
+	is_in_mud = true
+	mud_mash_count = 0
+	current_mud_hazard = mud_hazard
+
 	current_mud_speed_multiplier = clampf(
 		GameData.mud_speed_multiplier,
-		0.0,
+		0.05,
 		1.0
 	)
 
+	if footsteps_mud_sound != null:
+		$AudioStreamPlayer.stream = footsteps_mud_sound
+		$AudioStreamPlayer.play()
 
-func exit_mud() -> void:
+	print(
+		"Entered mud. Mash Space ",
+		mud_mashes_required,
+		" times."
+	)
+
+
+func _mash_out_of_mud() -> void:
+	if not is_in_mud:
+		return
+
+	mud_mash_count += 1
+
+	print(
+		"Mud mash: %d/%d"
+		% [
+			mud_mash_count,
+			mud_mashes_required
+		]
+	)
+
+	if mud_mash_count < mud_mashes_required:
+		return
+
+	var escaped_hazard = current_mud_hazard
+
+	_clear_mud_state()
+
+	#if (
+		#is_instance_valid(escaped_hazard)
+		#and escaped_hazard.has_method("remove_after_escape")
+	#):
+		#escaped_hazard.remove_after_escape()
+
+
+func _clear_mud_state() -> void:
+	is_in_mud = false
+	mud_mash_count = 0
+	current_mud_hazard = null
 	current_mud_speed_multiplier = 1.0
 
-
+	if footsteps_sound != null and is_running:
+		$AudioStreamPlayer.stream = footsteps_sound
+		$AudioStreamPlayer.play()
+		
 func hit_hurdle() -> void:
 	$AudioStreamPlayer.stream = hit_hurdle_sound
 	$AudioStreamPlayer.play()

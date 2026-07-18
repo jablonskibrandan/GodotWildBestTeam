@@ -170,7 +170,7 @@ footsteps_mud_sound = ExtResource("13_qfm1y")
 jump_sound = ExtResource("14_fulsm")
 trip_sound = ExtResource("15_4r5pv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=782335558]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=782335558 groups=["player"]]
 texture_filter = 1
 position = Vector2(-5, -90)
 scale = Vector2(4, 4)

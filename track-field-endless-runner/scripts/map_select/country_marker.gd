@@ -14,7 +14,6 @@ class_name CountryMarker
 
 @export var hover_scale: float = 1.25
 @export var selected_scale: float = 1.4
-@export_file("*.tscn") var next_scene_path: String
 
 @export_category("Text")
 @export var default_text: String = "SELECT A COUNTRY"
@@ -79,7 +78,10 @@ func _on_input_event(
 func _select_country() -> void:
 	GameData.selected_country = country_name
 	await get_tree().create_timer(0.15).timeout
-	get_tree().change_scene_to_file(next_scene_path)
+	if GameData.has_witnessed_the_horrors:
+		get_tree().change_scene_to_file("res://scenes/running_scene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
 
 	
 

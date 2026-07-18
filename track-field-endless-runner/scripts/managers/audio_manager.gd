@@ -1,29 +1,44 @@
 extends Node
 
+
 @export var normal_running_audio: AudioStreamPlayer
 @export var scary_non_loop: AudioStreamPlayer
 @export var scary_loop: AudioStreamPlayer
 
-# For the running scene.
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	if scary_loop == null:
+	# Keep this manager processing while the game is paused.
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	_set_music_to_always_process(normal_running_audio)
+	_set_music_to_always_process(scary_non_loop)
+	_set_music_to_always_process(scary_loop)
+
+	if scary_non_loop != null:
+		if not scary_non_loop.finished.is_connected(
+			play_scary_loop
+		):
+			scary_non_loop.finished.connect(
+				play_scary_loop
+			)
+
+	if GameData.has_witnessed_the_horrors:
+		if scary_non_loop != null:
+			scary_non_loop.play()
+	else:
+		if normal_running_audio != null:
+			normal_running_audio.play()
+
+
+func _set_music_to_always_process(
+	music_player: AudioStreamPlayer
+) -> void:
+	if music_player == null:
 		return
-	
-	if scary_non_loop == null:
-		return 
-	
-	if normal_running_audio == null:
-		return
-	
-	scary_non_loop.finished.connect(play_scary_loop)
-	
-	if GameData.has_witnessed_the_horrors: 
-		scary_non_loop.play()
-	else: 
-		normal_running_audio.play()
+
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+
 
 func play_scary_loop() -> void:
-	scary_loop.play()
+	if scary_loop != null:
+		scary_loop.play()

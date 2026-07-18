@@ -10,14 +10,14 @@ extends Node
 @export_range(0.0, 10.0, 0.25)
 var choice_show_delay: float = 3.0
 
-
-
+@export_category("Effect Processing")
 @export var choice_effect_processor: ChoiceEffectManager
+
 var choices_shown: int = 0
 var choice_active: bool = false
 var choice_pending: bool = false
 
-var rng = RandomNumberGenerator.new()
+var rng := RandomNumberGenerator.new()
 
 
 func _ready() -> void:
@@ -28,11 +28,19 @@ func _ready() -> void:
 	else:
 		choice_event.hide()
 
-		if not choice_event.choice_finished.is_connected(_on_choice_finished):
-			choice_event.choice_finished.connect(_on_choice_finished)
+		if not choice_event.choice_finished.is_connected(
+			_on_choice_finished
+		):
+			choice_event.choice_finished.connect(
+				_on_choice_finished
+			)
 
-	if not SportEventSignalBus.finish_event.is_connected(_on_sport_event_finished):
-		SportEventSignalBus.finish_event.connect(_on_sport_event_finished)
+	if not SportEventSignalBus.finish_event.is_connected(
+		_on_sport_event_finished
+	):
+		SportEventSignalBus.finish_event.connect(
+			_on_sport_event_finished
+		)
 
 
 func _on_sport_event_finished() -> void:
@@ -41,7 +49,9 @@ func _on_sport_event_finished() -> void:
 
 	choice_pending = true
 
-	await get_tree().create_timer(choice_show_delay).timeout
+	await get_tree().create_timer(
+		choice_show_delay
+	).timeout
 
 	choice_pending = false
 
@@ -59,10 +69,14 @@ func _show_random_choice() -> void:
 	var valid_choices := _get_valid_choices()
 
 	if valid_choices.is_empty():
-		push_error("No valid ChoiceEventData resources assigned.")
+		push_error(
+			"No valid ChoiceEventData resources assigned."
+		)
 		return
 
-	var selected_data: ChoiceEventData = (valid_choices.pick_random())
+	var selected_data: ChoiceEventData = (
+		valid_choices.pick_random()
+	)
 
 	choice_active = true
 	choices_shown += 1
@@ -80,7 +94,10 @@ func _get_valid_choices() -> Array[ChoiceEventData]:
 	return valid_choices
 
 
-func _on_choice_finished(selected_option: ChoiceOptionData, timed_out: bool) -> void:
+func _on_choice_finished(
+	selected_option: ChoiceOptionData,
+	timed_out: bool
+) -> void:
 	choice_active = false
 
 	if timed_out:
@@ -91,21 +108,24 @@ func _on_choice_finished(selected_option: ChoiceOptionData, timed_out: bool) -> 
 		push_warning("No choice option was selected.")
 		return
 
-	print("Selected option: ", selected_option.option_text)
+	print(
+		"Selected option: ",
+		selected_option.option_text
+	)
 
 	_apply_choice_option(selected_option)
 
 
-func _apply_choice_option(option: ChoiceOptionData) -> void:
+func _apply_choice_option(
+	option: ChoiceOptionData
+) -> void:
 	if option == null:
 		return
 
 	if choice_effect_processor == null:
-		push_error("No ChoiceEffectProcessor assigned.")
+		push_error(
+			"No ChoiceEffectManager assigned."
+		)
 		return
 
-	for effect in option.effects:
-		if effect == null:
-			continue
-
-		choice_effect_processor.apply_effect(effect)
+	choice_effect_processor.apply_option(option)
