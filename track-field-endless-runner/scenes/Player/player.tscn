@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://drca5bysmfmji" path="res://audio/SFX-FootstepsMud.mp3" id="13_qfm1y"]
 [ext_resource type="AudioStream" uid="uid://0lwiw5fgbj13" path="res://audio/SFX-Jump.mp3" id="14_fulsm"]
 [ext_resource type="AudioStream" uid="uid://ckpeln5scd7xr" path="res://audio/SFX-TripOver.mp3" id="15_4r5pv"]
+[ext_resource type="AudioStream" uid="uid://cuxm27u0sp3pg" path="res://audio/SFX-Collision.mp3" id="16_tayva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(30, 104)
@@ -169,6 +170,8 @@ footsteps_sound = ExtResource("12_a8ls1")
 footsteps_mud_sound = ExtResource("13_qfm1y")
 jump_sound = ExtResource("14_fulsm")
 trip_sound = ExtResource("15_4r5pv")
+hit_hurdle_sound = ExtResource("16_tayva")
+run_animation_speed_multiplier = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=782335558 groups=["player"]]
 texture_filter = 1
@@ -176,10 +179,10 @@ position = Vector2(-5, -90)
 scale = Vector2(4, 4)
 texture = ExtResource("2_y4r1p")
 hframes = 5
-vframes = 5
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=368130025]
-position = Vector2(6, -52)
+position = Vector2(-3, -89)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1341418604]

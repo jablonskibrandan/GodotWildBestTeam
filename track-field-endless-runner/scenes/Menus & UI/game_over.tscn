@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://3yit3xqnstvn" path="res://scripts/data/game_over_control.gd" id="1_ate7d"]
 [ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_c2xpg"]
+[ext_resource type="Texture2D" uid="uid://7el6wo6x2mqo" path="res://Art/Background/Death.png" id="2_u225h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_177wn"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="GameOver" type="Control" unique_id=1382108090]
+[node name="GameOver" type="Control" unique_id=1382108090 node_paths=PackedStringArray("black_fade", "death_image", "text_root", "score_label")]
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +16,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ate7d")
+black_fade = NodePath("BlackFade")
+death_image = NodePath("TextureRect")
+text_root = NodePath("TextRoot")
+score_label = NodePath("TextRoot/CenterContainer/PanelContainer/VBoxContainer/FinalScoreLabel")
 
 [node name="DimBackground" type="ColorRect" parent="." unique_id=1297789651]
 visible = false
@@ -24,36 +30,65 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=366564724]
+[node name="BlackFade" type="ColorRect" parent="." unique_id=907521165]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=61981948]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=793465153]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_u225h")
+expand_mode = 1
+
+[node name="TextRoot" type="Control" parent="." unique_id=689441693]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="TextRoot" unique_id=366564724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 642.0
+offset_top = 15.0
+offset_right = 1237.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TextRoot/CenterContainer" unique_id=61981948]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_177wn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1305021619]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextRoot/CenterContainer/PanelContainer" unique_id=1305021619]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1117612001]
+[node name="TitleLabel" type="Label" parent="TextRoot/CenterContainer/PanelContainer/VBoxContainer" unique_id=1117612001]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_c2xpg")
 theme_override_font_sizes/font_size = 60
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="FinalScoreLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1532316697]
+[node name="FinalScoreLabel" type="Label" parent="TextRoot/CenterContainer/PanelContainer/VBoxContainer" unique_id=1532316697]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_c2xpg")
 theme_override_font_sizes/font_size = 32
 text = "FINAL SCORE:"
 
-[node name="ResetLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=19259492]
+[node name="ResetLabel" type="Label" parent="TextRoot/CenterContainer/PanelContainer/VBoxContainer" unique_id=19259492]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_c2xpg")
 theme_override_font_sizes/font_size = 32

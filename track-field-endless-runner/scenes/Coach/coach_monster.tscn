@@ -1,8 +1,6 @@
-[gd_scene format=3 uid="uid://2rgc2w1k3l8w"]
+[gd_scene format=3 uid="uid://1y0gfliv6yer"]
 
-[ext_resource type="Script" uid="uid://dse4bixml0f63" path="res://scripts/coach.gd" id="1_44mam"]
-[ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="1_a2puj"]
-[ext_resource type="AudioStream" uid="uid://ckpeln5scd7xr" path="res://audio/SFX-TripOver.mp3" id="3_fpn72"]
+[ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="2_p32p8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(35, 116)
@@ -101,12 +99,11 @@ _data = {
 }
 
 [node name="Coach" type="CharacterBody2D" unique_id=941289700]
-script = ExtResource("1_44mam")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=235688061]
 position = Vector2(-32, -64)
 scale = Vector2(4, 4)
-texture = ExtResource("1_a2puj")
+texture = ExtResource("2_p32p8")
 hframes = 29
 vframes = 2
 
@@ -117,6 +114,3 @@ shape = SubResource("RectangleShape2D_g4v7s")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2022356464]
 libraries/ = SubResource("AnimationLibrary_fpn72")
 autoplay = &"monster_run"
-
-[node name="Fall" type="AudioStreamPlayer" parent="." unique_id=2141701051]
-stream = ExtResource("3_fpn72")
