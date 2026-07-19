@@ -191,12 +191,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EventNameLabel" type="RichTextLabel" parent="BoardInformation/MainRoot/EventNameLabelRoot" unique_id=1339910663]
-visible = false
 layout_mode = 0
 offset_left = 590.0
 offset_top = 199.0
@@ -213,14 +213,12 @@ script = ExtResource("9_mb8ng")
 
 [node name="FlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1661643736]
 wait_time = 0.5
-autostart = true
 
 [node name="TurnOffFlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1893387286]
 wait_time = 2.0
 one_shot = true
 
 [node name="EventDetailsRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1047119849]
-visible = false
 anchors_preset = 0
 offset_left = 675.0
 offset_top = 184.0

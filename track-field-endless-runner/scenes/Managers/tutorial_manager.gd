@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 	if tutorial_step == 5 and Input.is_action_just_pressed("right_leg") and metronome.should_boost == true:
 		moving_to_next_tutorial_step = false
 	
-	if tutorial_step == 8 and Input.is_action_just_pressed("action"):
+	if tutorial_step == 8 and Input.is_action_just_pressed("action") and player.position.x > hurdle_pos.x - 300.0:
 		moving_to_next_tutorial_step = false
 	
 	if tutorial_step == 11 and Input.is_action_just_pressed("action"):

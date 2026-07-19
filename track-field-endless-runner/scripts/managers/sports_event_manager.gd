@@ -66,6 +66,7 @@ func start_event() -> void:
 func display_event_name() -> void:
 	event_name_label_root.visible = true
 	event_name_label.text = str(EventList.event_list[current_event_index]["name"], "!")
+	event_name_label.get_node("FlashingTimer").start()
 	event_name_label.get_node("TurnOffFlashingTimer").start()
 
 func _on_event_name_label_finished_flashing() -> void:
