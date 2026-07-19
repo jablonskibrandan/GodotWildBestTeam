@@ -8,7 +8,7 @@ extends Node
 
 @export_category("Choice Timing")
 @export_range(0.0, 10.0, 0.25)
-var choice_show_delay: float = 3.0
+var choice_show_delay: float = 8.0
 
 @export_category("Effect Processing")
 @export var choice_effect_processor: ChoiceEffectManager

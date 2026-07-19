@@ -7,7 +7,7 @@ signal choice_finished(selected_option: ChoiceOptionData, timed_out: bool)
 @export var game_state_manager: GameStateManager
 @export_category("Timer")
 @export_range(0.5, 30.0, 0.5)
-var decision_time: float = 5.0
+var decision_time: float = 10.0
 
 
 @onready var title_label: Label = (

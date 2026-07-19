@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://duugf5m6sf64j" path="res://Art/Background/GroundLayer_2.png" id="5_q1dtp"]
 [ext_resource type="Texture2D" uid="uid://dihcnua8asdkd" path="res://Art/Background/Sky_5.png" id="6_mp1mm"]
 [ext_resource type="Texture2D" uid="uid://duknpse45vvka" path="res://Art/Background/Sky_6.png" id="7_qnrom"]
+[ext_resource type="Texture2D" uid="uid://b1v86o0qkdlmt" path="res://Art/Background/Crowd.png" id="8_le8c8"]
 [ext_resource type="AudioStream" uid="uid://bsvll00kf3fq3" path="res://audio/SFX-Glitch.mp3" id="13_wyllg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_klwqd"]
@@ -96,6 +97,13 @@ position = Vector2(960.00006, 540)
 scale = Vector2(4, 4)
 texture = SubResource("CompressedTexture2D_le8c8")
 
+[node name="ColorRect2" type="ColorRect" parent="Background" unique_id=102989905]
+offset_left = 486.0
+offset_top = 158.0
+offset_right = 600.0
+offset_bottom = 272.0
+color = Color(0, 0, 0, 1)
+
 [node name="Crowd" type="Parallax2D" parent="." unique_id=1888509044]
 scroll_scale = Vector2(0, 0)
 repeat_size = Vector2(360, 0)
@@ -105,6 +113,7 @@ repeat_times = 20
 z_index = -40
 position = Vector2(960, 540)
 scale = Vector2(4, 4)
+texture = ExtResource("8_le8c8")
 
 [node name="Wall" type="Parallax2D" parent="." unique_id=69776494]
 scroll_scale = Vector2(0.7, 0.7)
