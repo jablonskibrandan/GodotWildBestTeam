@@ -46,6 +46,7 @@
 [ext_resource type="Resource" uid="uid://dltixjxvs8vhu" path="res://event_data/one_ten_hurdles_goal.tres" id="38_8qd4i"]
 [ext_resource type="AudioStream" uid="uid://c6juy44dcofsu" path="res://audio/BGM-Tutorial.wav" id="38_lo852"]
 [ext_resource type="Resource" uid="uid://bofqxsaqwyn0n" path="res://event_data/one_hundred_meter_hurdle.tres" id="39_t0tu7"]
+[ext_resource type="AudioStream" uid="uid://56wbgrujwmvy" path="res://audio/SFX-Scream.mp3" id="48_8qd4i"]
 [ext_resource type="AudioStream" uid="uid://bqa0407olbnpj" path="res://audio/SFX-Damage.mp3" id="48_nld8s"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0rto"]
@@ -434,7 +435,12 @@ offset_bottom = 245.0
 scale = Vector2(0.45, 0.45)
 game_state_manager = NodePath("../../../Managers/GameStateManager")
 
-[node name="GameOver" parent="BoardInformation" unique_id=1382108090 instance=ExtResource("9_lo852")]
+[node name="GameOver" parent="BoardInformation" unique_id=1382108090 node_paths=PackedStringArray("death_scream") instance=ExtResource("9_lo852")]
+main_menu_scene = null
+fade_to_black_duration = null
+image_fade_duration = null
+text_fade_duration = null
+death_scream = NodePath("../../DeathNoise")
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 
@@ -528,6 +534,11 @@ mud_scene = ExtResource("37_lo852")
 
 [node name="PlayerHurt" type="AudioStreamPlayer" parent="." unique_id=184067873]
 stream = ExtResource("48_nld8s")
+volume_db = 7.5
+
+[node name="DeathNoise" type="AudioStreamPlayer" parent="." unique_id=43787688]
+process_mode = 3
+stream = ExtResource("48_8qd4i")
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]

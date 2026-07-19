@@ -15,7 +15,7 @@ var image_fade_duration: float = 1.0
 @export_range(0.0, 3.0, 0.05)
 var text_fade_duration: float = 0.5
 
-
+@export var death_scream: AudioStreamPlayer
 @export var black_fade: ColorRect 
 @export var death_image: TextureRect 
 @export var text_root: Control 
@@ -38,6 +38,7 @@ func _ready() -> void:
 
 
 func show_game_over(final_score: int) -> void:
+	death_scream.play()
 	if game_over_active:
 		return
 
