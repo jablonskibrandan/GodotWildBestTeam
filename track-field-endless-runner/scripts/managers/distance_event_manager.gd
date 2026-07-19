@@ -60,5 +60,5 @@ func place_javelin_on_ground() -> void:
 		placement_distance = distance
 	
 	javelin.reparent(new_javelin_parent)
-	javelin.position = Vector2(player.position.x, 0.0) + Vector2(placement_distance * 100.0, 1050)
+	javelin.position = Vector2(player.position.x, 0.0) + Vector2(placement_distance * 100.0, 920)
 	javelin.rotation_degrees = -170.0

@@ -1,0 +1,511 @@
+[gd_scene format=3 uid="uid://bwljffdxoh86r"]
+
+[ext_resource type="AudioStream" uid="uid://cuxm27u0sp3pg" path="res://audio/SFX-Collision.mp3" id="3_0onm7"]
+[ext_resource type="Script" uid="uid://bcfmq3jxmgquu" path="res://scripts/monster_script.gd" id="3_2mjhj"]
+[ext_resource type="Script" uid="uid://c5dhwo8jwbtmp" path="res://scripts/managers/sports_event_manager.gd" id="3_bcuvt"]
+[ext_resource type="PackedScene" uid="uid://ogn1gr02ei7q" path="res://scenes/Environment/moving_background.tscn" id="3_ffxig"]
+[ext_resource type="PackedScene" uid="uid://xggxujki5vbo" path="res://scenes/Player/player.tscn" id="4_005tn"]
+[ext_resource type="PackedScene" uid="uid://bv1foharx1kdi" path="res://scenes/metronome/metronome.tscn" id="5_drltr"]
+[ext_resource type="Script" uid="uid://blk3utx2fup8q" path="res://scripts/screen_display_controllers/distance_label_root.gd" id="5_eamyy"]
+[ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="5_mxkxx"]
+[ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="6_ffxig"]
+[ext_resource type="Script" uid="uid://bcfx5bg0y3o47" path="res://scripts/screen_display_controllers/score_label_root.gd" id="7_8lwym"]
+[ext_resource type="Script" uid="uid://xej6audxk8ii" path="res://scripts/screen_display_controllers/time_to_beat_root.gd" id="8_drav3"]
+[ext_resource type="Script" uid="uid://b14sdww2s0h8s" path="res://scripts/screen_display_controllers/mult_label_root.gd" id="8_rhprt"]
+[ext_resource type="PackedScene" uid="uid://vgrcpuk8xnlr" path="res://scenes/Menus & UI/game_over.tscn" id="9_lo852"]
+[ext_resource type="Script" uid="uid://c2c1gj4u1c11y" path="res://scripts/screen_display_controllers/event_name_label.gd" id="9_mb8ng"]
+[ext_resource type="Script" uid="uid://dt6t3vqptkltk" path="res://scripts/screen_display_controllers/player_time_root.gd" id="9_mxkxx"]
+[ext_resource type="Script" uid="uid://d2h3kirebr84k" path="res://scripts/screen_display_controllers/countdown_root.gd" id="10_eamyy"]
+[ext_resource type="Script" uid="uid://cp3g2i5ljepmd" path="res://scripts/loss_root.gd" id="11_gnsom"]
+[ext_resource type="PackedScene" uid="uid://cwh6hna0vleyg" path="res://scenes/Menus & UI/choice_event.tscn" id="12_g5sb1"]
+[ext_resource type="Script" uid="uid://36nra8wtekjo" path="res://scripts/managers/run_event_manager.gd" id="13_ahj5x"]
+[ext_resource type="PackedScene" uid="uid://n7n6siieujtg" path="res://scenes/Environment/hurdle_hazard.tscn" id="14_lvom7"]
+[ext_resource type="PackedScene" uid="uid://d4chn4wbi3aga" path="res://start_line.tscn" id="15_85bgf"]
+[ext_resource type="Script" uid="uid://hfp6pgia11o6" path="res://scripts/managers/distance_event_manager.gd" id="15_rhprt"]
+[ext_resource type="PackedScene" uid="uid://mn3851gjucqv" path="res://finish_line.tscn" id="16_m31wk"]
+[ext_resource type="PackedScene" uid="uid://3morx4713qvr" path="res://scenes/Player/javelin.tscn" id="17_m31wk"]
+[ext_resource type="Script" uid="uid://b61y54mtk4fka" path="res://scripts/sport_event_sounds.gd" id="20_bghlm"]
+[ext_resource type="AudioStream" uid="uid://cuejb16rw1vfn" path="res://audio/SFX-Gunshot.mp3" id="21_fhtaa"]
+[ext_resource type="AudioStream" uid="uid://bxj127lebih2t" path="res://audio/SFX-Javelin.mp3" id="22_gnsom"]
+[ext_resource type="Script" uid="uid://b2ipxs3gobph4" path="res://scripts/choice_event/choice_event_manager.gd" id="25_2mjhj"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="26_ax5dm"]
+[ext_resource type="Resource" uid="uid://t0wjtyvb7udo" path="res://event_data/hurdle_slow_increase.tres" id="27_h54hi"]
+[ext_resource type="Resource" uid="uid://cy8mly6n0ua7v" path="res://event_data/metronome_modifier.tres" id="28_pwu3e"]
+[ext_resource type="Resource" uid="uid://ba4ee2vsujts3" path="res://event_data/mud_slow_increase.tres" id="29_q74pt"]
+[ext_resource type="Script" uid="uid://ds63gr2decnda" path="res://scripts/managers/choice_effect_manager.gd" id="30_0onm7"]
+[ext_resource type="AudioStream" uid="uid://bbm6muuxajc1t" path="res://audio/BGM-Chase-First-Play(With Intro).wav" id="32_h54hi"]
+[ext_resource type="Script" uid="uid://65y6p1yndm0u" path="res://scripts/managers/audio_manager.gd" id="32_pwu3e"]
+[ext_resource type="AudioStream" uid="uid://2gprw6erjxlj" path="res://audio/BGM-Chase-Loop(No Intro).wav" id="33_pwu3e"]
+[ext_resource type="Script" uid="uid://cx6avkymv5xqe" path="res://scenes/Managers/game_state_manager.gd" id="35_p0rto"]
+[ext_resource type="AudioStream" uid="uid://c0wt0qqb7n4ob" path="res://audio/BGM-Tutorial.mp3" id="35_q74pt"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_f1tay"]
+size = Vector2(80, 120)
+
+[node name="RunningSceneRoot" type="Node" unique_id=1225109462]
+
+[node name="MovingBackground" parent="." unique_id=1143113503 instance=ExtResource("3_ffxig")]
+
+[node name="Player" parent="." unique_id=1000098902 instance=ExtResource("4_005tn")]
+position = Vector2(186, 1008)
+hit_hurdle_sound = ExtResource("3_0onm7")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1152713351]
+limit_left = 0
+limit_bottom = 1080
+
+[node name="MonsterChase" type="Node2D" parent="Player" unique_id=215192293 node_paths=PackedStringArray("player")]
+z_index = 100
+position = Vector2(-319, 9)
+script = ExtResource("3_2mjhj")
+player = NodePath("..")
+startup_grace_time = 10.0
+metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Player/MonsterChase" unique_id=1452538196]
+position = Vector2(3, -55)
+mesh = SubResource("QuadMesh_f1tay")
+
+[node name="BoardInformation" type="CanvasLayer" parent="." unique_id=727401027]
+
+[node name="TopBarRoot" type="Control" parent="BoardInformation" unique_id=1742513539]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 84.0
+offset_top = 55.0
+offset_right = 1765.0
+offset_bottom = 106.0
+
+[node name="DistanceLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=1790859643 node_paths=PackedStringArray("player")]
+layout_mode = 0
+offset_right = 324.0
+offset_bottom = 51.0
+script = ExtResource("5_eamyy")
+player = NodePath("../../../Player")
+
+[node name="DistanceText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/DistanceLabelRoot" unique_id=1479976008]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "Distance:"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DistanceAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/DistanceLabelRoot" unique_id=1984441293]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "12"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=1621233399]
+layout_mode = 0
+offset_left = 673.0
+offset_top = 2.0
+offset_right = 1149.0
+offset_bottom = 53.0
+script = ExtResource("7_8lwym")
+
+[node name="ScoreText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/ScoreLabelRoot" unique_id=19928606]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "Score:"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/ScoreLabelRoot" unique_id=1133854987]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "0"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultLabelRoot" type="HBoxContainer" parent="BoardInformation/TopBarRoot" unique_id=369785532]
+layout_mode = 0
+offset_left = 1308.0
+offset_top = 2.0
+offset_right = 1747.0
+offset_bottom = 53.0
+script = ExtResource("8_rhprt")
+
+[node name="MultText" type="RichTextLabel" parent="BoardInformation/TopBarRoot/MultLabelRoot" unique_id=182444301]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "Mult:"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultAmount" type="RichTextLabel" parent="BoardInformation/TopBarRoot/MultLabelRoot" unique_id=1878502087]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 42
+text = "1"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainRoot" type="Control" parent="BoardInformation" unique_id=245440289]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("9_lo852")]
+layout_mode = 1
+offset_left = 1060.0
+offset_top = 246.0
+offset_right = 1060.0
+offset_bottom = 246.0
+
+[node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EventNameLabel" type="RichTextLabel" parent="BoardInformation/MainRoot/EventNameLabelRoot" unique_id=1339910663]
+layout_mode = 0
+offset_left = 669.0
+offset_top = 209.0
+offset_right = 1669.0
+offset_bottom = 327.0
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 100
+text = "100m dash!"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_mb8ng")
+
+[node name="FlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1661643736]
+wait_time = 0.5
+autostart = true
+
+[node name="TurnOffFlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1893387286]
+wait_time = 2.0
+one_shot = true
+
+[node name="EventDetailsRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1047119849]
+anchors_preset = 0
+offset_left = 675.0
+offset_top = 184.0
+offset_right = 715.0
+offset_bottom = 224.0
+
+[node name="EventGoalRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1668833623]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 24
+script = ExtResource("8_drav3")
+
+[node name="EventGoalText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=706220064]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "Time to beat:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EventGoalAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=1422883534]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "10:00"
+fit_content = true
+autowrap_mode = 0
+
+[node name="FlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=2039427714]
+wait_time = 0.5
+
+[node name="TurnOffFlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" unique_id=861311192]
+wait_time = 2.0
+one_shot = true
+
+[node name="PlayerScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1374682472]
+visible = false
+layout_mode = 0
+offset_top = 85.0
+offset_right = 1156.0
+offset_bottom = 149.0
+theme_override_constants/separation = 24
+script = ExtResource("9_mxkxx")
+
+[node name="PlayerScoreText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=1944413527]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "Your time:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="PlayerScoreAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=242789836]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "00:00"
+fit_content = true
+autowrap_mode = 0
+
+[node name="FlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=800604113]
+wait_time = 0.5
+
+[node name="TurnOffFlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" unique_id=1732062660]
+wait_time = 2.0
+one_shot = true
+
+[node name="EventResultsRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=841398666]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreDifferenceRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=775011326]
+visible = false
+layout_mode = 0
+offset_left = 512.0
+offset_top = 163.0
+offset_right = 1317.0
+offset_bottom = 239.0
+theme_override_constants/separation = 24
+
+[node name="ScoreDifferenceText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot" unique_id=1456568285]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "Time difference:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ScoreDifferenceAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot" unique_id=526183305]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "10:00"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ScoreExplanationRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=1543907529]
+visible = false
+layout_mode = 0
+offset_left = 512.0
+offset_top = 227.0
+offset_right = 1448.0
+offset_bottom = 303.0
+theme_override_constants/separation = 24
+
+[node name="ScoreExplanationText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot" unique_id=51174467]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "Points per ms:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ScoreExplanationAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot" unique_id=2107556168]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "10:00"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TotalScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=2051728488]
+visible = false
+layout_mode = 0
+offset_left = 514.0
+offset_top = 290.0
+offset_right = 1450.0
+offset_bottom = 366.0
+theme_override_constants/separation = 24
+
+[node name="TotalScoreText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot" unique_id=1458738359]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "Score for event:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TotalScoreAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot" unique_id=1034930559]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 64
+text = "10:00"
+fit_content = true
+autowrap_mode = 0
+
+[node name="CountdownRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=826495045]
+visible = false
+anchors_preset = 0
+offset_left = 127.0
+offset_top = -276.0
+offset_right = 167.0
+offset_bottom = -236.0
+script = ExtResource("10_eamyy")
+
+[node name="CountdownText" type="RichTextLabel" parent="BoardInformation/MainRoot/CountdownRoot" unique_id=1596468904]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 391.0
+offset_right = 1190.0
+offset_bottom = 791.0
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 250
+text = "3"
+fit_content = true
+autowrap_mode = 0
+
+[node name="CountdownTimer" type="Timer" parent="BoardInformation/MainRoot/CountdownRoot" unique_id=1511536913]
+wait_time = 0.3
+
+[node name="LossRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1178357440]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("11_gnsom")
+
+[node name="LossAmount" type="RichTextLabel" parent="BoardInformation/MainRoot/LossRoot" unique_id=1331168874]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 288.0
+offset_right = 510.0
+offset_bottom = 383.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("5_mxkxx")
+theme_override_font_sizes/normal_font_size = 80
+fit_content = true
+autowrap_mode = 0
+
+[node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1194459220 instance=ExtResource("12_g5sb1")]
+layout_mode = 1
+offset_left = 1101.0
+offset_top = 262.0
+offset_right = 1101.0
+offset_bottom = 262.0
+scale = Vector2(0.65, 0.65)
+
+[node name="Metronome" parent="BoardInformation" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
+offset_left = 752.0
+offset_top = 548.0
+offset_right = 952.0
+offset_bottom = 588.0
+scale = Vector2(1.5799388, 1.4064972)
+player = NodePath("../../Player")
+
+[node name="SpeedLabel" type="RichTextLabel" parent="BoardInformation/Metronome" unique_id=1227890601]
+layout_mode = 0
+offset_left = 56.964264
+offset_top = 44.79212
+offset_right = 143.96426
+offset_bottom = 84.79212
+theme_override_fonts/normal_font = ExtResource("6_ffxig")
+text = "999"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Managers" type="Node" parent="." unique_id=755078176]
+
+[node name="SportsEventManager" type="Node" parent="Managers" unique_id=304251108 node_paths=PackedStringArray("player", "sports_objects_root", "event_name_label_root", "event_name_label", "event_goal_root", "event_goal_text", "event_goal_amount", "player_score_root", "player_score_text", "player_score_amount", "countdown_root", "countdown_text", "event_results_root", "score_difference_root", "score_difference_text", "score_difference_amount", "score_explanation_root", "score_explanation_text", "score_explanation_amount", "total_score_root", "total_score_amount", "loss_root")]
+script = ExtResource("3_bcuvt")
+player = NodePath("../../Player")
+hurdle_template = ExtResource("14_lvom7")
+start_line_template = ExtResource("15_85bgf")
+finish_line_template = ExtResource("16_m31wk")
+sports_objects_root = NodePath("../../SportEventObjects")
+javelin_template = ExtResource("17_m31wk")
+event_name_label_root = NodePath("../../BoardInformation/MainRoot/EventNameLabelRoot")
+event_name_label = NodePath("../../BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel")
+event_goal_root = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot")
+event_goal_text = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot/EventGoalText")
+event_goal_amount = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot/EventGoalAmount")
+player_score_root = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot")
+player_score_text = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreText")
+player_score_amount = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreAmount")
+countdown_root = NodePath("../../BoardInformation/MainRoot/CountdownRoot")
+countdown_text = NodePath("../../BoardInformation/MainRoot/CountdownRoot/CountdownText")
+event_results_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot")
+score_difference_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot")
+score_difference_text = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot/ScoreDifferenceText")
+score_difference_amount = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot/ScoreDifferenceAmount")
+score_explanation_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot")
+score_explanation_text = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot/ScoreExplanationText")
+score_explanation_amount = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot/ScoreExplanationAmount")
+total_score_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot")
+total_score_amount = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot/TotalScoreAmount")
+loss_root = NodePath("../../BoardInformation/MainRoot/LossRoot")
+
+[node name="RunEventManager" type="Node" parent="Managers/SportsEventManager" unique_id=1366703898 node_paths=PackedStringArray("player_time_display", "player")]
+script = ExtResource("13_ahj5x")
+player_time_display = NodePath("../../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreAmount")
+player = NodePath("../../../Player")
+
+[node name="DistanceEventManager" type="Node" parent="Managers/SportsEventManager" unique_id=1831975575 node_paths=PackedStringArray("player", "score_label", "new_javelin_parent")]
+script = ExtResource("15_rhprt")
+player = NodePath("../../../Player")
+score_label = NodePath("../../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreAmount")
+new_javelin_parent = NodePath("../../../SportEventObjects")
+
+[node name="SportEventSounds" type="AudioStreamPlayer" parent="Managers/SportsEventManager" unique_id=782204707]
+script = ExtResource("20_bghlm")
+gunshot = ExtResource("21_fhtaa")
+javelin_throw = ExtResource("22_gnsom")
+
+[node name="ChoiceEventManager" type="Node" parent="Managers" unique_id=1684003588 node_paths=PackedStringArray("choice_event", "choice_effect_processor")]
+script = ExtResource("25_2mjhj")
+choice_event = NodePath("../../BoardInformation/MainRoot/ChoiceEvent")
+possible_choices = Array[ExtResource("26_ax5dm")]([ExtResource("27_h54hi"), ExtResource("28_pwu3e"), ExtResource("29_q74pt")])
+choice_show_delay = 7.0
+choice_effect_processor = NodePath("../ChoiceEffectManager")
+metadata/_custom_type_script = "uid://b2ipxs3gobph4"
+
+[node name="ChoiceEffectManager" type="Node" parent="Managers" unique_id=100331723]
+script = ExtResource("30_0onm7")
+metadata/_custom_type_script = "uid://ds63gr2decnda"
+
+[node name="AudioManager" type="Node" parent="Managers" unique_id=1204585122 node_paths=PackedStringArray("normal_running_audio", "scary_non_loop", "scary_loop")]
+script = ExtResource("32_pwu3e")
+normal_running_audio = NodePath("../../NormalMusic")
+scary_non_loop = NodePath("../../ScaryChaseNonLoop")
+scary_loop = NodePath("../../ScaryChaseLoop")
+
+[node name="GameStateManager" type="Node" parent="Managers" unique_id=850702977 node_paths=PackedStringArray("game_over_control")]
+script = ExtResource("35_p0rto")
+game_over_control = NodePath("../../BoardInformation/MainRoot/GameOver")
+
+[node name="SportEventObjects" type="Node2D" parent="." unique_id=1583300638]
+
+[node name="ScaryChaseNonLoop" type="AudioStreamPlayer" parent="." unique_id=70691364]
+stream = ExtResource("32_h54hi")
+
+[node name="ScaryChaseLoop" type="AudioStreamPlayer" parent="." unique_id=1920534409]
+stream = ExtResource("33_pwu3e")
+
+[node name="NormalMusic" type="AudioStreamPlayer" parent="." unique_id=1477524398]
+stream = ExtResource("35_q74pt")
+
+[connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot/FlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" method="_on_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" method="_on_turn_off_flashing_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/FlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" method="_on_flashing_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" method="_on_turn_off_flashing_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/CountdownRoot/CountdownTimer" to="BoardInformation/MainRoot/CountdownRoot" method="_on_countdown_timer_timeout"]

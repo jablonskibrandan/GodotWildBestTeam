@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://bt1dqtomodhvt"]
+
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_i3gkm"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="1_if4ib"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_45ugk"]
+
+[sub_resource type="Resource" id="Resource_i3gkm"]
+script = ExtResource("1_i3gkm")
+mechanic = 4
+property = 11
+operation = 0
+value = -5.0
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_k7ddw"]
+script = ExtResource("2_45ugk")
+option_text = "Decrease throw goal distance by 5m. -.25 Mult"
+effects = Array[ExtResource("1_i3gkm")]([SubResource("Resource_i3gkm")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_scbrf"]
+script = ExtResource("1_i3gkm")
+mechanic = 4
+property = 11
+operation = 0
+value = 5.0
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_45ugk"]
+script = ExtResource("2_45ugk")
+option_text = "Decrease throw goal distance by 5m. +.25 mult"
+effects = Array[ExtResource("1_i3gkm")]([SubResource("Resource_scbrf")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("1_if4ib")
+event_id = &"javelin_throw_goal"
+event_text = "Javelin throw goal distance"
+option_a = SubResource("Resource_k7ddw")
+option_b = SubResource("Resource_45ugk")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"

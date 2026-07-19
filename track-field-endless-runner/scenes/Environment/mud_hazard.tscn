@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ct7eh5twibqpo" path="res://Art/Mud/mudpuddle.png" id="2_w75v4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l6ilu"]
-size = Vector2(12.917004, 10.947349)
+size = Vector2(12.917004, 15.125435)
 
 [node name="MudHazard" type="Node2D" unique_id=598129723]
 script = ExtResource("1_w75v4")
@@ -15,10 +15,18 @@ script = ExtResource("1_yefsf")
 associated_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1841664286]
-position = Vector2(-0.5, 1.0518894)
-scale = Vector2(1.2408817, 0.92294306)
+position = Vector2(0, -39)
+scale = Vector2(8.296626, 3.8346004)
 shape = SubResource("RectangleShape2D_l6ilu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1512526393]
-position = Vector2(0, -10)
+position = Vector2(0, -130)
+scale = Vector2(8, 8)
 texture = ExtResource("2_w75v4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2008860044]
+position = Vector2(-4.0000005, -38)
+scale = Vector2(4.3429794, 2.8824148)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="Area2D" method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="Area2D" method="_on_visible_on_screen_notifier_2d_screen_exited"]

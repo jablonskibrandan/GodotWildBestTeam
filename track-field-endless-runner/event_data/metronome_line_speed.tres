@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://cy8mly6n0ua7v"]
+
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_wbbui"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_cv11c"]
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="3_2f7p1"]
+
+[sub_resource type="Resource" id="Resource_w3ee3"]
+script = ExtResource("1_wbbui")
+mechanic = 3
+property = 8
+operation = 0
+value = -0.02
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_qq3ym"]
+script = ExtResource("2_cv11c")
+option_text = "2% Slower. -.25 Mult"
+effects = Array[ExtResource("1_wbbui")]([SubResource("Resource_w3ee3")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_5x5op"]
+script = ExtResource("1_wbbui")
+mechanic = 3
+property = 8
+operation = 0
+value = 0.02
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_llaa8"]
+script = ExtResource("2_cv11c")
+option_text = "2% Faster. + .25 Mult"
+effects = Array[ExtResource("1_wbbui")]([SubResource("Resource_5x5op")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("3_2f7p1")
+event_id = &"metronome_modifier"
+event_text = "Metronome Meter Speed"
+option_a = SubResource("Resource_qq3ym")
+option_b = SubResource("Resource_llaa8")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"

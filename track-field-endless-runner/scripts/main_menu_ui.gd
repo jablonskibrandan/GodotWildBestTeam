@@ -1,6 +1,6 @@
 extends Control
 
-@export_file("*.tscn") var game_scene_path: String
+@export_file("*.tscn") var country_select_scene_path: String
 
 @export var start_button: Button
 @export var quit_button: Button
@@ -13,6 +13,9 @@ extends Control
 @export var blink_interval: float = 0.15
 @export var normal_color: Color = Color.WHITE
 @export var blink_color: Color = Color.YELLOW
+@onready var normal_menu_music: AudioStreamPlayer = $NormalMenuMusic
+@onready var scary_menu_music_first_play:  AudioStreamPlayer = $ScaryMusicIntroNonLoop
+@onready var scary_menu_music_looping: AudioStreamPlayer = $ScaryMusicIntroLoop
 
 var hovered_button: Button
 var showing_blink_color: bool = false
@@ -33,6 +36,15 @@ func _ready() -> void:
 	blink_timer.one_shot = false
 	blink_timer.timeout.connect(_on_blink_timer_timeout)
 	add_child(blink_timer)
+	
+	scary_menu_music_first_play.finished.connect(_on_scary_intro_finished)
+	
+	if GameData.has_witnessed_the_horrors:
+		scary_menu_music_first_play.play()
+	else:
+		normal_menu_music.play()
+		
+		
 
 
 func _setup_button(button: Button) -> void:
@@ -120,6 +132,9 @@ func _play_click_sound() -> void:
 
 	# Wait so the sound is not destroyed immediately when changing scenes.
 	await click_sound.finished
+	
+func _on_scary_intro_finished() -> void:
+	scary_menu_music_looping.play()
 
 
 func _on_start_button_pressed() -> void:
@@ -139,14 +154,30 @@ func _on_quit_button_pressed() -> void:
 
 
 func _start_game() -> void:
-	if game_scene_path.is_empty():
+	if country_select_scene_path.is_empty():
 		push_error("No game scene path assigned on main_menu.")
 
 		start_button.disabled = false
 		quit_button.disabled = false
 		return
+	
+		
+	if GameData.has_witnessed_the_horrors and scary_menu_music_first_play.playing:
+		GameData.music_playback_position = (
+			scary_menu_music_first_play.get_playback_position()
+		)
+		GameData.scary_music_non_loop_playing = true
+		GameData.should_resume_music = true
+	elif GameData.has_witnessed_the_horrors and scary_menu_music_looping:
+		GameData.music_playback_position = (
+			scary_menu_music_first_play.get_playback_position()
+		)
+		GameData.scary_music_loop_playing = true
+		GameData.should_resume_music = true
 
-	get_tree().change_scene_to_file(game_scene_path)
+
+	get_tree().change_scene_to_file(country_select_scene_path)
+
 
 
 func _quit_game() -> void:

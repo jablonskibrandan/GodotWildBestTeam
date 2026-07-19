@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://2gprw6erjxlj"
+path="res://.godot/imported/BGM-Chase-Loop(No Intro).wav-c16d409cd8cbf170ac9120f27be22252.sample"
+
+[deps]
+
+source_file="res://audio/BGM-Chase-Loop(No Intro).wav"
+dest_files=["res://.godot/imported/BGM-Chase-Loop(No Intro).wav-c16d409cd8cbf170ac9120f27be22252.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

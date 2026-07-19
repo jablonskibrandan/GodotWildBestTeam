@@ -8,17 +8,13 @@ enum HazardType {
 }
 
 @export var associated_sprite: Sprite2D
+@export var normal_sprite: Texture2D
+@export var horror_sprite: Texture2D
 
 @export var set_hazard_type: HazardType = HazardType.MUD
 
-@export_group("Mud Hazard")
-@export_range(0.0, 1.0, 0.05) var mud_speed_multiplier: float = 0.5
-
-@export_group("Hurdle Hazard")
-@export_range(0.0, 1.0, 0.05) var hurdle_speed_multiplier: float = 0.5
-@export var hurdle_slow_time: float = 2.0
-
 var hurdle_triggered: bool = false
+var has_been_visible_on_screen: bool = false
 
 
 func _ready() -> void:
@@ -27,30 +23,70 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	print(
+		"Hazard touched by: ",
+		body.name,
+		" | Groups: ",
+		body.get_groups()
+	)
+
 	if not body.is_in_group("player"):
 		return
 
 	match set_hazard_type:
 		HazardType.MUD:
+			print("Mud successfully triggered on player")
+
 			if body.has_method("enter_mud"):
-				body.enter_mud(mud_speed_multiplier)
+				body.enter_mud(self)
 
 		HazardType.HURDLE:
 			if hurdle_triggered:
 				return
 
-			if body.has_method("apply_temporary_slow"):
+			if body.has_method("hit_hurdle"):
 				hurdle_triggered = true
-				body.apply_temporary_slow(
-					hurdle_speed_multiplier,
-					hurdle_slow_time
-				)
+				body.hit_hurdle()
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("player"):
 		return
 
+	if not body.is_in_group("player"):
+		return
+
+	# Mud is no longer escaped merely by crossing the edge.
+	# The player must complete the Space-bar mash.
 	if set_hazard_type == HazardType.MUD:
-		if body.has_method("exit_mud"):
-			body.exit_mud()
+		return
+		
+func remove_after_escape() -> void:
+	set_deferred("monitoring", false)
+
+	var mud_root := get_parent()
+
+	if mud_root != null:
+		mud_root.call_deferred("queue_free")
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	if set_hazard_type != HazardType.MUD:
+		return
+
+	has_been_visible_on_screen = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if set_hazard_type != HazardType.MUD:
+		return
+
+	# Prevent mud from being deleted while it is initially
+	# spawned ahead of the camera.
+	if not has_been_visible_on_screen:
+		return
+
+	var mud_root := get_parent()
+
+	if mud_root != null:
+		mud_root.call_deferred("queue_free")

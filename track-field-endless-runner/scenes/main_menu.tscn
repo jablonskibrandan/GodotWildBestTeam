@@ -4,7 +4,9 @@
 [ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="2_8ln24"]
 [ext_resource type="AudioStream" uid="uid://cc8qp8wjc12ch" path="res://audio/SFX-MenuHover.mp3" id="3_bqqt6"]
 [ext_resource type="AudioStream" uid="uid://clxha00cd7u0f" path="res://audio/SFX-MenuConfirm.mp3" id="3_wu84c"]
-[ext_resource type="PackedScene" uid="uid://c2svqte1882mw" path="res://scenes/Managers/dialogue_control.tscn" id="5_8ln24"]
+[ext_resource type="AudioStream" uid="uid://v25t8ayygv3n" path="res://audio/BGM-Menu(Loop).wav" id="6_rtw2f"]
+[ext_resource type="AudioStream" uid="uid://38i7hmmy53bo" path="res://audio/BGM-Scary-Title-First-Play.wav" id="7_tbmy8"]
+[ext_resource type="AudioStream" uid="uid://bkqyuy1e1g61t" path="res://audio/BGM-Scary-Title-Looping.wav" id="8_jk1qb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 
@@ -22,7 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ekxnf")
-game_scene_path = "uid://ckqfpvlsifsd3"
+country_select_scene_path = "uid://ckqfpvlsifsd3"
 start_button = NodePath("CenterContainer/VBoxContainer/StartButton")
 quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
 hover_sound = NodePath("Hover")
@@ -71,10 +73,11 @@ stream = ExtResource("3_wu84c")
 [node name="Hover" type="AudioStreamPlayer" parent="." unique_id=865213487]
 stream = ExtResource("3_bqqt6")
 
-[node name="DialogueBoxControl" parent="." unique_id=83453529 instance=ExtResource("5_8ln24")]
-layout_mode = 1
-offset_left = 1308.0
-offset_top = 644.0
-offset_right = 1308.0
-offset_bottom = 644.0
-dialogue_lines = Array[String](["THIS IS A TEST", "WE CAN REMOVE THIS LATER", "WHEN WE GET AN ACTUAL SCENE :^)"])
+[node name="NormalMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1646637969]
+stream = ExtResource("6_rtw2f")
+
+[node name="ScaryMusicIntroNonLoop" type="AudioStreamPlayer" parent="." unique_id=567058929]
+stream = ExtResource("7_tbmy8")
+
+[node name="ScaryMusicIntroLoop" type="AudioStreamPlayer" parent="." unique_id=1150526650]
+stream = ExtResource("8_jk1qb")

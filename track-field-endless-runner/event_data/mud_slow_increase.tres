@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ChoiceEventData" format=3 uid="uid://ba4ee2vsujts3"]
+
+[ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="1_1wba4"]
+[ext_resource type="Script" uid="uid://ohmfas23yij5" path="res://scripts/choice_event/choice_effect_data.gd" id="1_n6asx"]
+[ext_resource type="Script" uid="uid://bbk44wio1f5ea" path="res://scripts/choice_event/choice_option_data.gd" id="2_uj86e"]
+
+[sub_resource type="Resource" id="Resource_jrgdc"]
+script = ExtResource("1_n6asx")
+value = 0.98
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_4c6ji"]
+script = ExtResource("2_uj86e")
+option_text = "Speed up 2% while in mud. -.25 Mult"
+effects = Array[ExtResource("1_n6asx")]([SubResource("Resource_jrgdc")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[sub_resource type="Resource" id="Resource_n6asx"]
+script = ExtResource("1_n6asx")
+value = 1.02
+option_type = 1
+metadata/_custom_type_script = "uid://ohmfas23yij5"
+
+[sub_resource type="Resource" id="Resource_uj86e"]
+script = ExtResource("2_uj86e")
+option_text = "Speed up 2% while in mud. +.25 Mult"
+effects = Array[ExtResource("1_n6asx")]([SubResource("Resource_n6asx")])
+metadata/_custom_type_script = "uid://bbk44wio1f5ea"
+
+[resource]
+script = ExtResource("1_1wba4")
+event_id = &"mud_slow_speed"
+event_text = "MUD"
+option_a = SubResource("Resource_4c6ji")
+option_b = SubResource("Resource_uj86e")
+metadata/_custom_type_script = "uid://cy0sef0tyabdm"
