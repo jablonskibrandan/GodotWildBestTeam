@@ -9,7 +9,7 @@ var score_multiplier_per_ms: int = 1000
 var score_multiplier_per_cm: int = 1000
 var mult: float = 1.0
 
-var metronome_boost_area_width: float = 20.0
+var metronome_boost_area_width: float = 40.0
 var metronome_line_speed: float = 1.0
 
 var player_current_speed: float = 0.0
@@ -44,4 +44,4 @@ var player_speed_retention_per_second: float = 0.98
 
 var loss_amount: int = 0
 
-var has_witnessed_the_horrors: bool = true
+var has_witnessed_the_horrors: bool = false
