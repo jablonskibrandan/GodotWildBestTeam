@@ -11,16 +11,20 @@ extends Node
 @export var javelin_sound: AudioStreamPlayer
 @export var left_bar: ColorRect
 @export var right_bar: ColorRect
+@export var mud_template: PackedScene
 
 signal scary_transition
 
 var javelin: Sprite2D
+var mud: ObstacleMove
 
 var moving_to_next_tutorial_step: bool = false
 var tutorial_step: int = 0
 var hurdle_pos: Vector2 = Vector2(0, 0)
 
 var player_stand_still: bool = false
+var mud_pos: Vector2 = Vector2(0, 0)
+var mud_passed: bool = false
 
 func _ready() -> void:
 	player.speed = 0
@@ -31,6 +35,7 @@ func _process(_delta: float) -> void:
 	if dialogue_control._is_typing == false and moving_to_next_tutorial_step == false:
 		moving_to_next_tutorial_step = true
 		tutorial_step = tutorial_step + 1
+		print(tutorial_step)
 		next_tutorial_step()
 	
 	if tutorial_step == 4 and Input.is_action_just_pressed("left_leg") and metronome.should_boost == true:
@@ -39,15 +44,21 @@ func _process(_delta: float) -> void:
 	if tutorial_step == 5 and Input.is_action_just_pressed("right_leg") and metronome.should_boost == true:
 		moving_to_next_tutorial_step = false
 	
-	if tutorial_step == 8 and Input.is_action_just_pressed("action"):
+	if tutorial_step == 8 and Input.is_action_just_pressed("action") and player.position.x > hurdle_pos.x - 400.0:
 		moving_to_next_tutorial_step = false
 	
 	if tutorial_step == 11 and Input.is_action_just_pressed("action"):
 		throw_javelin()
 		moving_to_next_tutorial_step = false
 	
+	if tutorial_step == 13 and mud_passed == true:
+		moving_to_next_tutorial_step = false
+	
 	if player_stand_still == true:
 		player.speed = 0
+	
+	if mud_pos.x + 300.0 < player.position.x and mud_pos != Vector2(0, 0):
+		mud_passed = true
 
 func next_tutorial_step() -> void:
 	match tutorial_step:
@@ -111,6 +122,15 @@ func next_tutorial_step() -> void:
 			dialogue_control._advance_dialogue()
 			moving_to_next_tutorial_step = false
 		13:
+			#this is mud puddle, step 11 on the dialogueboxcontrol node
+			player.current_event = ""
+			await get_tree().create_timer(3.0).timeout
+			dialogue_control._advance_dialogue()
+			mud = mud_template.instantiate()
+			mud_pos = Vector2(GameData.player_position_x + 5000, 807)
+			mud.position = mud_pos
+			sports_objects_root.add_child(mud)
+		14:
 			await get_tree().create_timer(3.0).timeout
 			dialogue_control._advance_dialogue()
 			moving_to_next_tutorial_step = false
@@ -120,6 +140,10 @@ func next_tutorial_step() -> void:
 			dialogue_control._advance_dialogue()
 			moving_to_next_tutorial_step = false
 		15:
+			await get_tree().create_timer(3.0).timeout
+			dialogue_control._advance_dialogue()
+			moving_to_next_tutorial_step = false
+		16:
 			await get_tree().create_timer(3.0).timeout
 			dialogue_control._advance_dialogue()
 			await get_tree().create_timer(7.0).timeout

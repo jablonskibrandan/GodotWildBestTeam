@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://vgrcpuk8xnlr" path="res://scenes/Menus & UI/game_over.tscn" id="9_lo852"]
 [ext_resource type="Script" uid="uid://c2c1gj4u1c11y" path="res://scripts/screen_display_controllers/event_name_label.gd" id="9_mb8ng"]
 [ext_resource type="Script" uid="uid://dt6t3vqptkltk" path="res://scripts/screen_display_controllers/player_time_root.gd" id="9_mxkxx"]
-[ext_resource type="Script" uid="uid://d2h3kirebr84k" path="res://scripts/screen_display_controllers/countdown_root.gd" id="10_eamyy"]
 [ext_resource type="Script" uid="uid://cp3g2i5ljepmd" path="res://scripts/loss_root.gd" id="11_gnsom"]
 [ext_resource type="PackedScene" uid="uid://cwh6hna0vleyg" path="res://scenes/Menus & UI/choice_event.tscn" id="12_g5sb1"]
 [ext_resource type="Script" uid="uid://36nra8wtekjo" path="res://scripts/managers/run_event_manager.gd" id="13_ahj5x"]
@@ -23,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://d4chn4wbi3aga" path="res://start_line.tscn" id="15_85bgf"]
 [ext_resource type="Script" uid="uid://hfp6pgia11o6" path="res://scripts/managers/distance_event_manager.gd" id="15_rhprt"]
 [ext_resource type="PackedScene" uid="uid://mn3851gjucqv" path="res://finish_line.tscn" id="16_m31wk"]
+[ext_resource type="Script" uid="uid://cpovbe850jcli" path="res://scripts/event_results_root.gd" id="16_nld8s"]
 [ext_resource type="PackedScene" uid="uid://3morx4713qvr" path="res://scenes/Player/javelin.tscn" id="17_m31wk"]
 [ext_resource type="Script" uid="uid://b61y54mtk4fka" path="res://scripts/sport_event_sounds.gd" id="20_bghlm"]
 [ext_resource type="AudioStream" uid="uid://cuejb16rw1vfn" path="res://audio/SFX-Gunshot.mp3" id="21_fhtaa"]
@@ -201,6 +201,14 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 node_paths=PackedStringArray("controls_to_hide") instance=ExtResource("9_lo852")]
+layout_mode = 1
+offset_left = 1060.0
+offset_top = 246.0
+offset_right = 1060.0
+offset_bottom = 246.0
+controls_to_hide = [NodePath("../EventNameLabelRoot"), NodePath("../EventDetailsRoot"), NodePath("../EventResultsRoot"), null, NodePath("../LossRoot"), NodePath("../ChoiceEvent")]
+
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
 anchors_preset = 0
 offset_right = 40.0
@@ -224,14 +232,12 @@ script = ExtResource("9_mb8ng")
 
 [node name="FlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1661643736]
 wait_time = 0.5
-autostart = true
 
 [node name="TurnOffFlashingTimer" type="Timer" parent="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" unique_id=1893387286]
 wait_time = 2.0
 one_shot = true
 
 [node name="EventDetailsRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1047119849]
-visible = false
 anchors_preset = 0
 offset_left = 675.0
 offset_top = 184.0
@@ -241,10 +247,10 @@ offset_bottom = 224.0
 [node name="EventGoalRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1668833623]
 visible = false
 layout_mode = 0
-offset_left = -47.0
-offset_top = -19.0
-offset_right = 465.0
-offset_bottom = 29.0
+offset_left = -193.0
+offset_top = -35.0
+offset_right = 319.0
+offset_bottom = 13.0
 theme_override_constants/separation = 24
 script = ExtResource("8_drav3")
 
@@ -274,10 +280,10 @@ one_shot = true
 [node name="PlayerScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventDetailsRoot" unique_id=1374682472]
 visible = false
 layout_mode = 0
-offset_left = -47.0
-offset_top = 30.0
-offset_right = 1109.0
-offset_bottom = 94.0
+offset_left = -193.0
+offset_top = 7.0
+offset_right = 963.0
+offset_bottom = 71.0
 theme_override_constants/separation = 24
 script = ExtResource("9_mxkxx")
 
@@ -308,14 +314,15 @@ one_shot = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("16_nld8s")
 
 [node name="ScoreDifferenceRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=775011326]
 visible = false
 layout_mode = 0
-offset_left = 623.0
-offset_top = 159.0
-offset_right = 1559.0
-offset_bottom = 235.0
+offset_left = 478.0
+offset_top = 148.0
+offset_right = 1414.0
+offset_bottom = 224.0
 theme_override_constants/separation = 24
 
 [node name="ScoreDifferenceText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot" unique_id=1456568285]
@@ -337,10 +344,10 @@ autowrap_mode = 0
 [node name="ScoreExplanationRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=1543907529]
 visible = false
 layout_mode = 0
-offset_left = 624.0
-offset_top = 207.0
-offset_right = 1560.0
-offset_bottom = 283.0
+offset_left = 481.0
+offset_top = 197.0
+offset_right = 1417.0
+offset_bottom = 273.0
 theme_override_constants/separation = 24
 
 [node name="ScoreExplanationText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/ScoreExplanationRoot" unique_id=51174467]
@@ -362,10 +369,10 @@ autowrap_mode = 0
 [node name="TotalScoreRoot" type="HBoxContainer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=2051728488]
 visible = false
 layout_mode = 0
-offset_left = 620.0
-offset_top = 257.0
-offset_right = 1556.0
-offset_bottom = 333.0
+offset_left = 481.0
+offset_top = 244.0
+offset_right = 1417.0
+offset_bottom = 320.0
 theme_override_constants/separation = 24
 
 [node name="TotalScoreText" type="RichTextLabel" parent="BoardInformation/MainRoot/EventResultsRoot/TotalScoreRoot" unique_id=1458738359]
@@ -384,29 +391,8 @@ text = "10:00"
 fit_content = true
 autowrap_mode = 0
 
-[node name="CountdownRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=826495045]
-visible = false
-anchors_preset = 0
-offset_left = 127.0
-offset_top = -276.0
-offset_right = 167.0
-offset_bottom = -236.0
-script = ExtResource("10_eamyy")
-
-[node name="CountdownText" type="RichTextLabel" parent="BoardInformation/MainRoot/CountdownRoot" unique_id=1596468904]
-layout_mode = 0
-offset_left = 790.0
-offset_top = 391.0
-offset_right = 1190.0
-offset_bottom = 791.0
-theme_override_fonts/normal_font = ExtResource("5_mxkxx")
-theme_override_font_sizes/normal_font_size = 250
-text = "3"
-fit_content = true
-autowrap_mode = 0
-
-[node name="CountdownTimer" type="Timer" parent="BoardInformation/MainRoot/CountdownRoot" unique_id=1511536913]
-wait_time = 0.3
+[node name="ResultsTimer" type="Timer" parent="BoardInformation/MainRoot/EventResultsRoot" unique_id=1415199518]
+one_shot = true
 
 [node name="LossRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=1178357440]
 anchors_preset = 0
@@ -441,7 +427,7 @@ death_scream = NodePath("../../DeathNoise")
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 
-[node name="SportsEventManager" type="Node" parent="Managers" unique_id=304251108 node_paths=PackedStringArray("player", "sports_objects_root", "event_name_label_root", "event_name_label", "event_goal_root", "event_goal_text", "event_goal_amount", "player_score_root", "player_score_text", "player_score_amount", "countdown_root", "countdown_text", "event_results_root", "score_difference_root", "score_difference_text", "score_difference_amount", "score_explanation_root", "score_explanation_text", "score_explanation_amount", "total_score_root", "total_score_amount", "loss_root")]
+[node name="SportsEventManager" type="Node" parent="Managers" unique_id=304251108 node_paths=PackedStringArray("player", "sports_objects_root", "event_name_label_root", "event_name_label", "event_goal_root", "event_goal_text", "event_goal_amount", "player_score_root", "player_score_text", "player_score_amount", "event_results_root", "score_difference_root", "score_difference_text", "score_difference_amount", "score_explanation_root", "score_explanation_text", "score_explanation_amount", "total_score_root", "total_score_amount", "loss_root")]
 script = ExtResource("3_bcuvt")
 player = NodePath("../../Player")
 hurdle_template = ExtResource("14_lvom7")
@@ -457,8 +443,6 @@ event_goal_amount = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/E
 player_score_root = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot")
 player_score_text = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreText")
 player_score_amount = NodePath("../../BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/PlayerScoreAmount")
-countdown_root = NodePath("../../BoardInformation/MainRoot/CountdownRoot")
-countdown_text = NodePath("../../BoardInformation/MainRoot/CountdownRoot/CountdownText")
 event_results_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot")
 score_difference_root = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot")
 score_difference_text = NodePath("../../BoardInformation/MainRoot/EventResultsRoot/ScoreDifferenceRoot/ScoreDifferenceText")
@@ -543,4 +527,4 @@ stream = ExtResource("48_8qd4i")
 [connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/EventGoalRoot" method="_on_turn_off_flashing_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/FlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" method="_on_flashing_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventDetailsRoot/PlayerScoreRoot" method="_on_turn_off_flashing_timer_timeout"]
-[connection signal="timeout" from="BoardInformation/MainRoot/CountdownRoot/CountdownTimer" to="BoardInformation/MainRoot/CountdownRoot" method="_on_countdown_timer_timeout"]
+[connection signal="timeout" from="BoardInformation/MainRoot/EventResultsRoot/ResultsTimer" to="BoardInformation/MainRoot/EventResultsRoot" method="_on_results_timer_timeout"]

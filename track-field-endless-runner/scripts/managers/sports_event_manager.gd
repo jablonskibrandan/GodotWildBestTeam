@@ -16,8 +16,6 @@ extends Node
 @export var player_score_root: HBoxContainer
 @export var player_score_text: RichTextLabel
 @export var player_score_amount: RichTextLabel
-@export var countdown_root: Control
-@export var countdown_text: RichTextLabel
 @export var event_results_root: Control
 @export var score_difference_root: HBoxContainer
 @export var score_difference_text: RichTextLabel
@@ -71,6 +69,7 @@ func start_event() -> void:
 func display_event_name() -> void:
 	event_name_label_root.visible = true
 	event_name_label.text = str(EventList.event_list[current_event_index]["name"], "!")
+	event_name_label.get_node("FlashingTimer").start()
 	event_name_label.get_node("TurnOffFlashingTimer").start()
 
 func _on_event_name_label_finished_flashing() -> void:
@@ -222,40 +221,27 @@ func calculate_new_event_pos() -> void:
 
 func add_score_and_display_results() -> void:
 	var current_goal := _get_current_goal()
-
-	if EventList.event_list[current_event_index][
-		"is_time_based_event"
-	] == true:
+	var final_score: float = 0.0
+	
+	if EventList.event_list[current_event_index]["is_time_based_event"] == true:
 		event_score = current_goal - $RunEventManager.time
-		score_difference_amount.text = str(
-			"%0.2f" % event_score
-		)
+		score_difference_text.text = "Time Difference:"
+		score_difference_amount.text = str("%0.2f" % event_score)
+		score_explanation_text.text = "Points per spare ms"
+		score_explanation_amount.text = str(GameData.score_multiplier_per_ms)
+		final_score = event_score * GameData.score_multiplier_per_ms * GameData.mult
+		total_score_amount.text = str(int(final_score))
+	elif EventList.event_list[current_event_index]["is_distance_based_event"] == true:
+		event_score = $DistanceEventManager.distance - current_goal
+		score_difference_text.text = "Distance Difference:"
+		score_difference_amount.text = str("%0.2f" % event_score)
+		score_explanation_text.text = "Points per spare cm"
+		score_explanation_amount.text = str(GameData.score_multiplier_per_ms)
+		final_score = event_score * GameData.score_multiplier_per_cm * GameData.mult
+		total_score_amount.text = str(int(final_score))
+	$"../../BoardInformation/MainRoot/EventResultsRoot/ResultsTimer".start()
 
-		event_score = roundi(
-			event_score
-			* GameData.score_multiplier_per_ms
-			* GameData.mult
-		)
-
-	elif EventList.event_list[current_event_index][
-		"is_distance_based_event"
-	] == true:
-		event_score = (
-			$DistanceEventManager.distance
-			- current_goal
-		)
-
-		score_difference_amount.text = str(
-			"%0.2f" % event_score
-		)
-
-		event_score = roundi(
-			event_score
-			* GameData.score_multiplier_per_cm
-			* GameData.mult
-		)
-
-	GameData.score += int(event_score)
+	GameData.score += int(final_score)
 	
 func _get_current_goal() -> float:
 	var base_goal: float = EventList.event_list[
