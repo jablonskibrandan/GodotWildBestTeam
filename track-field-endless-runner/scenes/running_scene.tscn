@@ -73,6 +73,7 @@ script = ExtResource("3_2mjhj")
 player = NodePath("..")
 startup_grace_time = 7.5
 attack_audio = NodePath("../../PlayerHurt")
+catch_distance = 100.0
 metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
 
 [node name="Coach" parent="Player/MonsterChase" unique_id=941289700 instance=ExtResource("4_cl0ge")]
@@ -436,10 +437,6 @@ scale = Vector2(0.45, 0.45)
 game_state_manager = NodePath("../../../Managers/GameStateManager")
 
 [node name="GameOver" parent="BoardInformation" unique_id=1382108090 node_paths=PackedStringArray("death_scream") instance=ExtResource("9_lo852")]
-main_menu_scene = null
-fade_to_black_duration = null
-image_fade_duration = null
-text_fade_duration = null
 death_scream = NodePath("../../DeathNoise")
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]

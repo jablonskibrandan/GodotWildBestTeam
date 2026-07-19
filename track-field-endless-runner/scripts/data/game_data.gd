@@ -44,4 +44,4 @@ var player_speed_retention_per_second: float = 0.98
 
 var loss_amount: int = 0
 
-var has_witnessed_the_horrors: bool = true
+var has_witnessed_the_horrors: bool = false
