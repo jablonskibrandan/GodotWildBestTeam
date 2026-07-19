@@ -116,7 +116,7 @@ shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2022356464]
 libraries/ = SubResource("AnimationLibrary_fpn72")
-autoplay = &"monster_run"
+autoplay = &"run"
 
 [node name="Fall" type="AudioStreamPlayer" parent="." unique_id=2141701051]
 stream = ExtResource("3_fpn72")
