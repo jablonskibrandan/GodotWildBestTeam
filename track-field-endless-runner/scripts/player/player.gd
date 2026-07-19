@@ -254,6 +254,15 @@ func enter_mud(mud_hazard: Hazard) -> void:
 		mud_mashes_required,
 		" times."
 	)
+	
+func exit_mud(mud_hazard: Hazard) -> void:
+	# Only clear the mud currently affecting this player.
+	if current_mud_hazard != mud_hazard:
+		return
+
+	print("Player exited mud normally.")
+
+	_clear_mud_state()
 
 
 func _mash_out_of_mud() -> void:

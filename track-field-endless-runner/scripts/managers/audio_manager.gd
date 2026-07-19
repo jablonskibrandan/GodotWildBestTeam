@@ -1,3 +1,4 @@
+class_name GameAudioManager
 extends Node
 
 
@@ -6,8 +7,11 @@ extends Node
 @export var scary_loop: AudioStreamPlayer
 
 
+var music_has_been_stopped: bool = false
+
+
 func _ready() -> void:
-	# Keep this manager processing while the game is paused.
+	# Allows explicit audio control while gameplay is paused.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	_set_music_to_always_process(normal_running_audio)
@@ -21,6 +25,8 @@ func _ready() -> void:
 			scary_non_loop.finished.connect(
 				play_scary_loop
 			)
+
+	music_has_been_stopped = false
 
 	if GameData.has_witnessed_the_horrors:
 		if scary_non_loop != null:
@@ -40,5 +46,22 @@ func _set_music_to_always_process(
 
 
 func play_scary_loop() -> void:
+	# Prevent the loop from starting after game over.
+	if music_has_been_stopped:
+		return
+
 	if scary_loop != null:
 		scary_loop.play()
+
+
+func stop_all_music() -> void:
+	music_has_been_stopped = true
+
+	if normal_running_audio != null:
+		normal_running_audio.stop()
+
+	if scary_non_loop != null:
+		scary_non_loop.stop()
+
+	if scary_loop != null:
+		scary_loop.stop()

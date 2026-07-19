@@ -31,6 +31,8 @@
 [ext_resource type="Script" uid="uid://cy0sef0tyabdm" path="res://scripts/choice_event/choice_event_data.gd" id="26_ax5dm"]
 [ext_resource type="Resource" uid="uid://t0wjtyvb7udo" path="res://event_data/hurdle_slow_increase.tres" id="27_h54hi"]
 [ext_resource type="Resource" uid="uid://cy8mly6n0ua7v" path="res://event_data/metronome_line_speed.tres" id="28_pwu3e"]
+[ext_resource type="AudioStream" uid="uid://d04el076awfcb" path="res://audio/SFX-EventSuccess.mp3" id="28_wbb5h"]
+[ext_resource type="AudioStream" uid="uid://cfofjra2gcvg8" path="res://audio/SFX-EventFailure.mp3" id="29_p275s"]
 [ext_resource type="Resource" uid="uid://ba4ee2vsujts3" path="res://event_data/mud_slow_increase.tres" id="29_q74pt"]
 [ext_resource type="Script" uid="uid://ds63gr2decnda" path="res://scripts/managers/choice_effect_manager.gd" id="30_0onm7"]
 [ext_resource type="AudioStream" uid="uid://bbm6muuxajc1t" path="res://audio/BGM-Chase-First-Play(With Intro).wav" id="32_h54hi"]
@@ -48,6 +50,7 @@
 [ext_resource type="Resource" uid="uid://bofqxsaqwyn0n" path="res://event_data/one_hundred_meter_hurdle.tres" id="39_t0tu7"]
 [ext_resource type="AudioStream" uid="uid://56wbgrujwmvy" path="res://audio/SFX-Scream.mp3" id="48_8qd4i"]
 [ext_resource type="AudioStream" uid="uid://bqa0407olbnpj" path="res://audio/SFX-Damage.mp3" id="48_nld8s"]
+[ext_resource type="AudioStream" uid="uid://x5omwbu0dk2q" path="res://audio/SFX-KnockKnock.mp3" id="49_8qd4i"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0rto"]
 load_path = "res://.godot/imported/Sky_1.png-0d9ee8b508af101a4bb0206651b77526.ctex"
@@ -201,12 +204,16 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("9_lo852")]
+[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 node_paths=PackedStringArray("audio_manager", "death_scream", "knock_knock_sound") instance=ExtResource("9_lo852")]
 layout_mode = 1
 offset_left = 1060.0
 offset_top = 246.0
 offset_right = 1060.0
 offset_bottom = 246.0
+main_menu_scene = "uid://cb6tjj44aasu"
+audio_manager = NodePath("../../../Managers/AudioManager")
+death_scream = NodePath("../../../DeathNoise")
+knock_knock_sound = NodePath("../../../KnockKnock")
 
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
 anchors_preset = 0
@@ -465,9 +472,12 @@ score_label = NodePath("../../../BoardInformation/MainRoot/EventDetailsRoot/Play
 new_javelin_parent = NodePath("../../../SportEventObjects")
 
 [node name="SportEventSounds" type="AudioStreamPlayer" parent="Managers/SportsEventManager" unique_id=782204707]
+volume_db = 10.09
 script = ExtResource("20_bghlm")
 gunshot = ExtResource("21_fhtaa")
 javelin_throw = ExtResource("22_gnsom")
+event_success = ExtResource("28_wbb5h")
+event_failure = ExtResource("29_p275s")
 
 [node name="ChoiceEventManager" type="Node" parent="Managers" unique_id=1684003588 node_paths=PackedStringArray("choice_event", "choice_effect_processor")]
 script = ExtResource("25_2mjhj")
@@ -519,6 +529,9 @@ volume_db = 7.5
 [node name="DeathNoise" type="AudioStreamPlayer" parent="." unique_id=43787688]
 process_mode = 3
 stream = ExtResource("48_8qd4i")
+
+[node name="KnockKnock" type="AudioStreamPlayer" parent="." unique_id=249626135]
+stream = ExtResource("49_8qd4i")
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]

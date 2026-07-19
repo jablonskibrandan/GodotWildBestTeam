@@ -172,12 +172,16 @@ func _on_finish_event() -> void:
 
 	if current_event_index == 1 or current_event_index == 2:
 		if $RunEventManager.time <= current_goal:
+			$SportEventSounds.play_event_success()
+
 			add_score_and_display_results()
 			increase_event_difficulty()
 			reset_state()
 			clean_up_objects()
 			calculate_new_event_pos()
 		else:
+			$SportEventSounds.play_event_failure()
+
 			add_loss()
 
 			await get_tree().create_timer(3.0).timeout
@@ -188,12 +192,16 @@ func _on_finish_event() -> void:
 
 	elif current_event_index == 3:
 		if $DistanceEventManager.distance >= current_goal:
+			$SportEventSounds.play_event_success()
+
 			add_score_and_display_results()
 			increase_event_difficulty()
 			reset_state()
 			clean_up_objects()
 			calculate_new_event_pos()
 		else:
+			$SportEventSounds.play_event_failure()
+
 			add_loss()
 
 			await get_tree().create_timer(3.0).timeout
@@ -285,3 +293,4 @@ func add_loss() -> void:
 	loss_root.add_loss()
 	await get_tree().create_timer(3.0).timeout
 	PlayerSignalBus.trip_player.emit()
+	

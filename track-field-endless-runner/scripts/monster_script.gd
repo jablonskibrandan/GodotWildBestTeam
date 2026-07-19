@@ -47,8 +47,16 @@ var full_danger_speed_ratio: float = 0.10
 # safe_speed_ratio.
 @export var minimum_approach_speed: float = 60.0
 
-# Approach speed when the player is stopped or extremely slow.
+# Approach speed when the player is moving very slowly.
 @export var maximum_approach_speed: float = 150.0
+
+# At or below this percentage of maximum speed, the monster
+# ignores metronome protection and urgently approaches.
+@export_range(0.0, 1.0, 0.01)
+var critical_slow_speed_ratio: float = 0.05
+
+# Approach speed while the player is nearly stopped.
+@export var critical_slow_approach_speed: float = 180.0
 
 # How quickly good movement pushes the monster backward.
 @export var maximum_fallback_speed: float = 45.0
@@ -76,6 +84,12 @@ var full_danger_speed_ratio: float = 0.10
 # How quickly repeated successful hits move the monster
 # back toward far_distance.
 @export var successful_pace_fallback_speed: float = 30.0
+
+
+@export_category("Mud Urgency")
+# How quickly the monster approaches while the player
+# is actively inside a mud puddle.
+@export var mud_approach_speed: float = 60.0
 
 
 @export_category("Attack and Retreat")
@@ -182,21 +196,8 @@ func _physics_process(delta: float) -> void:
 		_process_startup_catchup(delta)
 		return
 
-	var maximum_speed := maxf(
-		GameData.player_max_speed,
-		0.01
-	)
-
-	# velocity.x includes active mud slowdown and other
-	# movement modifiers.
-	var current_player_speed := absf(
-		player.velocity.x
-	)
-
-	var raw_speed_ratio := clampf(
-		current_player_speed / maximum_speed,
-		0.0,
-		1.0
+	var raw_speed_ratio: float = (
+		_get_raw_player_speed_ratio()
 	)
 
 	_update_smoothed_speed(
@@ -214,9 +215,23 @@ func _physics_process(delta: float) -> void:
 		_update_position()
 		return
 
-	# Successful metronome hits protect the player from
-	# the monster approaching.
-	if successful_hit_grace_timer > 0.0:
+	# Standing still or becoming extremely slow overrides
+	# metronome grace, metronome pushback, and mud speed.
+	if raw_speed_ratio <= _get_critical_slow_threshold():
+		_process_critical_slow_chase(delta)
+		_update_position()
+
+		if _can_attack():
+			_attack_player()
+
+		return
+
+	# Successful metronome hits normally protect the player,
+	# but mud overrides that protection.
+	if (
+		successful_hit_grace_timer > 0.0
+		and not player.is_in_mud
+	):
 		_process_successful_pace(delta)
 		_update_position()
 		return
@@ -246,7 +261,7 @@ func _process_startup_catchup(delta: float) -> void:
 	slow_timer = 0.0
 	smoothed_speed_ratio = 1.0
 
-	var catchup_speed := maxf(
+	var catchup_speed: float = maxf(
 		startup_catchup_speed,
 		0.0
 	)
@@ -259,7 +274,7 @@ func _process_startup_catchup(delta: float) -> void:
 
 	_update_position()
 
-	var reached_normal_distance := (
+	var reached_normal_distance: bool = (
 		distance_behind_player
 		<= far_distance + 0.1
 	)
@@ -289,12 +304,12 @@ func _update_smoothed_speed(
 	raw_speed_ratio: float,
 	delta: float
 ) -> void:
-	var smoothing_strength := maxf(
+	var smoothing_strength: float = maxf(
 		speed_smoothing,
 		0.01
 	)
 
-	var smoothing_weight := (
+	var smoothing_weight: float = (
 		1.0
 		- exp(-smoothing_strength * delta)
 	)
@@ -310,7 +325,7 @@ func _update_slow_timer(
 	speed_ratio: float,
 	delta: float
 ) -> void:
-	var safe_threshold := (
+	var safe_threshold: float = (
 		_get_safe_speed_threshold()
 	)
 
@@ -325,16 +340,55 @@ func _update_slow_timer(
 		)
 
 
+func _process_critical_slow_chase(
+	delta: float
+) -> void:
+	# An earlier successful metronome input cannot protect
+	# the player while they are nearly stopped.
+	successful_hit_grace_timer = 0.0
+
+	# Accumulate vulnerability so the monster can attack
+	# after reaching the player.
+	slow_timer += delta
+
+	distance_behind_player = move_toward(
+		distance_behind_player,
+		catch_distance,
+		maxf(critical_slow_approach_speed, 0.0) * delta
+	)
+
+	distance_behind_player = clampf(
+		distance_behind_player,
+		catch_distance,
+		far_distance
+	)
+
+
 func _process_pace_chase(
 	speed_ratio: float,
 	delta: float
 ) -> void:
-	var safe_threshold := (
+	var safe_threshold: float = (
 		_get_safe_speed_threshold()
 	)
 
+	# Mud creates a steady approach behavior.
+	# Critically low speed is handled before this function.
+	if player.is_in_mud:
+		distance_behind_player -= (
+			mud_approach_speed * delta
+		)
+
+		distance_behind_player = clampf(
+			distance_behind_player,
+			catch_distance,
+			far_distance
+		)
+
+		return
+
 	if speed_ratio >= safe_threshold:
-		var good_pace_strength := inverse_lerp(
+		var good_pace_strength: float = inverse_lerp(
 			safe_threshold,
 			1.0,
 			speed_ratio
@@ -353,7 +407,7 @@ func _process_pace_chase(
 		)
 
 	else:
-		var danger_strength := (
+		var danger_strength: float = (
 			1.0
 			- inverse_lerp(
 				full_danger_speed_ratio,
@@ -368,15 +422,14 @@ func _process_pace_chase(
 			1.0
 		)
 
-		var current_approach_speed := lerpf(
+		var current_approach_speed: float = lerpf(
 			minimum_approach_speed,
 			maximum_approach_speed,
 			danger_strength
 		)
 
 		distance_behind_player -= (
-			current_approach_speed
-			* delta
+			current_approach_speed * delta
 		)
 
 	distance_behind_player = clampf(
@@ -389,8 +442,8 @@ func _process_pace_chase(
 func _process_successful_pace(
 	delta: float
 ) -> void:
-	# Successful metronome timing completely removes
-	# accumulated attack danger.
+	# Successful metronome timing removes accumulated
+	# attack danger.
 	slow_timer = 0.0
 
 	distance_behind_player = move_toward(
@@ -401,6 +454,18 @@ func _process_successful_pace(
 
 
 func _on_metronome_success() -> void:
+	if player == null:
+		return
+
+	# Mud and critically low speed both disable metronome
+	# protection and monster pushback.
+	if (
+		player.is_in_mud
+		or _is_player_critically_slow()
+	):
+		successful_hit_grace_timer = 0.0
+		return
+
 	successful_hit_grace_timer = maxf(
 		successful_hit_grace_time,
 		0.0
@@ -417,8 +482,6 @@ func _on_metronome_success() -> void:
 	if post_hit_timer > 0.0:
 		return
 
-	# Each successful timing input gives a small,
-	# immediate amount of breathing room.
 	distance_behind_player = minf(
 		distance_behind_player
 			+ successful_hit_pushback,
@@ -465,7 +528,7 @@ func _process_post_hit_grace(
 
 	slow_timer = 0.0
 
-	var safe_distance := clampf(
+	var safe_distance: float = clampf(
 		recovery_distance,
 		catch_distance,
 		far_distance
@@ -512,7 +575,7 @@ func _attack_player() -> void:
 	cooldown_timer = attack_cooldown
 	is_retreating = true
 
-	var safe_recovery_distance := clampf(
+	var safe_recovery_distance: float = clampf(
 		recovery_distance,
 		catch_distance,
 		far_distance
@@ -543,7 +606,46 @@ func _attack_player() -> void:
 		)
 
 
+func _get_raw_player_speed_ratio() -> float:
+	if player == null:
+		return 0.0
+
+	var maximum_speed: float = maxf(
+		float(GameData.player_max_speed),
+		0.01
+	)
+
+	var current_player_speed: float = absf(
+		player.velocity.x
+	)
+
+	return clampf(
+		current_player_speed / maximum_speed,
+		0.0,
+		1.0
+	)
+
+
+func _is_player_critically_slow() -> bool:
+	return (
+		_get_raw_player_speed_ratio()
+		<= _get_critical_slow_threshold()
+	)
+
+
+func _get_critical_slow_threshold() -> float:
+	# Prevent critical_slow_speed_ratio from exceeding the
+	# general safe-speed threshold.
+	return clampf(
+		critical_slow_speed_ratio,
+		0.0,
+		_get_safe_speed_threshold()
+	)
+
+
 func _get_safe_speed_threshold() -> float:
+	# Prevent the safe and full-danger thresholds
+	# from overlapping.
 	return clampf(
 		maxf(
 			safe_speed_ratio,

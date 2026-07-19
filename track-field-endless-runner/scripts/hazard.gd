@@ -53,13 +53,13 @@ func _on_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("player"):
 		return
 
-	if not body.is_in_group("player"):
-		return
+	match set_hazard_type:
+		HazardType.MUD:
+			if body.has_method("exit_mud"):
+				body.exit_mud(self)
 
-	# Mud is no longer escaped merely by crossing the edge.
-	# The player must complete the Space-bar mash.
-	if set_hazard_type == HazardType.MUD:
-		return
+		HazardType.HURDLE:
+			pass
 		
 func remove_after_escape() -> void:
 	set_deferred("monitoring", false)
