@@ -71,8 +71,8 @@ z_index = 100
 position = Vector2(-319, 9)
 script = ExtResource("3_2mjhj")
 player = NodePath("..")
-startup_grace_time = 7.5
 attack_audio = NodePath("../../PlayerHurt")
+startup_grace_time = 7.5
 catch_distance = 100.0
 metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
 
@@ -201,13 +201,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 node_paths=PackedStringArray("controls_to_hide") instance=ExtResource("9_lo852")]
+[node name="GameOver" parent="BoardInformation/MainRoot" unique_id=1382108090 instance=ExtResource("9_lo852")]
 layout_mode = 1
 offset_left = 1060.0
 offset_top = 246.0
 offset_right = 1060.0
 offset_bottom = 246.0
-controls_to_hide = [NodePath("../EventNameLabelRoot"), NodePath("../EventDetailsRoot"), NodePath("../EventResultsRoot"), null, NodePath("../LossRoot"), NodePath("../ChoiceEvent")]
 
 [node name="EventNameLabelRoot" type="Control" parent="BoardInformation/MainRoot" unique_id=2096828624]
 anchors_preset = 0
@@ -419,10 +418,10 @@ offset_left = 1050.0
 offset_top = 245.00002
 offset_right = 1050.0
 offset_bottom = 245.0
-scale = Vector2(0.45, 0.45)
+scale = Vector2(0.5300024, 0.83235806)
 game_state_manager = NodePath("../../../Managers/GameStateManager")
 
-[node name="GameOver" parent="BoardInformation" unique_id=1382108090 node_paths=PackedStringArray("death_scream") instance=ExtResource("9_lo852")]
+[node name="GameOver" parent="BoardInformation" unique_id=1259576252 node_paths=PackedStringArray("death_scream") instance=ExtResource("9_lo852")]
 death_scream = NodePath("../../DeathNoise")
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]

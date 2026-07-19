@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://v25t8ayygv3n" path="res://audio/BGM-Menu(Loop).wav" id="6_rtw2f"]
 [ext_resource type="AudioStream" uid="uid://38i7hmmy53bo" path="res://audio/BGM-Scary-Title-First-Play.wav" id="7_tbmy8"]
 [ext_resource type="AudioStream" uid="uid://bkqyuy1e1g61t" path="res://audio/BGM-Scary-Title-Looping.wav" id="8_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://b6786wbjadbtt" path="res://Art/Background/Title.png" id="8_tbmy8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1tay"]
 
@@ -43,6 +44,7 @@ layout_mode = 2
 theme_override_constants/separation = 60
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1610265757]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_8ln24")
 theme_override_font_sizes/font_size = 40
@@ -81,3 +83,24 @@ stream = ExtResource("7_tbmy8")
 
 [node name="ScaryMusicIntroLoop" type="AudioStreamPlayer" parent="." unique_id=1150526650]
 stream = ExtResource("8_jk1qb")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1882028533]
+layout_mode = 0
+offset_left = 393.00003
+offset_top = 43.0
+offset_right = 753.0
+offset_bottom = 313.0
+scale = Vector2(3.0399952, 2.4218254)
+mouse_filter = 2
+texture = ExtResource("8_tbmy8")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1917661624]
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
