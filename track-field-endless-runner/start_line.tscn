@@ -1,31 +1,25 @@
 [gd_scene format=3 uid="uid://d4chn4wbi3aga"]
 
 [ext_resource type="Script" uid="uid://nwtmmpl3ujeq" path="res://start_line.gd" id="1_ismhg"]
-
-[sub_resource type="Gradient" id="Gradient_f3s2k"]
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf5fn"]
-gradient = SubResource("Gradient_f3s2k")
+[ext_resource type="Texture2D" uid="uid://cvsfkot23gucl" path="res://Art/Hurdles/Start.png" id="2_f3s2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
 size = Vector2(96.83844, 328.40826)
 
 [node name="StartLine" type="Area2D" unique_id=1972083757]
 z_index = -10
-position = Vector2(-1.7881393e-07, -10)
-rotation = -0.5235988
-scale = Vector2(0.070630506, 0.3138662)
+position = Vector2(0, -200)
+scale = Vector2(0.25, 1.105)
 script = ExtResource("1_ismhg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=877183214]
-position = Vector2(-11.7530985, -143.0603)
-scale = Vector2(1.7856556, 5.2651014)
-texture = SubResource("GradientTexture2D_yf5fn")
+position = Vector2(-11.753, -180.06)
+scale = Vector2(13.678538, 5.2651014)
+texture = ExtResource("2_f3s2k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655686654]
 position = Vector2(-8.213577, -142.13039)
-scale = Vector2(0.99999976, 1)
+scale = Vector2(2.837342, -1.8513196)
 shape = SubResource("RectangleShape2D_57qmd")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

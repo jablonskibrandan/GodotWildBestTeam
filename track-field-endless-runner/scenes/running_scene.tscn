@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://bwljffdxoh86r"]
 
-[ext_resource type="AudioStream" uid="uid://cuxm27u0sp3pg" path="res://audio/SFX-Collision.mp3" id="3_0onm7"]
 [ext_resource type="Script" uid="uid://bcfmq3jxmgquu" path="res://scripts/monster_script.gd" id="3_2mjhj"]
 [ext_resource type="Script" uid="uid://c5dhwo8jwbtmp" path="res://scripts/managers/sports_event_manager.gd" id="3_bcuvt"]
 [ext_resource type="PackedScene" uid="uid://ogn1gr02ei7q" path="res://scenes/Environment/moving_background.tscn" id="3_ffxig"]
 [ext_resource type="PackedScene" uid="uid://xggxujki5vbo" path="res://scenes/Player/player.tscn" id="4_005tn"]
+[ext_resource type="PackedScene" uid="uid://1y0gfliv6yer" path="res://scenes/Coach/coach_monster.tscn" id="4_cl0ge"]
 [ext_resource type="PackedScene" uid="uid://bv1foharx1kdi" path="res://scenes/metronome/metronome.tscn" id="5_drltr"]
 [ext_resource type="Script" uid="uid://blk3utx2fup8q" path="res://scripts/screen_display_controllers/distance_label_root.gd" id="5_eamyy"]
 [ext_resource type="FontFile" uid="uid://1d70dg6mo2aj" path="res://fonts/Pixel_NES.otf" id="5_mxkxx"]
-[ext_resource type="Texture2D" uid="uid://bjpno5y1sj7kp" path="res://Art/Monster/MonsterAura128x64.png" id="5_vrg03"]
 [ext_resource type="FontFile" uid="uid://duw6o7lgkv2af" path="res://fonts/PressStart2P-vaV7.ttf" id="6_ffxig"]
 [ext_resource type="Script" uid="uid://bcfx5bg0y3o47" path="res://scripts/screen_display_controllers/score_label_root.gd" id="7_8lwym"]
 [ext_resource type="Script" uid="uid://xej6audxk8ii" path="res://scripts/screen_display_controllers/time_to_beat_root.gd" id="8_drav3"]
@@ -47,13 +46,11 @@
 [ext_resource type="Resource" uid="uid://dltixjxvs8vhu" path="res://event_data/one_ten_hurdles_goal.tres" id="38_8qd4i"]
 [ext_resource type="AudioStream" uid="uid://c6juy44dcofsu" path="res://audio/BGM-Tutorial.wav" id="38_lo852"]
 [ext_resource type="Resource" uid="uid://bofqxsaqwyn0n" path="res://event_data/one_hundred_meter_hurdle.tres" id="39_t0tu7"]
+[ext_resource type="AudioStream" uid="uid://56wbgrujwmvy" path="res://audio/SFX-Scream.mp3" id="48_8qd4i"]
 [ext_resource type="AudioStream" uid="uid://bqa0407olbnpj" path="res://audio/SFX-Damage.mp3" id="48_nld8s"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0rto"]
 load_path = "res://.godot/imported/Sky_1.png-0d9ee8b508af101a4bb0206651b77526.ctex"
-
-[sub_resource type="QuadMesh" id="QuadMesh_f1tay"]
-size = Vector2(80, 120)
 
 [node name="RunningSceneRoot" type="Node" unique_id=1225109462]
 
@@ -63,7 +60,6 @@ sky_1 = SubResource("CompressedTexture2D_p0rto")
 [node name="Player" parent="." unique_id=1000098902 node_paths=PackedStringArray("loss_root") instance=ExtResource("4_005tn")]
 z_index = 100
 position = Vector2(391, 807)
-hit_hurdle_sound = ExtResource("3_0onm7")
 loss_root = NodePath("../BoardInformation/MainRoot/LossRoot")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1152713351]
@@ -77,12 +73,10 @@ script = ExtResource("3_2mjhj")
 player = NodePath("..")
 startup_grace_time = 7.5
 attack_audio = NodePath("../../PlayerHurt")
+catch_distance = 100.0
 metadata/_custom_type_script = "uid://bcfmq3jxmgquu"
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Player/MonsterChase" unique_id=1452538196]
-position = Vector2(3, -55)
-mesh = SubResource("QuadMesh_f1tay")
-texture = ExtResource("5_vrg03")
+[node name="Coach" parent="Player/MonsterChase" unique_id=941289700 instance=ExtResource("4_cl0ge")]
 
 [node name="Metronome" parent="Player" unique_id=765399198 node_paths=PackedStringArray("player") instance=ExtResource("5_drltr")]
 offset_left = -152.0
@@ -421,12 +415,15 @@ autowrap_mode = 0
 [node name="ChoiceEvent" parent="BoardInformation/MainRoot" unique_id=1979642428 node_paths=PackedStringArray("game_state_manager") instance=ExtResource("12_g5sb1")]
 visible = false
 layout_mode = 1
-offset_left = 1028.0
-offset_top = 230.0
-offset_right = 1028.0
-offset_bottom = 230.0
-scale = Vector2(0.65, 0.65)
+offset_left = 1050.0
+offset_top = 245.00002
+offset_right = 1050.0
+offset_bottom = 245.0
+scale = Vector2(0.45, 0.45)
 game_state_manager = NodePath("../../../Managers/GameStateManager")
+
+[node name="GameOver" parent="BoardInformation" unique_id=1382108090 node_paths=PackedStringArray("death_scream") instance=ExtResource("9_lo852")]
+death_scream = NodePath("../../DeathNoise")
 
 [node name="Managers" type="Node" parent="." unique_id=755078176]
 
@@ -492,7 +489,7 @@ scary_loop = NodePath("../../ScaryChaseLoop")
 
 [node name="GameStateManager" type="Node" parent="Managers" unique_id=850702977 node_paths=PackedStringArray("game_over_control")]
 script = ExtResource("35_p0rto")
-game_over_control = NodePath("../../BoardInformation/MainRoot/GameOver")
+game_over_control = NodePath("../../BoardInformation/GameOver")
 
 [node name="SportEventObjects" type="Node2D" parent="." unique_id=1583300638]
 
@@ -518,6 +515,11 @@ mud_scene = ExtResource("37_lo852")
 
 [node name="PlayerHurt" type="AudioStreamPlayer" parent="." unique_id=184067873]
 stream = ExtResource("48_nld8s")
+volume_db = 7.5
+
+[node name="DeathNoise" type="AudioStreamPlayer" parent="." unique_id=43787688]
+process_mode = 3
+stream = ExtResource("48_8qd4i")
 
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/FlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel/TurnOffFlashingTimer" to="BoardInformation/MainRoot/EventNameLabelRoot/EventNameLabel" method="_on_turn_off_flashing_timer_timeout"]
